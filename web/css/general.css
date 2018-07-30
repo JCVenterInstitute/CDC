@@ -1,0 +1,12 @@
+﻿/* global */
+		.holder	{ width:300px;
+		}
+		#add,#remove	{ 
+		display:block; width:100px; border:1px solid #ccc; background:#eee; padding:10px; 
+		}
+		select	{ 
+		margin:0 0 10px 0; width:300px;  padding:5px; 
+		}
+
+		
+	

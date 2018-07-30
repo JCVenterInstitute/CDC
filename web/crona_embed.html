@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+div.relative {
+    position: relative;
+    top: 200px;
+    left: 100px;
+    width: 300px;
+    }
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+ 
+.outer{
+    align-content: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;    
+    width:400px;
+    height: 100px;
+}
+    
+</style>
+</head>
+    
+    
+<body>
+    <div class="outer">
+        <table class=".table-striped ">
+            <tr style="background-color:#01A9DB">
+                <th>Objects</th>
+                <th>Count</th>
+            </tr>
+
+            <tr>
+                <td>Total AMR Genes</td>
+                <td>971</td>
+            </tr>
+            <tr>
+                <td>Genes</td>
+                <td>971</td>
+            </tr>
+            <tr>
+                <td>Genus</td>
+                <td>102</td>
+            </tr>
+            <tr>
+                <td>Species</td>
+                <td>345</td>
+            </tr>
+            <tr>
+                <td>Drug Class</td>
+                <td>37</td>
+            </tr>
+            <tr>
+                <td>Drug Family</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>Drug Sub-Class</td>
+                <td>76</td>
+            </tr>
+        </table>
+    </div>
+<div class="relative" style="left: 40px; width: 100%; overflow: hidden;">
+    
+    <div style="width: 600px; float: left;"> 
+        <p><font style="color: #01A9DB;"><h3>AMR Drug Classification</h3></font></p>
+        <iframe  src="drug-classification.krona.html" height="500px" width="500px" frameBorder="0">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+    
+    <div style="margin-left: 620px;"> 
+        <p><font style="color: #01A9DB;"><h3>AMR Taxonomy Classification</h3></font> </p>
+        <iframe  src="species-classification.krona.html" height="500px" width="500px" frameBorder="0">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+</div>
+    
+</body>
+</html>

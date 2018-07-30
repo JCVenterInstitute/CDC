@@ -1,0 +1,74 @@
+Author: Ye Wang
+
+What problem this project will solve:
+1.  Faster search 
+2.  Shorter data loading duration
+
+This project uses Solr
+Solr: the popular, blazing-fast, open source enterprise search platform built on Apache Lucene
+
+1. Download Solr: https://lucene.apache.org/solr/
+2. Direct to bin and start Solr : ./solr start
+3. Create a core : bin/solr create -c <name>
+4. Direct to Solr admin web interface:  server + “:” + port +’/solr/#/’
+Solr: edit schema and field: 
+1. Direct to your core path: solr-7.3.0/server/solr/<your_core_name>/conf/
+2. 
+	a. Edit /solrconfig.xml and edit solrconfig.xml, add the following before existing <lib… statements:
+		<lib dir="${solr.install.dir:../../../..}/contrib/dataimporthandler/lib" regex=".*\.jar" />
+		<lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-dataimporthandler-.*\.jar" />
+	b. And  the following to section <!– Request Handlers
+		<requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
+		<lst name="defaults">
+		<str name="config">solr-data-config.xml</str>
+		</lst>
+		</requestHandler>
+3.  Create a file called ./server/solr/collection1/conf/solr-data-config.xml with the following contents
+	<dataConfig>
+	<dataSource type="JdbcDataSource"
+	driver="com.mysql.jdbc.Driver"
+	url="jdbc:mysql://localhost:3306/db_name"
+	user="root"
+	password="password"/>
+	<document>
+	<entity name="entity_name"
+	query="SELECT field1,field2,field3,field4,field5 FROM TABLE_NAME">
+	<field column="id" name="id"/>
+	<field column="name" name="name"/>
+	</entity>
+	</document>
+	</dataConfig>
+4. You will need to add the following. Download JDBC driver for MySQL from http://dev.mysql.com/downloads/connector/j/.
+5. Copy file from the downloaded archive ‘mysql-connector-java-*.jar’ to the folder ‘./contrib/dataimporthandler/lib’ in the folder where Solr was installed. Create ‘lib’ folder if needed.
+6. Restart Solr : ./bin/solr restart 
+7. In the managed-schema create fields that individual may need. Insert it before <dynamicField name=""....
+  <field name="field1" type="string" indexed="true" stored="false" />
+  <field name="field2"  type="string" indexed="true" stored="false" />
+  <field name="field3"  type="string" indexed="false" stored="false" />
+  <field name="field4"  type="string" indexed="true" stored="false" />
+  <field name="field5"  type="string" indexed="true" stored="false" />
+
+search_qb: 
+This page is a form that allows user to search on different fields to submit_search_qb.php.
+
+submit_search_qb.php:
+Receive the data sent by user inputs. 
+Sent post to search_fetch.php to process and receive output data as a data table.
+
+Search_fetch.php: 
+Receive and process user data from submit_search_qb.php. 
+Get relative data from Solr and pass it back to submit_search_qb.php as an output. 
+
+Browser.php:
+Gets the data from Solr and outs as a data table.
+
+
+
+
+
+
+
+
+Reference: 
+http://lucene.apache.org/solr/
+https://atomate.net/blog/setup-solr-6-x-with-mysql/
