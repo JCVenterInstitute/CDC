@@ -337,7 +337,7 @@ tr.shown td.details-control {
 							// echo "here is : ".$i ;
 							foreach ($_POST['snp'][$i+1] as $key => $value) {
 								if($_POST['snp'][$i+1][$key]!=''&&$_POST['v_plasmid'][$i+1][$key]!=''){
-									  echo $_POST['snp'][$i+1][$key]."<br>".$_POST['v_plasmid'][$i+1][$key]."<br>";
+									  // echo $_POST['snp'][$i+1][$key]."<br>".$_POST['v_plasmid'][$i+1][$key]."<br>";
 									$vID = geneate_id($GLOBALS['con']);
 									$returnVal[]=$vID;//id
 									$returnVal[]=$_POST['snp'][$i+1][$key];//SNP	
