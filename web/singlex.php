@@ -34,7 +34,7 @@ ini_set('display_errors', 1);
                     <div class="tab-content">   
                     <?php 
                     # Search Identity Table
-                    $sql = "SELECT ID, Gene_Symbol, Gene_Family, Gene_Class, Allele, EC_Number,Parent_Allele_Family,Parent_Allele, Source, Source_ID, Protein_ID, Protein_Name, Pubmed_IDs, HMM, Is_Active, Status, Created_Date, Modified_Date, Created_By, Modified_By FROM Identity WHERE ID = '$idd'"; 
+                    $sql = "SELECT ID, Gene_Symbol, Gene_Family, Gene_Class, Allele, EC_Number,Parent_Allele_Family,Parent_Allele, Source, Source_ID, Protein_ID, Protein_Name, Pubmed_IDs, HMM, Is_Active, Status,Gene_Alternative_Names,Protein_Alternative_Names FROM Identity WHERE ID = '$idd'"; 
                     $query=mysql_query($sql);
                     $ids=mysql_fetch_array($query); 
 
@@ -48,7 +48,7 @@ ini_set('display_errors', 1);
 
                     # Search Variant Table
                     $sql=$query="";
-                    $sql = "Select iss.* FROM CDC.Variants iss,CDC.Classification ise,CDC.Identity i where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Classification_ID = ise.ID";
+                    $sql = "Select iss.ID, iss.SNP, iss.PubMed_IDs, iss.Identity_Sequence_ID, iss.Classification_ID, iss.Is_Active FROM CDC.Variants iss,CDC.Classification ise,CDC.Identity i where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Classification_ID = ise.ID";
 #                    $sql = "SELECT * FROM Variants WHERE ID = '$idd'"; 
                     $query=mysql_query($sql);
                     $var=mysql_fetch_array($query); 
@@ -102,113 +102,123 @@ ini_set('display_errors', 1);
                     $sql = "select tl.* from CDC.Identity ise, CDC.Threat_Level tl where ise.ID = '$idd' and ise.ID=tl.Identity_ID";
                     $query=mysql_query($sql);
                     $tl=mysql_fetch_array($query); 
-
-/* Links 
-<a href=https://www.ncbi.nlm.nih.gov/nuccore/' + data + ' target=_blank>'
-https://www.ncbi.nlm.nih.gov/nuccore/NC_020088.1
-https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA298946
-https://www.ncbi.nlm.nih.gov/biosample/?term=SAMN03703141
-https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/21933985/
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3478237/
-*/                    
-                    
                     ?>
                         <div class="tab-pane fade in active" id="h2tab1">
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="gene_symbol" class="col-sm-2 control-label">Gene Symbol: </label><div class="col-sm-1"></div>
+                                    <label for="gene_symbol" class="col-sm-2 control-labelx">Gene Symbol: </label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[1]=="" ? "Not Available":  $ids[1]; ?></div>
-                                    </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label for="allele" class="col-sm-2 control-label">Gene Family</label><div class="col-sm-1"></div>
-                                    <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[2]=="" ? "Not Available": $ids[2]; ?></div>
-                                    </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label for="allele" class="col-sm-2 control-label">Gene Class</label><div class="col-sm-1"></div>
-                                    <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[3]=="" ? "Not Available": $ids[3];  ?></div>
+                                        <div class="control-label col-sm-2  input_field"><?php echo $ids[1]; ?></div>
                                     </div>
                                 </div>
                                   <div class="form-group">
-                                    <label for="allele" class="col-sm-2 control-label">Allele</label><div class="col-sm-1"></div>
+                                    <label for="gene_symbol" class="col-sm-2 control-labelx">Gene Alternative Names: </label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[4]=="" ? "Not Available": $ids[4]; ?></div>
+                                        <div class="control-label col-sm-2  input_field"><?php echo $ids[16]; ?></div>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="allele" class="col-sm-2 control-labelx">Gene Family:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[2];?></div>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="allele" class="col-sm-2 control-labelx">Gene Class:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[3]; ?></div>
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <label for="allele" class="col-sm-2 control-labelx">Allele:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[4]; ?></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="gene_aliases" class="col-sm-2 control-label">EC Number</label><div class="col-sm-1"></div>
+                                    <label for="gene_aliases" class="col-sm-2 control-labelx">EC Number:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[5]=="" ? "Not Available": $ids[5];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[5];  ?></div>
                                     </div>
                                 </div>
                                
                                   <div class="form-group">
-                                    <label for="parent_allele_family" class="col-sm-2 control-label">Parent Allele Family</label><div class="col-sm-1"></div>
+                                    <label for="parent_allele_family" class="col-sm-2 control-labelx">Parent Allele Family:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[6]=="" ? "Not Available": $ids[6];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[6];  ?></div>
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label for="parent_allele" class="col-sm-2 control-label">Parent Allele</label><div class="col-sm-1"></div>
+                                    <label for="parent_allele" class="col-sm-2 control-labelx">Parent Allele:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[7]=="" ? "Not Available": $ids[7];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[7];  ?></div>
                                     </div>
                                 </div>
 
                                  <div class="form-group">
-                                    <label for="source" class="col-sm-2 control-label">Source:</label><div class="col-sm-1"></div>
+                                    <label for="source" class="col-sm-2 control-labelx">Source:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[8]=="" ? "Not Available": $ids[8];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[8];  ?></div>
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label for="source" class="col-sm-2 control-label">Source ID:</label><div class="col-sm-1"></div>
+                                    <label for="source" class="col-sm-2 control-labelx">Source ID:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[9]=="" ? "Not Available": $ids[9];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[9];  ?></div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="protein_id" class="col-sm-2 control-label">Protein ID</label><div class="col-sm-1"></div>
+                                    <label for="protein_id" class="col-sm-2 control-labelx">Protein ID:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[10]=="" ? "Not Available": $ids[10];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><a class="input_link" href="https://www.ncbi.nlm.nih.gov/protein/<?php echo $ids[10];?>"  target="_blank"><?php echo $ids[10];  ?></a></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="gene_symbol" class="col-sm-2 control-label">Protein Name</label><div class="col-sm-1"></div>
+                                    <label for="gene_symbol" class="col-sm-2 control-labelx">Protein Name:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[11]=="" ? "Not Available": $ids[11];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[11];  ?></div>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="gene_symbol" class="col-sm-2 control-labelx">Protein Alternative  Names: </label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="control-label col-sm-2  input_field"><?php echo $ids[17]; ?></div>
                                     </div>
                                 </div>
    
                                 <div class="form-group">
-                                    <label for="pubmed" class="col-sm-2 control-label">PubMed ID </label><div class="col-sm-1"></div>
+                                    <label for="pubmed" class="col-sm-2 control-labelx">PubMed ID:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[12]=="" ? "Not Available": $ids[12];  ?></div>
+                                        <div class="col-sm-2 control-label input_field"><a class="input_link" href="https://www.ncbi.nlm.nih.gov/pubmed/<?php echo $ids[12];?>"  target="_blank"><?php echo $ids[12];  ?></a></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pubmed" class="col-sm-2 control-label">HMM </label><div class="col-sm-1"></div>
+                                    <label for="pubmed" class="col-sm-2 control-labelx">HMM: </label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $ids[13]=="" ? "Not Available": $ids[13]; ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[13]; ?></div>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group">
+                                    <label for="pubmed" class="col-sm-2 control-labelx">BioProject ID:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"<a class="input_link" href="https://www.ncbi.nlm.nih.gov/bioproject/<?php echo $as[6];?>"  target="_blank"><?php echo $as[6];  ?></a></div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="pubmed" class="col-sm-2 control-label">Plasmid Name</label><div class="col-sm-1"></div>
+                                    <label for="pubmed" class="col-sm-2 control-labelx">Plasmid Name:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <div class="input_field"><?php echo $as[8]=="" ? "Not Available": $as[8]; ?></div>
+                                        <div class="col-sm-2 control-label input_field"><?php echo $as[8]; ?></div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="pubmed" class="col-sm-2 control-label">Status: </label><div class="col-sm-1"></div>
-                                    <div class="col-sm-9">
-                                       <input type="radio" name="Stat" id='non' value="Non curated"> Non curated <input type="radio" name="Stat" id='curated' value="Curated"> Curated</label>
+                                    <label for="pubmed" class="col-sm-2 control-labelx">Status: </label><div class="col-sm-1"></div>
+                                    <div class="col-sm-2 control-label">
+                                       <input type="radio" name="Stat" id='non' value="Non curated"> Non curated 
+                                       <input type="radio" name="Stat" id='curated' value="Curated"> Curated
                                     </div>
                                 </div>
 
@@ -218,56 +228,119 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3478237/
                         <div class="tab-pane fade" id="h2tab2">
                            
                             <?php
-                                $sql = "Select t.Drug, t.Drug_Class, t.Drug_Family, t.Mechanism_of_Action,iss.SNP,iss.PubMed_IDs  
-FROM (Select ise.* FROM  CDC.Classification ise,CDC.Identity i where i.ID=ise.Identity_ID and i.ID = '$idd')as t
-LEFT Join CDC.Variants iss on iss.Classification_ID=t.ID ";
+                                $sql = "Select t.Drug, t.Drug_Class, t.Drug_Family, t.Mechanism_of_Action, t.ID
+                                        FROM  CDC.Classification t,CDC.Identity i where i.ID=t.Identity_ID and i.ID = '$idd'";
                     $query=mysql_query($sql);
                     $second_tab_content[]="";
                     while($loop_varian_class=mysql_fetch_array($query)){
-                        // $second_tab_content[]=
+                        // first define all fields then echo
                         $tempContent=<<<TT
                          <div class="row">
                                 <div class="form-group">
-                                    <label for="drug_class" class="col-sm-2 control-label">Drug Name</label><div class="col-sm-1"></div>
+                                 <h3>Classificiation:</h3>
+                                    <label for="drug_class" class="col-sm-2 control-labelx">Drug:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[0]'>
+                                         <div class="col-sm-2 control-label input_field">$loop_varian_class[0]</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="drug_class" class="col-sm-2 control-label">Drug Class</label><div class="col-sm-1"></div>
+                                    <label for="drug_class" class="col-sm-2 control-labelx">Drug Class:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[1]'>
+                                         <div class="col-sm-2 control-label input_field">$loop_varian_class[1]</div>
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="drug_family" class="col-sm-2 control-label">Drug Family</label><div class="col-sm-1"></div>
+                                    <label for="drug_family" class="col-sm-2 control-labelx">Drug Family:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" id="drug_family" value='$loop_varian_class[2]'>
+                                        <div class="col-sm-2 control-label input_field"> $loop_varian_class[2]</div>
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label for="sub_drug_class" class="col-sm-2 control-label">Mechanism of Action</label><div class="col-sm-1"></div>
+                                    <label for="sub_drug_class" class="col-sm-2 control-labelx">Mechanism of Action:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" id="sub_drug_class" value='$loop_varian_class[3]'>
+                                         <div class="col-sm-2 control-label input_field">$loop_varian_class[3]</div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="snp" class="col-sm-2 control-label">SNP</label><div class="col-sm-1"></div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" id="snp" value='$loop_varian_class[4]'>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pubmed" class="col-sm-2 control-label">Variant PubMed ID</label><div class="col-sm-1"></div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" id="protein_name" value='$loop_varian_class[5]'>
-                                    </div>
-                                </div>
-
-                         </div>
+                                 <h4 class="col-sm-2 control-label">Variants:</h4>
+                                
+                               
 TT;
-                         $second_tab_content[]=$tempContent;
+                             $sql_child="SELECT va.SNP,va.PubMed_IDs FROM CDC.Variants va WHERE va.Classification_ID=$loop_varian_class[4]";
+                                      $query_child=mysql_query($sql_child);
+                                      while ($loop_va_child=mysql_fetch_array($query_child)) {
+                                               $tempContent2=<<<HH
+                                <div class="form-group">
+                                    <label for="snp" class="col-sm-2 control-labelx">SNP:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field">$loop_va_child[0]</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pubmed" class="col-sm-2 control-labelx">Variant PubMed ID:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field">$loop_va_child[1]</div>
+                                    </div>
+                                </div>
+HH;
+                            }
+                            if(isset($tempContent2)){
+                         $second_tab_content[]=$tempContent.'<fieldset class="col-sm-10 col-sm-offset-1"" >'.$tempContent2."</div>
+                                </fieldset>";
+                            }else{
+                         $second_tab_content[]=$tempContent."</div></fieldset>";
+                            }
                     }   
+                    if(count($second_tab_content)==1){
+
+                         $tempContent=<<<TT
+                         <div class="row">
+                                <div class="form-group">
+                                 <h3>Classificiation:</h3>
+                                    <label for="drug_class" class="col-sm-2 control-labelx">Drug:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="drug_class" class="col-sm-2 control-labelx">Drug Class:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label for="drug_family" class="col-sm-2 control-labelx">Drug Family:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="sub_drug_class" class="col-sm-2 control-labelx">Mechanism of Action:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>
+                                </div>
+                                 <h4 >Variants:</h4>
+                                <fieldset class="col-sm-10 col-sm-offset-1"" >
+                                     <div class="form-group">
+                                    <label for="snp" class="col-sm-2 control-labelx">SNP:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pubmed" class="col-sm-2 control-labelx">Variant PubMed ID:</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>
+                                </div>
+                                </div></fieldset>
+                               
+TT;
+
+
+
+                        $second_tab_content[]=$tempContent;
+                    }
                     array_shift($second_tab_content);
                     echo implode('<hr style="border-color:#aaa;">',$second_tab_content);
 
@@ -287,93 +360,176 @@ LEFT JOIN Antibiogram anti On tempt.Sample_Metadata_ID= anti.Sample_Metadata_ID"
                         $tempContent=<<<TT
                            <div class="row">
                          <div class="form-group">
-                                    <label for="antibiotic" class="col-sm-2 control-label">Antibiotic</label><div class="col-sm-1"></div>
+                                    <label for="antibiotic" class="col-sm-2 control-labelx">Antibiotic</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" id="antibiotic" value='$loop_varian_class[1]'>
+                                        <div class="col-sm-2 control-label input_field"> $loop_varian_class[1]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Drug Symbol</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Drug Symbol</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[2]'>
+                                         <div class="col-sm-2 control-label input_field"> $loop_varian_class[2]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Laboratory Typing Method</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Laboratory Typing Method</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[3]'>
+                                        <div class="col-sm-2 control-label input_field"> $loop_varian_class[3]</div>
                                     </div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Laboratory Typing Platform</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Laboratory Typing Platform</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[4]'>
+                                         <div class="col-sm-2 control-label input_field"> $loop_varian_class[4]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Laboratory Typing Method Version or Reagent</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Laboratory Typing Method Version or Reagent</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[5]'>
+                                         <div class="col-sm-2 control-label input_field"> $loop_varian_class[5]</div>
                                     </div>                                  
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Measurement</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Measurement</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[6]'>
+                                        <div class="col-sm-2 control-label input_field"> $loop_varian_class[6]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Measurement Sign</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Measurement Sign</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[7]'>
+                                        <div class="col-sm-2 control-label input_field"> $loop_varian_class[7]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Measurement Units</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Measurement Units</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[8]'>
+                                        <div class="col-sm-2 control-label input_field"> $loop_varian_class[8]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Resistance Phenotype</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Resistance Phenotype</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[9]'>
+                                        <div class="col-sm-2 control-label input_field"> $loop_varian_class[9]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Testing Standard</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Testing Standard</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[10]'>
+                                         <div class="col-sm-2 control-label input_field"> $loop_varian_class[10]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Vendor</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Vendor</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[11]'>
+                                         <div class="col-sm-2 control-label input_field"> $loop_varian_class[11]</div>
                                     </div>                                  
                                 </div>  
+                            </div>
 
-
+TT;
+                        
+                        $third_tab_content[]=$tempContent;
+                    }
+                    if(count($third_tab_content)==1){
+                         $tempContent=<<<TT
+                           <div class="row">
+                         <div class="form-group">
+                                    <label for="antibiotic" class="col-sm-2 control-labelx">Antibiotic</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Drug Symbol</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Laboratory Typing Method</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Laboratory Typing Platform</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Laboratory Typing Method Version or Reagent</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Measurement</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Measurement Sign</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Measurement Units</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Resistance Phenotype</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Testing Standard</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Vendor</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>  
                             </div>
 
 TT;
                         $third_tab_content[]=$tempContent;
-                    } array_shift($third_tab_content);
+                    }
+
+
+                     array_shift($third_tab_content);
                     echo implode('<hr style="border-color:#aaa;">',$third_tab_content);
                                 ?>
                                 <!-- loop thought A -->
-
                         </div>
-                     
                         <div class="tab-pane fade" id="h2tab4">
                             <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
@@ -400,88 +556,96 @@ TT;
                         <div class="tab-pane fade" id="h2tab5">
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Taxon ID</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Taxon ID:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[1]; ?>">
+                                         <div class="col-sm-2 control-label input_field"><a class="input_link" href="https://www.ncbi.nlm.nih.gov/taxonomy/<?php echo $tax[1];?>"  target="_blank"><?php echo $tax[1];  ?></a></div>
                                     </div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Kingdom</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Kingdom:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[2]; ?>">
+                                         <div class="col-sm-2 control-label input_field"><?php echo $tax[2]; ?></div>
+                                       
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Phylum</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Phylum:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[3]; ?>">
+                                       <div class="col-sm-2 control-label input_field"><?php echo $tax[3]; ?></div>
                                     </div>                                  
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Class</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Bacterial BioVar:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[5]; ?>">
+                                       <div class="col-sm-2 control-label input_field"><?php echo $tax[4]; ?></div>
                                     </div>                                  
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Order</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Taxonomy Class:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value="<?php echo $tax[6]; ?>">
+                                       <div class="col-sm-2 control-label input_field"><?php echo $tax[5]; ?></div>
                                     </div>                                  
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Family</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Order:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[7]; ?>">
+                                       <div class="col-sm-2 control-label input_field"><?php echo $tax[6]; ?></div>
                                     </div>                                  
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Genus</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Family:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value="<?php echo $tax[8]; ?>">
+                                       <div class="col-sm-2 control-label input_field"><?php echo $tax[7]; ?></div>
+                                    </div>                                  
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Genus</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                         <div class="col-sm-2 control-label input_field"><?php echo $tax[8]; ?></div>
                                     </div>                                  
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Species</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Species</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value="<?php echo $tax[9]; ?>">
+                                         <div class="col-sm-2 control-label input_field"><?php echo $tax[9]; ?></div>
                                     </div>                                  
                                 </div>
                                  <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Sub Species</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Sub Species</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[10]; ?>">
+                                          <div class="col-sm-2 control-label input_field"><?php echo $tax[10]; ?></div>
                                     </div>                                  
                                 </div>
                                  <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Pathovar</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Pathovar</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[11]; ?>">
+                                          <div class="col-sm-2 control-label input_field"><?php echo $tax[11]; ?></div>
                                     </div>                                  
                                 </div>
                                  <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Serotype</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Serotype</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[12]; ?>">
+                                          <div class="col-sm-2 control-label input_field"><?php echo $tax[12]; ?></div>
                                     </div>                                  
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Strain</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Strain:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[13]; ?>">
+                                         <div class="col-sm-2 control-label input_field"><?php echo $tax[13] ; ?></div>
                                     </div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Sub strain</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Sub strain:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $tax[14]; ?>">
+                                         <div class="col-sm-2 control-label input_field"><?php echo $tax[14] ; ?></div>
                                     </div>                                  
                                 </div>
                             </div>
@@ -494,15 +658,15 @@ TT;
 
                                     $ck_protein_id=<<<HAHA
                                       <div class="form-group">
-                                    <label for="source" class="col-sm-2 control-label">Source:</label><div class="col-sm-1"></div>
+                                    <label for="source" class="col-sm-2 control-labelx">Source:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value=$ids[6]>
+                                        <div class="col-sm-2 control-label input_field">$ids[6]</div>
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <label for="source" class="col-sm-2 control-label">Source ID:</label><div class="col-sm-1"></div>
+                                    <label for="source" class="col-sm-2 control-labelx">Source ID:</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value=$ids[7]>
+                                        <div class="col-sm-2 control-label input_field">$ids[7]</div>
                                     </div>
                                 </div>
 HAHA;
@@ -512,9 +676,9 @@ HAHA;
                                 ?>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Protein ID</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Protein ID</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" id="ck_protein_id" value="<?php echo $ids[8]; ?>">
+                                        <div class="col-sm-2 control-label input_field"><?php echo $ids[8]; ?></div>
                                     </div>
                                 </div>
                                 <?php
@@ -524,37 +688,40 @@ HAHA;
                                 <div id='additional_info'>
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Feat Type</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Feat Type</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $seq[5]; ?>">
+                                            <div class="col-sm-2 control-label input_field"><?php echo  $seq[5]; ?></div>
                                     </div>
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">End5</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">End5</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value="<?php echo $seq[1]; ?>">
+                                         <div class="col-sm-2 control-label input_field"><?php echo  $seq[1]; ?></div>
                                     </div>                                  
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">End3</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">End3</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value="<?php echo $seq[2]; ?>">
+                                          <div class="col-sm-2 control-label input_field"><?php echo  $seq[2]; ?></div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Protein Sequence</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Protein Sequence</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
+                                        
+
                                         <textarea class="form-control input-control-display" rows="3"><?php echo $seq[4]; ?></textarea>
                                     </div>                                  
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Nucleotide Sequence</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Nucleotide Sequence</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control input-control-display" rows="3"><?php echo $seq[3]; ?></textarea>                                    </div>                                 
+                                        <textarea class="form-control input-control-display" rows="3"><?php echo $seq[3]; ?></textarea>  
+                                    </div>                                 
                                 </div>
                             </div>
                         </div>
@@ -565,121 +732,237 @@ HAHA;
                                 
                     $seven_tab_content[]="";
                     while($loop_varian_class=mysql_fetch_array($squery)){
-                        
                         $tempContent2=<<<TT
                          <div class="row">
-                                <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Isolation Site</label><div class="col-sm-1"></div>
+
+
+
+                         <div class="form-group">
+                          <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Source</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[16]'>
+                                        <div class="col-sm-2 control-label input_field">$loop_varian_class[14]</div>
+                                    </div>                                  
+                                </div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Source ID</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field">
+                         <a class="input_link" href="https://www.ncbi.nlm.nih.gov/biosample/$loop_varian_class[15]"  target="_blank">$loop_varian_class[15]</a>
+                                        </div>
                                     </div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Serotyping Method</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Isolation Site</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[17]'>
+                                        <div class="col-sm-2 control-label input_field">$loop_varian_class[16]</div>
                                     </div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Serotyping Common Name</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Serotyping Method</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[18]'>
+                                        <div class="col-sm-2 control-label input_field">$loop_varian_class[17]</div>
                                     </div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Collection Date</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Serotyping Common Name</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[19]'>
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[18]</div>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Collection Date</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[19]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Location Country</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location Country</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[20]'>
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[20]</div> 
                                     </div>                                  
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Location</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[21]'>
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[21]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Location Latitude</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location Latitude</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[22]'>
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[22]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Location Longitude</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location Longitude</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display"  value='$loop_varian_class[23]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[23]</div></div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Source Age</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Age</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[24]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[24]</div></div>                                  
                                 </div>
                             <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Source Developmental Stage</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Developmental Stage</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[25]'>
+                                        <div class="col-sm-2 control-label input_field">$loop_varian_class[25]</div>
                                     </div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Source Disease</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Disease</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[26]'>
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[26]</div>
                                     </div>                                  
                                 </div>
                             
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Source Gender</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Gender</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[27]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[27]</div></div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Health Status</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Health Status</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[28]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[28]</div></div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Treatment</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Treatment</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[29]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[29]</div></div>                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Specimen Type</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Type</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[30]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[30]</div></div>                                  
                                 </div>     
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Symptom</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Symptom</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[31]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[31]</div></div>                                  
                                 </div>  
                                 <div class="form-group">
-                                    <label for="anti" class="col-sm-2 control-label">Host</label><div class="col-sm-1"></div>
+                                    <label for="anti" class="col-sm-2 control-labelx">Host</label><div class="col-sm-1"></div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-control-display" value='$loop_varian_class[32]'>
-                                    </div>                                  
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[32]</div></div>                                  
                                 </div>                            
                             </div>
 TT;
                          $seven_tab_content[]=$tempContent2;
                     }   
+                    if(!isset($tempContent2)){
+                          $tempContent2=<<<TT
+                         <div class="row">
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Isolation Site</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Serotyping Method</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Serotyping Common Name</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Collection Date</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location Country</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div> 
+                                    </div>                                  
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location Latitude</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Location Longitude</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div></div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Age</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div></div>                                  
+                                </div>
+                            <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Developmental Stage</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-2 control-label input_field"></div>
+                                    </div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Disease</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field">$loop_varian_class[26]</div>
+                                    </div>                                  
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Source Gender</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div></div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Health Status</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_fieldx"></div></div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Treatment</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div></div>                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Specimen Type</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div></div>                                  
+                                </div>     
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Symptom</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div></div>                                  
+                                </div>  
+                                <div class="form-group">
+                                    <label for="anti" class="col-sm-2 control-labelx">Host</label><div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                    <div class="col-sm-2 control-label input_field"></div></div>                                  
+                                </div>                            
+                            </div>
+TT;
+                             $seven_tab_content[]=$tempContent2;
+                    }
+
                     array_shift($seven_tab_content);
                     // echo implode('<hr style="border-color:#aaa;">',$seven_tab_content);
                      echo implode('<hr style="border-color:#aaa;">',$seven_tab_content);
@@ -698,7 +981,6 @@ TT;
 <?php
 
     // pre populate the curated button
-
     if($ids[12]=='Curated'){
     $scp=<<<HAHA
         <script type="text/javascript">
@@ -706,7 +988,6 @@ TT;
         </script>
 HAHA;
         echo $scp;
-
     }else{
 	$scp=<<<HAHA
         <script type="text/javascript">
@@ -715,7 +996,6 @@ HAHA;
 HAHA;
         echo $scp;
     }
-
     if(isset($t1)){
         switch ($tl[1]) {
             case 'urgent':
@@ -760,34 +1040,21 @@ HAHA;
 HAHA;
         echo $scp;
     }
-
-
-
-
 ?>
+<!-- if the field is empty replace it with NA -->
  <script type="text/javascript">
 $(document).ready(function() {
-    $('.input-control-display').each(function(){
-        if(!this.value.trim()){
-             $(this).parent().parent().hide();
-        }});
+    $('.input_field').each(function(){
+       if(!this.innerHTML||this.innerHTML==' '){
+        this.innerHTML="<span style='color: #bbb;'>-</span>";}});
+    $('.input_link').each(function(){
+       if(!this.innerHTML||this.innerHTML==' '){
+        this.innerHTML="<span style='color: #bbb;'>-</span>";
+    }});
+
+
 });
-// create div or field if the protein id is empty
-// if((document.getElementById('ck_protein_id').value).trim()==""){
 
-
-// // <div class="form-group">
-// //<label for="anti" class="col-sm-2 control-label">Protein ID</label><div class="col-sm-1"></div>
-// //<div class="col-sm-9">
-// //<input type="text" class="form-control input-control-display" id="ck_protein_id" value="<?php echo $ids[8]; ?>">
-// //</div>
-// //</div>
-
-//     let dc = document.createElement('ck_protein_id');
-//     dc.className = "form-group";
-
-//     let label = document.createElement('label');
-//     label.className = "col-sm-2 control-label";
 </script> 
 <?php include 'includes/footer.php';?>
 
