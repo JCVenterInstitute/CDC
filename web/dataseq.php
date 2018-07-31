@@ -35,6 +35,10 @@ tr.shown td.details-control {
 			        
 			        <?php
 					if(isset($_POST['method'])){
+
+// 						var_dump(count($_POST['antibiotic']));
+// die();
+
 						  echo '<h2 align="center">Data has been submitted into the AMRdb for admin review. <br><br>Once admin approve the data, it will be visible in AMRdb</h2>';
 				        $mydb=  new Database();
 				       	$con = $mydb->dbConnection();
@@ -96,7 +100,7 @@ tr.shown td.details-control {
 						
 						 $t_col = getting_colums_from_a_table($con,'Identity');
 	
-						$sth = $con->prepare('INSERT INTO Identity(ID,Gene_Symbol,Gene_Family,Gene_Class,Allele,EC_Number,Parent_Allele_Family,Parent_Allele,Source,Source_ID,Protein_ID,Protein_Name,Pubmed_IDs,HMM,Is_Active,Status,Created_By,Modified_By) VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ,?,?,?, ? , ? , ? , ? , ? );');
+						$sth = $con->prepare('INSERT INTO Identity(ID,Gene_Symbol,Gene_Alternative_Names,Gene_Family,Gene_Class,Allele,EC_Number,Parent_Allele_Family,Parent_Allele,Source,Source_ID,Protein_ID,Protein_Name,Protein_Alternative_Names,Pubmed_IDs,HMM,Is_Active,Status,Created_By,Modified_By) VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ,?,?,?, ? , ? , ? , ? , ?,?,? );');
 						for ($i=0; $i<sizeof($t_col) ; $i++) {
 							// $new_i=$i+1; 
 							$in_val = "\"".$id_t[$i]."\"";
@@ -326,44 +330,38 @@ tr.shown td.details-control {
 					}
 					function variant_table_array($idsID,$cID){
 						//use a for loop to get all the information 
-						var_dump(count($_POST['drug']));
-						echo "<br>";
-					
+						// var_dump(count($_POST['drug']));
+						// echo "<br>";
 						$temp=0;
-						
-						foreach ($_POST['snp'] as $i => $xx) {
-							foreach ($_POST['snp'][$i] as $key => $value) {
-								echo $value."<br>";
-								if($_POST['snp'][$i][$key]!=''&&$_POST['v_plasmid'][$i][$key]!=''){
-									// echo $_POST['snp'][$i][$$q]."<br>".$_POST['v_plasmid'][$i][$q]."<br>";
+						foreach ($_POST['drug'] as $i => $xx) {
+							// echo "here is : ".$i ;
+							foreach ($_POST['snp'][$i+1] as $key => $value) {
+								if($_POST['snp'][$i+1][$key]!=''&&$_POST['v_plasmid'][$i+1][$key]!=''){
+									  echo $_POST['snp'][$i+1][$key]."<br>".$_POST['v_plasmid'][$i+1][$key]."<br>";
 									$vID = geneate_id($GLOBALS['con']);
 									$returnVal[]=$vID;//id
-									$returnVal[]=$_POST['snp'][$i][$key];//SNP	
-									$returnVal[]=$_POST['v_plasmid'][$i][$key];//PubMed_IDs  Plasmid
+									$returnVal[]=$_POST['snp'][$i+1][$key];//SNP	
+									$returnVal[]=$_POST['v_plasmid'][$i+1][$key];//PubMed_IDs  Plasmid
 									$returnVal[]=$idsID;//id from id_seq table 
 									$returnVal[]=$cID[$temp];//id from classification table
 									$returnVal[]=1;//is_activate
 									$returnVal[]=$_SESSION['userID'];//created_By
 									$returnVal[]=$_SESSION['userID'];//ModifiedBy
-									
 								}
-
-								
 							}
 							$temp++;
 						}
-						// echo $temp;
-						// 	die();
 
 						if(!isset($returnVal)){
 							return "";
 						}
 						// 9 entries
+						// die();
 						return $returnVal; 
 					}
 					function antibiogram_table_arry($sid){
 
-						for ($i=0; $i <$_POST['antibiotic'] ; $i++) { 
+						for ($i=0; $i <count($_POST['antibiotic']) ; $i++) { 
 							# code...
 							$cID = geneate_id($GLOBALS['con']);
 							$returnVal[]=$cID;// ID 
@@ -401,6 +399,7 @@ tr.shown td.details-control {
 					function identity_table_array(){
 						$returnVal[]=$_POST['identity'];
 						$returnVal[]=$_POST['gene_symbol'];
+						$returnVal[]=$_POST['gene_alter_names'];
 						$returnVal[]=$_POST['gene_family'];
 						$returnVal[]=$_POST['gene_class'];
 						$returnVal[]=$_POST['allele'];
@@ -411,6 +410,7 @@ tr.shown td.details-control {
 						$returnVal[]=$_POST['source_id'];//SourceID =>gen Bank ID 
 						$returnVal[]=$_POST['protein_id'];
 						$returnVal[]=$_POST['protein_name'];//Protein_name
+						$returnVal[]=$_POST['protein_alter_names'];
 						$returnVal[]=$_POST['plasmid'];
 						$returnVal[]=$_POST['hmm'];
 						$returnVal[]="1";// is_active 0 or1   default is 1  
@@ -426,8 +426,8 @@ tr.shown td.details-control {
 					function sample_metadata_table_array(){
 						$s_m_ID = geneate_id($GLOBALS['con']);
 						$returnVal[]=$s_m_ID;
-						$returnVal[]=$_POST['source'] ;//source =>gen bank 	
-						$returnVal[]=$_POST['source_id'] ;//SourceID => gen bank 
+						$returnVal[]=$_POST['biosample'] ;//source =>gen bank 	
+						$returnVal[]=$_POST['biosample_ID'] ;//SourceID => gen bank 
 						$returnVal[]=$_POST['isolation_site'] ;
 						$returnVal[]=$_POST['serotyping_method'];//Serotyping_method 
 						$returnVal[]=$_POST['source_common_name'];//Source_common_name

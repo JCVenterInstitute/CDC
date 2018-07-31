@@ -77,6 +77,12 @@ include 'includes/config.inc.php';
 	                                </div>
 	                                <div class="col-sm-10 col-sm-offset-1">
 		                                <div class="form-group">
+		                                    <label for="gene_family" class="control-label">Gene Alternative Names</label>
+	                                        <input type="text" class="form-control" name="gene_alter_names" id="gene_alter_names" placeholder="e.g. Names" value="">
+	                                    </div>
+	                                </div>
+	                                  <div class="col-sm-10 col-sm-offset-1">
+		                                <div class="form-group">
 		                                    <label for="gene_family" class="control-label">Gene Family</label>
 	                                        <input type="text" class="form-control" name="gene_family" id="gene_family" placeholder="e.g. AAC(1)" value="">
 	                                    </div>
@@ -84,7 +90,7 @@ include 'includes/config.inc.php';
 	                                <div class="col-sm-10 col-sm-offset-1">
 		                                <div class="form-group">
 		                                    <label for="gene_class" class="control-label">Gene Class</label>
-	                                        <input type="text" class="form-control" name="gene_class" id="gene_class" placeholder="e.g. AAC(1)" value="">
+	                                        <input type="text" class="form-control" name="gene_class" id="gene_class" placeholder="e.g. " value="">
 	                                    </div>
 	                                </div>
 	                                <div class="col-sm-10 col-sm-offset-1">		                            
@@ -137,6 +143,12 @@ include 'includes/config.inc.php';
 		                                        <input type="text" class="form-control" name="protein_name"  placeholder="e.g. CMY-7 blacmy-7" value="">
 										</div>
 									</div>
+									  <div class="col-sm-10 col-sm-offset-1">
+		                                <div class="form-group">
+		                                    <label for="gene_family" class="control-label">Protein Alternative Names</label>
+	                                        <input type="text" class="form-control" name="protein_alter_names" id="protein_alter_names" placeholder="e.g. Alternative Names " value="">
+	                                    </div>
+	                                </div>
 									<div class="col-sm-10 col-sm-offset-1">		                            
 		                                <div class="form-group">
 		                                    <label for="pubmed_id" class="control-label">PubMed IDs</label>
@@ -163,11 +175,23 @@ include 'includes/config.inc.php';
 		                                        <input type="text" class="form-control" name = "bioproject_id" id="bioproject_id" placeholder="e.g. PRJNA225" value="">
 										</div>
 									</div>
+									  <div class="col-sm-10 col-sm-offset-1">		                                
+		                                <div class="form-group">
+		                                    <label for="bioproject_id" class="control-label">BioSample</label>
+		                                        <input type="text" class="form-control" name = "biosample" id="" placeholder="e.g. GeneBank" value="">
+										</div>
+									</div>
+									  <div class="col-sm-10 col-sm-offset-1">		                                
+		                                <div class="form-group">
+		                                    <label for="bioproject_id" class="control-label">BioSample ID </label>
+		                                        <input type="text" class="form-control" name = "biosample_ID" id="" placeholder="e.g. 12345" value="">
+										</div>
+									</div>
 									 <div class="col-sm-10 col-sm-offset-1">                                     
                                         <div class="form-group">
-                                            <label for="pubmed" class="control-label">
+                                              <label class="control-label">Status: </label><br>
                                         <input type="radio" name="Stat" id='non' value="Non curated" checked="checked">
-                                         Non curated <br><br><input type="radio" name="Stat" id='curated' value="Curated"> Curated</label>
+                                         Non curated <br><input type="radio" name="Stat" id='curated' value="Curated"> Curated</label>
                                         </div>
                                     </div>
 

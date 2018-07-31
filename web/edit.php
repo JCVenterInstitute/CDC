@@ -146,77 +146,89 @@ include 'includes/config.inc.php';
                                             <input type="text" class="form-control" name="gene_symbol"  value="<?php echo $ids[1]; ?>">
                                         </div>
                                     </div>
+                                    <div class="col-sm-10 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <label for="gene_symbol" class="control-label">Gene Alternative Names</label>
+                                            <input type="text" class="form-control" name="gene_symbol"  value="<?php echo $ids[2]; ?>">
+                                        </div>
+                                    </div>
                                       <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
                                             <label for="gene_symbol" class="control-label">Gene Family</label>
-                                            <input type="text" class="form-control" name="gene_family"  value="<?php echo $ids[2]; ?>">
+                                            <input type="text" class="form-control" name="gene_family"  value="<?php echo $ids[3]; ?>">
                                         </div>
                                     </div>
                                       <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
                                             <label for="gene_symbol" class="control-label">Gene Class</label>
-                                            <input type="text" class="form-control" name="gene_class"  value="<?php echo $ids[3]; ?>">
+                                            <input type="text" class="form-control" name="gene_class"  value="<?php echo $ids[4]; ?>">
                                         </div>
                                     </div>
                                      <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="allele" class="control-label">Allele</label>
-                                                <input type="text" class="form-control" name="allele" id="allele" placeholder="e.g. 7" value="<?php echo $ids[4]; ?>">
+                                                <input type="text" class="form-control" name="allele" id="allele" placeholder="e.g. 7" value="<?php echo $ids[5]; ?>">
                                         </div>
                                     </div>
                                      <div class="col-sm-10 col-sm-offset-1">
                                        <div class="form-group">
                                             <label for="gene_aliases" class="control-label">EC Number</label>
-                                                <input type="text" class="form-control" name="ec_number" id="gene_aliases" value="<?php echo $ids[5]; ?>">
+                                                <input type="text" class="form-control" name="ec_number" id="gene_aliases" value="<?php echo $ids[6]; ?>">
                                         </div>
                                     </div>
                                      <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="parent_allele_family" class="control-label">Parent Allele Family</label>
-                                                <input type="text" class="form-control" name = "parent_allele_family" id="parent_allele_family" placeholder="e.g. OXA-55-like" value="<?php echo $ids[6]; ?>">
+                                                <input type="text" class="form-control" name = "parent_allele_family" id="parent_allele_family" placeholder="e.g. OXA-55-like" value="<?php echo $ids[7]; ?>">
                                         </div>
                                     </div>
                                      <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="parent_allele" class="control-label">Parent Allele</label>
-                                                <input type="text" class="form-control" name="parent_allele" id="parent_allele" placeholder="e.g. CMY" value="<?php echo $ids[7]; ?>">
+                                                <input type="text" class="form-control" name="parent_allele" id="parent_allele" placeholder="e.g. CMY" value="<?php echo $ids[8]; ?>">
                                         </div>
                                     </div>
                                      <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="source" class="control-label">Source </label>
-                                                <input type="text" class="form-control" name = "source" id="source" placeholder="e.g. OXA-55-like" value="<?php echo $ids[8]; ?>">
+                                                <input type="text" class="form-control" name = "source" id="source" placeholder="e.g. OXA-55-like" value="<?php echo $ids[9]; ?>">
                                         </div>
                                     </div>
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="genbank_id" class="control-label">Source ID</label>
-                                                <input type="text" class="form-control" name="genbank_id" id="genbank_id" placeholder="e.g. AJ011291.1" value="<?php echo $ids[9]; ?>">
+                                                <input type="text" class="form-control" name="genbank_id" id="genbank_id" placeholder="e.g. AJ011291.1" value="<?php echo $ids[10]; ?>">
                                         </div>
                                     </div>
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="protein_id" class="control-label">Protein ID</label>
-                                                <input type="text" class="form-control" name = "protein_id" id="protein_id" placeholder="e.g. CAB36900.1" value="<?php echo $ids[10]; ?>">
+                                                <input type="text" class="form-control" name = "protein_id" id="protein_id" placeholder="e.g. CAB36900.1" value="<?php echo $ids[11]; ?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">
                                        <div class="form-group">
                                             <label for="gene_aliases" class="control-label">Protein Name</label>
-                                                <input type="text" class="form-control" name="protein_name" id="protein_name" placeholder="e.g. CMY-7 blacmy-7" value="<?php echo $ids[11]; ?>">
+                                                <input type="text" class="form-control" name="protein_name" id="protein_name" placeholder="e.g. CMY-7 blacmy-7" value="<?php echo $ids[12]; ?>">
+                                        </div>
+                                    </div>
+                                      <div class="col-sm-10 col-sm-offset-1">
+                                       <div class="form-group">
+                                            <label for="gene_aliases" class="control-label">Protein Alternative Names</label>
+                                                <input type="text" class="form-control" name="protein_name" id="protein_name" placeholder="e.g. CMY-7 blacmy-7" value="<?php echo $ids[13]; ?>">
                                         </div>
                                     </div>
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="pubmed_id" class="control-label">PubMed IDs</label>
-                                                <input type="text" class="form-control" name="pubmed_id" id="pubmed_id" placeholder="e.g. 1917844" value="<?php echo $ids[12]; ?>">
+                                                <input type="text" class="form-control" name="pubmed_id" id="pubmed_id" placeholder="e.g. 1917844" value="<?php echo $ids[14]; ?>">
                                         </div>
                                     </div>
                                      <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="pubmed_id" class="control-label">HMM</label>
-                                                <input type="text" class="form-control" name="hmm" id="hmm" placeholder="e.g. 1917844" value="<?php echo $ids[13]; ?>">
+                                                <input type="text" class="form-control" name="hmm" id="hmm" placeholder="e.g. 1917844" value="<?php echo $ids[15]; ?>">
                                         </div>
                                     </div>
 
