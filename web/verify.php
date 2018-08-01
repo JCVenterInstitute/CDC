@@ -1,5 +1,6 @@
+<?php include 'includes/header.php';?>
 <?php
-require_once 'includes/class.user.php';
+require_once 'class.user.php';
 $user = new USER();
 
 if(empty($_GET['id']))
@@ -30,32 +31,32 @@ if(isset($_GET['id']) )
 			$stmt->bindparam(":uID",$id);
 			$stmt->execute();	
 
-			$msg = "
+			$msg = "<br><br><br>
 		           <div class='alert alert-success'>
 				   <button class='close' data-dismiss='alert'>&times;</button>
 					  <strong>WoW !</strong>  Your Account is Now Activated : <a href='index.php'>Login here</a>
-			       </div>
+			       </div><br><br><br>
 			       ";	
 		}
 		else
 		{
 
-			$msg = "
+			$msg = "<br><br><br>
 		           <div class='alert alert-error'>
 				   <button class='close' data-dismiss='alert'>&times;</button>
 					  <strong>sorry !</strong>  Your Account is allready Activated : <a href='index.php'>Login here</a>
-			       </div>
+			       </div><br><br><br>
 			       ";
 		}
 	}
 	else
 	{
 
-		$msg = "
+		$msg = "<br><br><br>
 		       <div class='alert alert-error'>
 			   <button class='close' data-dismiss='alert'>&times;</button>
 			   <strong>sorry !</strong>  No Account Found : <a href='index.php'>Signup here</a>
-			   </div>
+			   </div><br><br><br>
 			   ";
 	}	
 	// echo $msg;
@@ -69,9 +70,9 @@ if(isset($_GET['id']) )
   <head>
     <title>Confirm Registration</title>
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+ <!--    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="assets/styles.css" rel="stylesheet" media="screen">
+    <link href="assets/styles.css" rel="stylesheet" media="screen"> -->
      <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,3 +87,4 @@ if(isset($_GET['id']) )
     <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
+<?php include 'includes/footer.php';?>
