@@ -19,6 +19,9 @@ date_default_timezone_set('America/chicago');
 // scripts/data.json
 $(document).ready(function() {
   var btn_count = 0;
+  function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|\&|\!|\"|\~|\:|\']/g, "\\$&");
+}
     var table = $('#example').DataTable({
         
 
@@ -39,7 +42,7 @@ $(document).ready(function() {
              $.ajax( {
                  "url": "http://cdc-1.jcvi.org:8983/solr/my_core_exp/select",
                  "type":"GET",
-                 "data": $.extend( {}, data, {'wt':'json', 'q':'id :*'+data.search.value+'* OR Gene_Symbol:*'+data.search.value+'* OR Drug_Family:*'+data.search.value+'* OR Taxon_ID:*'+data.search.value+'* OR Taxon_Species:*'+data.search.value+'* OR Protein_Name:*'+data.search.value+'* OR Protein_ID:*'+data.search.value+'* OR Taxon_Genus:*'+data.search.value+'*' ,'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),'rows':data.length}),
+                 "data": $.extend( {}, data, {'wt':'json', 'q':'id :*'+escapeRegExp(data.search.value)+'* OR Gene_Symbol:*'+escapeRegExp(data.search.value)+'* OR Drug_Family:*'+escapeRegExp(data.search.value)+'* OR Taxon_ID:*'+escapeRegExp(data.search.value)+'* OR Taxon_Species:*'+escapeRegExp(data.search.value)+'* OR Protein_Name:*'+escapeRegExp(data.search.value)+'* OR Protein_ID:*'+escapeRegExp(data.search.value)+'* OR Taxon_Genus:*'+escapeRegExp(data.search.value)+'*' ,'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),'rows':data.length}),
                  "dataType": "jsonp",
                  "jsonp":"json.wrf",
                  "success": function(json) {
@@ -65,7 +68,7 @@ $(document).ready(function() {
                         
          
                     // <button id ='export_btn'style="float: right;" value="H" onclick="">Export</button>
-
+                    console.log(escapeRegExp(data.search.value));
                     // </a>
 
                     if(btn_count==0){

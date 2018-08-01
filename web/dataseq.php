@@ -116,7 +116,7 @@ tr.shown td.details-control {
 						//insert classification
 						 $t_col = getting_colums_from_a_table($con,'Classification');
 						 function insert_classifictaion_helper($start_p,$con,$class_t,$t_col){
-							$sth = $con->prepare('INSERT INTO Classification(ID,Drug,Drug_Class,Drug_Family,Drug_Sub_Class,Identity_ID,Is_Active,Created_By,Modified_By) VALUES( ?, ? , ? , ? , ? , ? , ? , ? , ? );');
+							$sth = $con->prepare('INSERT INTO Classification(ID,Drug,Drug_Class,Drug_Family,Mechanism_of_Action,Identity_ID,Is_Active,Created_By,Modified_By) VALUES( ?, ? , ? , ? , ? , ? , ? , ? , ? );');
 							$i=$start_p;
 							for ($q=0;$q<9 ; $i++, $q++) {
 								$in_val = "\"".$class_t[$i]."\"";
@@ -318,7 +318,8 @@ tr.shown td.details-control {
 							$returnVal[]=$_POST['drug'][$i];//drug_name 
 							$returnVal[]=$_POST['drug_class'][$i];//drug_class
 							$returnVal[]=$_POST['drug_family'][$i];//drug_family
-							$returnVal[]=$_POST['sub_drug_class'][$i];//drug_sub_class
+							// $returnVal[]=$_POST['sub_drug_class'][$i];//drug_sub_class
+							$returnVal[]=$_POST['mechanism_of_action'][$i];
 							$returnVal[]=$_POST['identity'];//id from identity table
 							$returnVal[]="1";// is_active 0 or1   default is 1  
 							$returnVal[]=$_SESSION['userID'];//created_By

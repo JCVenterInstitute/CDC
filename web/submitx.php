@@ -224,14 +224,6 @@ include 'includes/config.inc.php';
 		                                        <input type="text" class="form-control" name = "drug_class[]" id="drug_class" placeholder="e.g. Class_C_Carbapenemase" value="">
 										</div>
 									</div>
-		                            
-									<div class="col-sm-10 col-sm-offset-1">		                            
-		                                <div class="form-group">
-		                                    <label for="sub_drug_class" class="control-label">Sub Drug Class</label>
-		                                        <input type="text" class="form-control" name ="sub_drug_class[]"   placeholder="e.g. Small Multidrug Reistance" value="">
-										</div>
-									</div>
-									
 
 									<div class="col-sm-10 col-sm-offset-1">		                            
 		                                <div class="form-group">
@@ -247,7 +239,6 @@ include 'includes/config.inc.php';
 		                                        <input type="text" class="form-control" name="snp[1][]" id="snp" placeholder="e.g. Y114F,M109I,V165I" value="">
 										</div>
 									</div>
-									
 		                                
 									<div class="col-sm-10 col-sm-offset-1">		                                
 		                                <div class="form-group">
@@ -255,7 +246,6 @@ include 'includes/config.inc.php';
 		                                        <input type="text" class="form-control" name='v_plasmid[1][]' id="plasmid" placeholder="e.g.7989561 " value="">
 										</div>
 									</div>
-
 
 									<div ID="vant_div">
 									</div>

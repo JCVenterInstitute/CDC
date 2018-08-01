@@ -149,7 +149,7 @@ include 'includes/config.inc.php';
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
                                             <label for="gene_symbol" class="control-label">Gene Alternative Names</label>
-                                            <input type="text" class="form-control" name="gene_symbol"  value="<?php echo $ids[2]; ?>">
+                                            <input type="text" class="form-control" name="gene_alter_names"  value="<?php echo $ids[2]; ?>">
                                         </div>
                                     </div>
                                       <div class="col-sm-10 col-sm-offset-1">
@@ -216,7 +216,7 @@ include 'includes/config.inc.php';
                                       <div class="col-sm-10 col-sm-offset-1">
                                        <div class="form-group">
                                             <label for="gene_aliases" class="control-label">Protein Alternative Names</label>
-                                                <input type="text" class="form-control" name="protein_name" id="protein_name" placeholder="e.g. CMY-7 blacmy-7" value="<?php echo $ids[13]; ?>">
+                                                <input type="text" class="form-control" name="protein_alter_names" id="protein_alter_names" placeholder="e.g. CMY-7 blacmy-7" value="<?php echo $ids[13]; ?>">
                                         </div>
                                     </div>
                                     <div class="col-sm-10 col-sm-offset-1">                                 
@@ -312,8 +312,6 @@ TT;
                                         # code...
                                         $tempContent2=<<<HH
                                             <input type="hidden" name="va_id[]" value='$loop_va_child[0]'><!-- //Variants -->
-
-                                           
                                                 <div class="col-sm-10 col-sm-offset-1">
 HH;
                                           
@@ -327,7 +325,7 @@ HH;
                                                 <div class="col-sm-10 col-sm-offset-1"> 
                                                          <div class="form-group">
                                                             <label for="pubmed" class="control-label">Variant PubMed ID</label>
-                                                            <input type="text" class="form-control" name="vpubID[$class_parent_count][]"  value='$loop_va_child[2]'>
+                                                            <input type="text" class="form-control" name="v_plasmid[$class_parent_count][]"  value='$loop_va_child[2]'>
                                                         </div><hr style="border-color:#aaa;">
                                                 </div>
                                             
@@ -351,7 +349,7 @@ HH;
                                                 <div class="col-sm-10 col-sm-offset-1"> 
                                                         <div class="form-group">
                                                             <label for="pubmed" class="control-label">Variant PubMed ID</label>
-                                                            <input type="text" class="form-control" name="vpubID[$class_parent_count][]"  value='1111'>
+                                                            <input type="text" class="form-control" name="v_plasmid[$class_parent_count][]" placeholder="e.g. 25006521" value=''>
                                                         </div><hr style="border-color:#aaa;">
                                                 </div>
                                             
@@ -403,7 +401,7 @@ HAHA;
                     while($loop_varian_class=mysql_fetch_array($query)){
                         $tempContent=<<<TT
                         <div class="row">
-                                <input type="hidden" name="anti_id[]" value='$anti[0]'><!-- //Antibiogram -->
+                                <input type="hidden" name="anti_id[]" value='$loop_varian_class[0]'><!-- //Antibiogram -->
                                 <div class="col-sm-10 col-sm-offset-1"> 
                                 <div class="form-group">
                                     <label for="antibiotic" class="control-label">Antibiotic</label>
@@ -1019,17 +1017,17 @@ HAHA;
         h.appendChild(ht);
         coldiv1.appendChild(h);
         //call helper function to create fields
-        addRow_helper('','ant_addon_fields'+a_count,'Antibiotic','new_antibiotic[]','e.g. ',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Drug Symbol','new_drug_symbol[]','e.g.',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Laboratory Typing Method','new_laboratory_typing_method[]','e.g. -',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Laboratory Typing Platform','new_laboratory_typing_platform[]','e.g. ',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Laboratory Typing Method Version or Reagent','new_laboratory_typing_method_version_reagent[]','e.g.xxxx',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Measurement','new_measurement[]','e.g. -',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Measurement Sign','new_measurement_sign[]','e.g. -',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Measurement Units','new_measurement_unit[]','e.g. -',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Resistance Phenotype','new_resistance_phenotype[]','e.g. -',a_count);
-        addRow_helper('','ant_addon_fields'+a_count,'Testing Standard','new_testing_standard[]','e.g. -',a_count);
-        let groudiv=addRow_helper('','ant_addon_fields'+a_count,'vendor','new_vendor[]','e.g. ',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Antibiotic','antibiotic[]','e.g. ',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Drug Symbol','drug_symbol[]','e.g.',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Laboratory Typing Method','laboratory_typing_method[]','e.g. -',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Laboratory Typing Platform','laboratory_typing_platform[]','e.g. ',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Laboratory Typing Method Version or Reagent','laboratory_typing_method_version_reagent[]','e.g.xxxx',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Measurement','measurement[]','e.g. -',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Measurement Sign','measurement_sign[]','e.g. -',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Measurement Units','measurement_unit[]','e.g. -',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Resistance Phenotype','resistance_phenotype[]','e.g. -',a_count);
+        addRow_helper('','ant_addon_fields'+a_count,'Testing Standard','testing_standard[]','e.g. -',a_count);
+        let groudiv=addRow_helper('','ant_addon_fields'+a_count,'vendor','vendor[]','e.g. ',a_count);
         // create remove button
         let removeMe=document.createElement("input");
         removeMe.type="Button";

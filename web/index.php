@@ -50,9 +50,9 @@ tr:nth-child(even) {
 			$stmt->execute();	
 			$drug_family=$stmt->fetch(PDO::FETCH_ASSOC);
 
-			$stmt = $conn->prepare("SELECT Count( DISTINCT cl.Drug_Sub_Class)as dc FROM Classification cl ");
-			$stmt->execute();	
-			$drug_sub_class=$stmt->fetch(PDO::FETCH_ASSOC);
+			// $stmt = $conn->prepare("SELECT Count( DISTINCT cl.Drug_Sub_Class)as dc FROM Classification cl ");
+			// $stmt->execute();	
+			// $drug_sub_class=$stmt->fetch(PDO::FETCH_ASSOC);
 
 			$stmt = $conn->prepare("SELECT Count( DISTINCT cl.Gene_Symbol)as dc FROM Identity cl ");
 			$stmt->execute();	
@@ -105,10 +105,10 @@ tr:nth-child(even) {
 			                <td>Drug Family</td>
 			                <td><?php echo $drug_family['dc'] ;?></td>
 			            </tr>
-			            <tr>
+			           <!--  <tr>
 			                <td>Drug Sub-Class</td>
 			                <td><?php echo $drug_sub_class['dc'] ;?></td>
-			            </tr>
+			            </tr> -->
 			        </table>
 				</div>
 	
