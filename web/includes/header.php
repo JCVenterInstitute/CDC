@@ -70,12 +70,11 @@ if(isset($_POST['btn-signup']))
 						<html><body>
 						Hello $uname,
 						<br /><br />
-						Welcome to Coding Cage!<br/>
-						To complete your registration  please , just click following link<br/>
+						Welcome<br/>
+						<br />
+						<a href='http://cdc-1.jcvi.org:8081/verify.php?id=$id'>Click here</a> to activate your account.
 						<br /><br />
-						Click <a href='http://cdc-1.jcvi.org:8081/verify.php?id=$id'>HERE</a> to Activate :)
-						<br /><br />
-						Thanks,</body></html>
+						Thank you.</body></html>
 HH;
 		
 			$subject = "Confirm Registration";
