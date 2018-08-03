@@ -56,13 +56,13 @@ ini_set('display_errors', 1);
 
                     # Search Bioproject Table
                     $sql=$query="";
-                    $sql = "select a.* from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Identity_Sequence_ID=ise.ID and a.ID=iss.Assemly_ID";
+                    $sql = "select a.ID,Is_Reference,a.Sample_Metadata_ID,a.Source,a.Source_ID,a.PubMed_IDs,a.BioProject_ID,a.Taxonomy_ID,a.Plasmid_Name,a.Created_Date,a.Modified_Date,a.Created_By,a.Modified_By from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Identity_Sequence_ID=ise.ID and a.ID=iss.Assemly_ID";
                     $query=mysql_query($sql);
                     $as=mysql_fetch_array($query); 
                     #print_r ($as); echo "<br>"; #      echo $as[7];
 
                     #anitibiogram
-                    $ssql = "Select * 
+                    $ssql = "Select tempt.ID,tempt.Is_Reference,tempt.Sample_Metadata_ID,tempt.Source,tempt.Source_ID,tempt.PubMed_IDs,tempt.BioProject_ID,tempt.Taxonomy_ID,tempt.Plasmid_Name,tempt.Created_Date,tempt.Modified_Date,tempt.Created_By,tempt.Modified_By,Sample_Metadata.ID,Sample_Metadata.Source,Sample_Metadata.Source_ID,Sample_Metadata.Isolation_site,Sample_Metadata.Serotyping_Method,Sample_Metadata.Source_Common_Name,Sample_Metadata.Specimen_Collection_Date,Sample_Metadata.Specimen_Collection_Location_Country,Sample_Metadata.Specimen_Collection_Location,Sample_Metadata.Specimen_Collection_Location_Latitude,Sample_Metadata.Specimen_Collection_Location_Longitude,Sample_Metadata.Specimen_Source_Age,Sample_Metadata.Specimen_Source_Developmental_Stage,Sample_Metadata.Specimen_Source_Disease,Sample_Metadata.Specimen_Source_Gender,Sample_Metadata.Health_Status,Sample_Metadata.Treatment,Sample_Metadata.Specimen_Type,Sample_Metadata.Symptom,Sample_Metadata.Host,Sample_Metadata.Created_Date,Sample_Metadata.Modified_Date,Sample_Metadata.Created_By,Sample_Metadata.Modified_By
                             From (select a.* from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Identity_Sequence_ID=ise.ID and a.ID=iss.Assemly_ID and a.Is_Reference=1) as tempt
                             LEFT Join Sample_Metadata on Sample_Metadata.ID=tempt.Sample_Metadata_ID";
                     $squery=mysql_query($ssql);
@@ -75,16 +75,17 @@ ini_set('display_errors', 1);
                     #print_r ($anti); echo "<br>"; #        echo $as[7];                    
 
                     # Search metadata Table
-                    $sql=$query="";
-                    $sql = "select sm.* from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a LEFT JOIN CDC.Sample_Metadata sm ON sm.ID=a.Sample_Metadata_ID where 1=1 and i.ID = '$idd' and i.ID=ise.Identity_ID and ise.ID=iss.Identity_Sequence_ID and iss.Assemly_ID=a.ID";
-#                    $sql = "SELECT * FROM Variants WHERE ID = '$idd'"; 
-                    $query=mysql_query($sql);
-                    $meta=mysql_fetch_array($query); 
+//                     $sql=$query="";
+//                     $sql = "select sm.* from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a LEFT JOIN CDC.Sample_Metadata sm ON sm.ID=a.Sample_Metadata_ID where 1=1 and i.ID = '$idd' and i.ID=ise.Identity_ID and ise.ID=iss.Identity_Sequence_ID and iss.Assemly_ID=a.ID";
+// #                    $sql = "SELECT * FROM Variants WHERE ID = '$idd'"; 
+//                     $query=mysql_query($sql);
+//                     $meta=mysql_fetch_array($query); 
                     #print_r ($meta); echo "<br>"; #        echo $meta[10];
 
                     # Search taxonomy Table
                     $sql=$query="";
-                    $sql = "select t.* from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a,CDC.Taxonomy t where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Identity_Sequence_ID=ise.ID and a.ID=iss.Assemly_ID and t.ID=a.Taxonomy_ID";
+                    $sql = "select t.ID,t.Taxon_ID,t.Taxon_Kingdom,t.Taxon_Phylum,t.Taxon_Bacterial_BioVar,t.Taxon_Class,t.Taxon_Order,t.Taxon_Family,t.Taxon_Genus,t.Taxon_Species,t.Taxon_Sub_Species,t.Taxon_Pathovar,t.Taxon_Serotype,t.Taxon_Strain,t.Taxon_Sub_Strain,t.Created_Date,t.Modified_Date,t.Created_By,t.Modified_By
+                     from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a,CDC.Taxonomy t where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Identity_Sequence_ID=ise.ID and a.ID=iss.Assemly_ID and t.ID=a.Taxonomy_ID";
 #                    $sql = "SELECT * FROM Variants WHERE ID = '$idd'"; 
                     $query=mysql_query($sql);
                     $tax=mysql_fetch_array($query); 
@@ -92,14 +93,15 @@ ini_set('display_errors', 1);
                                                 
                     # Search sequence Table
                     $sql=$query="";
-                    $sql = "select ise.* from CDC.Identity_Sequence ise,CDC.Identity i where i.ID=ise.Identity_ID and i.ID = '$idd'";
+                    $sql = "select ise.ID,ise.End3,ise.End5,ise.NA_Sequence,ise.AA_Sequence,ise.Feat_Type,ise.Identity_ID,ise.Created_Date,ise.Modified_Date,ise.Created_By,ise.Modified_By
+                             from CDC.Identity_Sequence ise,CDC.Identity i where i.ID=ise.Identity_ID and i.ID = '$idd'";
 #                    $sql = "SELECT * FROM Variants WHERE ID = '$idd'"; 
                     $query=mysql_query($sql);
                     $seq=mysql_fetch_array($query); 
                     #print_r ($seq); #      echo $seq[3];
 
                     #die;  $sql=$query="";
-                    $sql = "select tl.* from CDC.Identity ise, CDC.Threat_Level tl where ise.ID = '$idd' and ise.ID=tl.Identity_ID";
+                    $sql = "select tl.ID,tl.Level,tl.Taxonomy_ID,tl.Identity_ID,tl.Created_Date from CDC.Identity ise, CDC.Threat_Level tl where ise.ID = '$idd' and ise.ID=tl.Identity_ID";
                     $query=mysql_query($sql);
                     $tl=mysql_fetch_array($query); 
                     ?>
@@ -349,7 +351,7 @@ TT;
                         <div class="tab-pane fade" id="h2tab3">
                          
                                 <?php
-                                     $sql = "select anti.*
+                                     $sql = "select anti.ID,anti.Antibiotic,anti.Drug_Symbol,anti.Laboratory_Typing_Method,anti.Laboratory_Typing_Method_Version_or_Reagent,anti.Laboratory_Typing_Platform,anti.Measurement,anti.Measurement_Sign,anti.Measurement_Units,anti.Resistance_Phenotype,anti.Testing_Standard,anti.Vendor,anti.Sample_Metadata_ID,anti.Created_Date,anti.Modified_Date,anti.Created_By,anti.Modified_By
 From (select a.* from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a where i.ID=ise.Identity_ID and i.ID = '$idd' and iss.Identity_Sequence_ID=ise.ID and a.ID=iss.Assemly_ID and a.Is_Reference=1) as tempt
 LEFT Join Sample_Metadata on Sample_Metadata.ID=tempt.Sample_Metadata_ID
 LEFT JOIN Antibiogram anti On tempt.Sample_Metadata_ID= anti.Sample_Metadata_ID";
