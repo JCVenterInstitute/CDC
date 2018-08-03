@@ -1,0 +1,20 @@
+.wrapper {
+    padding-left: 3rem;
+}
+
+#map {
+    float: left;
+}
+
+#sidebar {
+    float: left;
+}
+
+input[type=range] {
+    margin-top: 3rem;
+    width: 300px;
+}
+
+.bold {
+    font-weight: bold;
+}
