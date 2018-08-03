@@ -46,8 +46,76 @@
 		$js= json_decode( file_get_contents($search_Most));
 		$x_x_readytowrite_MOST=$js->response->docs;
 		$first_file ="";
-
+		$firstline=1;
 		foreach ($x_x_readytowrite_MOST as $key => $item) {
+			if($firstline){
+				$first_file.="ID"."\t";
+				$first_file.="Gene_Symbol"."\t";
+				$first_file.="Gene_Family"."\t";
+				$first_file.="Gene_Class"."\t";
+				$first_file.="Allele"."\t";
+				$first_file.="EC_Number"."\t";
+				$first_file.="Parent_Allele_Family"."\t";
+				$first_file.="Parent_Allele"."\t";
+				$first_file.="Source"."\t";
+				$first_file.="Source_ID"."\t";
+				$first_file.="Protein_ID"."\t";
+				$first_file.="Protein_Name"."\t";
+				$first_file.="Pubmed_IDs"."\t";
+				$first_file.="HMM"."\t";
+				$first_file.="Is_Active"."\t";
+				$first_file.="Status"."\t";
+				$first_file.="Created_Date"."\t";
+				$first_file.="Modified_Date"."\t";
+				$first_file.="Created_By"."\t";
+				$first_file.="Modified_By"."\t";
+				$first_file.="Level"."\t";
+				$first_file.="Taxon_ID"."\t";
+				$first_file.="Taxon_Kingdom"."\t";
+				$first_file.="Taxon_Pathovar"."\t";
+				$first_file.="Taxon_Bacterial_BioVar"."\t";
+				$first_file.="Taxon_Class"."\t";
+				$first_file.="Taxon_Order"."\t";
+				$first_file.="Taxon_Family"."\t";
+				$first_file.="Taxon_Genus"."\t";
+				$first_file.="Taxon_Species"."\t";
+				$first_file.="Taxon_Sub_Species"."\t";
+				$first_file.="Taxon_Pathovar"."\t";
+				$first_file.="Taxon_Serotype"."\t";
+				$first_file.="Taxon_Strain"."\t";
+				$first_file.="Taxon_Sub_Strain"."\t";
+				$first_file.="End3"."\t";
+				$first_file.="End5"."\t";
+				$first_file.="NA_Sequence"."\t";
+				$first_file.="AA_Sequence"."\t";
+				$first_file.="Feat_Type"."\t";
+				$first_file.="Mol_Type"."\t";
+				$first_file.="Assemly_PubMed_IDs"."\t";
+				$first_file.="Assemly_Source"."\t";
+				$first_file.="Assemly_Source_ID"."\t";
+				$first_file.="Is_Reference"."\t";
+				$first_file.="Plasmid_Name"."\t";
+				$first_file.="Meta_Source_ID"."\t";
+				$first_file.="Meta_Source"."\t";
+				$first_file.="Isolation_site"."\t";
+				$first_file.="Serotyping_Method"."\t";
+				$first_file.="Source_Common_Name"."\t";
+				$first_file.="Specimen_Collection_Date"."\t";
+				$first_file.="Specimen_Collection_Location_Country"."\t";
+				$first_file.="Specimen_Collection_Location"."\t";
+				$first_file.="Specimen_Collection_Location_Longitude"."\t";
+				$first_file.="Specimen_Source_Age"."\t";
+				$first_file.="Specimen_Source_Developmental_Stage"."\t";
+				$first_file.="Specimen_Source_Disease"."\t";
+				$first_file.="Specimen_Source_Gender"."\t";
+				$first_file.="Health_Status"."\t";
+				$first_file.="Treatment"."\t";
+				$first_file.="Specimen_Type"."\t";
+				$first_file.="Symptom"."\t";
+				$first_file.="Host"."\t";
+				$first_file.="\n";
+				$firstline--;
+			}
 			$first_file.=$item->ID."\t";
 			$first_file.=$item->Gene_Symbol."\t";
 			$first_file.=$item->Gene_Family."\t";
@@ -116,6 +184,7 @@
 			// echo $first_file;
 		}
 
+
 		//exporting second file 
 		$search_rows_request="http://cdc-1.jcvi.org:8983/solr/classification_variants/select?q=*:*&rows=1&wt=json";
 		$js= json_decode( file_get_contents($search_rows_request));
@@ -125,7 +194,19 @@
 		$x_x_readytowrite_class_variant=$js->response->docs;
 
 		$sec_file="";
+		$firstline=1;
 		foreach ($x_x_readytowrite_class_variant as $key => $item) {
+			if($firstline){
+				$sec_file.="Source"."\t";
+				$sec_file.="Source_ID"."\t";
+				$sec_file.="ClassificationID"."\t";
+				$sec_file.="Drug"."\t";
+				$sec_file.="Drug_Class"."\t";
+				$sec_file.="Drug_Family"."\t";
+				$sec_file.="Mechanism_of_Action"."\t";
+				$sec_file.="\n";
+				$firstline--;
+			}
 			$sec_file.=$item->Source."\t";
 			$sec_file.=$item->Source_ID."\t";
 			$sec_file.=$item->ClassificationID."\t";
@@ -147,7 +228,26 @@
 		
 
 		//creating third file 
+		$firstline=1;
 		foreach ($x_x_readytowrite_class_variant as $key => $item) {
+			if($firstline){
+				$thd_file.="Source"."\t";
+				$thd_file.="Source_ID"."\t";
+				$thd_file.="Protein_ID"."\t";
+				$thd_file.="Antibiotic"."\t";
+				$thd_file.="Drug_Symbol"."\t";
+				$thd_file.="Laboratory_Typing_Method"."\t";
+				$thd_file.="Laboratory_Typing_Method_Version_or_Reagent"."\t";
+				$thd_file.="Laboratory_Typing_Platform"."\t";
+				$thd_file.="Measurement"."\t";
+				$thd_file.="Measurement_Sign"."\t";
+				$thd_file.="Measurement_Units"."\t";
+				$thd_file.="Resistance_Phenotype"."\t";
+				$thd_file.="Testing_Standard"."\t";
+				$thd_file.="Vendor"."\t";
+				$thd_file.="\n";
+				$firstline--;
+			}
 			$thd_file.=$item->Source."\t";
 			$thd_file.=$item->Source_ID."\t";
 			$thd_file.=$item->Protein_ID."\t";
