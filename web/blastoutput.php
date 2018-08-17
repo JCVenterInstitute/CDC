@@ -41,6 +41,14 @@ tr.shown td.details-control {
 </style>
 
 <?php
+// $var = 'ABCDEFGH:/MNRPQR/';
+// echo substr_replace($var, '<mark>'."A".'</mark>', 1,0) . "<br />\n";
+// echo $var.'<br>';
+// $t_s="ABCD";
+// echo strlen($t_s);
+// $t_s[strlen($t_s)-1]="E";
+// echo $t_s;
+
 /*This php script add additional information to the 
   data that we recieved from Solr*/
 $dirfilep = "$dir/outx/_summary_file.txt";
@@ -51,38 +59,77 @@ if (file_exists($dirfilep)){
         $line1 = fgets($file);
         $local_id= preg_split('/\s+/', $line1);
         $line2 = fgets($file);
-        $split_string = explode('|',$line2);
-        $counter=0;
+        // $split_string = explode('|',$line2);
+        $split_by_tab = preg_split('/\s+/', $line2);
+        array_shift($split_by_tab);
+
         for ($i=0; $i<sizeof($local_id) ; $i++) { 
             if($i!=0&&$i!=sizeof($local_id)-1){
                 $data_string[$local_id[$i]][]=$local_id[$i];
-                    for ($q=0; $q <5; $q++) { 
-                    // take fist five entries
-                        $data_string[$local_id[$i]][]=$split_string[$counter];
-                        $counter++;        
+				        $detail_string = explode('|',$split_by_tab[$i-1]);
+                    for ($q=0; $q <count($detail_string); $q++) { 
+                        $data_string[$local_id[$i]][]=$detail_string[$q];
+                        // echo $split_string[$q]."<br>";
+                        // $counter++;        
                      }
              }
         }
         fclose($file);
+        // var_dump($data_string);
+
+
+        $my_file = 'dummydummy.txt';
+        $handle = fopen($my_file, 'w'); 
+
+
+
+        // hight light snp and 
     	foreach (array_keys($data_string) as $value) {
         $dirfil_complex = "$dir/outx/alignments/".$value."_alignments.phy";
         $cdata[$value]='<h2>Sequence Alignment</h2><pre>';
         $cfile = fopen($dirfil_complex,"r") or die('No file');
-        // var_dump($cfile);
-        // array_shift($cfile);
+        $cfiles = file($dirfil_complex);
         $i=0;
-        while (!feof($cfile)) {
-         # code...
+        preg_match_all('/(\d+)/m',$data_string[$value][6],$target_letter_pos);
+        $seq_number=explode ('/', $data_string[$value][3]);
+        $seq_number=sizeof($seq_number)+1;
 
-           $cline = fgets($cfile);
-        if($i==0){
-            // echo "Here";
-            $i++;
-            continue;
-          }else{
-           $cdata[$value].= $cline;
-          }
+        $line_words=1;
+        $line_number=0;
+        for ($x=1;$x<=sizeof($cfiles);$x++) {
+            $cline = $cfiles[$x];
+	          $cline = str_replace(array("\n","\r\n","\r"), '', $cline);
+                    if((trim($cline)!='')){
+                        if(!($line_number%$seq_number)){
+                            rsort($target_letter_pos[0]);
+                           foreach ($target_letter_pos[0] as $pos) {
+                            // if it is negtive and not excess 50  then current pos will be within this range.
+                            $diff=$line_words-$pos;
+                              if(($diff<0)&&($diff>-50) ){
+                                // echo "total size: ".strlen($cline) ;
+                                $extra_space=$diff/10;
+                                $extra_space= ceil(abs($extra_space));
+                                $replay_str = '<span style="background-color:#0080FF; color:white;">'.$cline[strlen($cline)+1*$extra_space+$diff].'</span>';
+                                $replay_pos =  (strlen($cline)+1*$extra_space+$diff);
+                                 // echo "<br>inseting: ".$pos."-" .$replay_str." at pos: ".$replay_pos." extra :".$extra_space."diff: ".$diff."<br>";
+                                $cline =substr_replace($cline, $replay_str,$replay_pos,1);
+                              }               
+                           }
+                    
+                        $line_words=$line_words+50;
+                    }
+                    $line_number++;
+                  }
+		            $cline=$cline."\n";
+                $cdata[$value].= $cline;
+
+              
+
+            // echo "EOL<br>";
+
         }
+        //fclose($handle);
+        // echo '<b>'.$line_words.'</b>';
        $cdata[$value].="</pre>";
       }
   }
@@ -92,63 +139,52 @@ if (file_exists($dirfilep)){
    if it is generated check if it has hits found. 
    will end the page once there is no hits found.*/ 
 
+  $result_dir="$dir/outx";
   $input_fasta_xml="$dir/outx/input_user.fasta.xml";
+  $rrna ="$dir/outx/ _rRNA_summary_file.txt";
+  $summary_file="$dir/outx/_summary_file.txt";
+   $combine_file="$dir/outx/combined_summary_file.txt";
 
-  if(file_exists($input_fasta_xml)){
-      //
+
+   function no_output_response($error_msg){
+    if($error_msg!='not hit'){
+        echo'<br><br><br><br><br><br><br><br><br><br><br><br><br>';
+        echo "<h2 align='center'><b><i>There are no BLAST results that meet the cutoffs. Ensure that your inputs are correct (Nucleotide or Peptide File)</i></b></h2>";
+        echo'<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+        include 'includes/footerx.php';
+        die();
+    }else{
+        echo'<br><br><br><br><br><br><br><br><br><br><br><br><br>';
+        echo "<h2 align='center'><b><i>No hit found againt the ARM-DB. Please try again with a different sequence</i></b></h2>";
+        echo'<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
+        include 'includes/footerx.php';
+        die();
+    }
+   }
+  
+  if(file_exists($result_dir)){
+     if((!file_exists($rrna))&&(!file_exists($summary_file))&&(!file_exists($combine_file))){
+       no_output_response('error');
+     }
     // echo "Here";
+    // check if the xml file has no hits/
      $xfile = fopen($input_fasta_xml,"r");
      while (!feof($xfile)) {
-      // $line=fgets($xfile)."<br>";
-        // echo "string";
-      // echo $line;
       if (strpos(fgets($xfile), 'No hits found')) {
-               echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo "<h2 align='center'><b><i>No hit found againt the ARM-DB. Please try again with a different sequence</i></b></h2>";
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        echo'<br>';
-        include 'includes/footerx.php';
- 
-        die();
+        no_output_response('not hit');
       }
      }
-
-
+         // chekc if output file and _rRNA file exist if not no hit
+     // echo "file_exists($rrna) :".file_exists($input_fasta_xml);
   }
-
 ?>
-
-
 
 <script>
 	// Here the json file will be created then, edit the json file 
 	// add more field to it.
     var cdata_file = <?php echo json_encode($cdata, JSON_HEX_TAG);; ?>;
     // alert(cdata_file);
+    // console.log(cdata_file);
     var data_id = <?php echo json_encode($data_string, JSON_HEX_TAG);; ?>; //Don't forget the extra semicolon!
      var id_query='';
      for(let v in data_id ){
@@ -161,7 +197,10 @@ if (file_exists($dirfilep)){
 
 $(document).ready(function() {
     function format ( d ) {
-    let rt_string ='<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+    let rt_string='<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+    if(d.child_snp!=null&&(typeof d.child_snp != "undefined")&&(d.child_snp.trim()!="")){
+    	rt_string+='<tr><td>SNP</td><td>'+ d.child_snp+'</td></tr>';
+    }
     if(d.ComplexFile!=null&&(typeof d.ComplexFile != "undefined")&&(d.ComplexFile.trim()!="")){
        rt_string+='<tr><td style="padding-left:10em"></td><td>'+ d.ComplexFile+'</td></tr>';
     }
@@ -202,7 +241,17 @@ $(document).ready(function() {
                         o.data[v]['Similarity']=data_id[o.data[v].id][2]+'%';
                         o.data[v]['E_Value']= data_id[o.data[v].id][4];
                         o.data[v]['ComplexFile']= cdata_file[o.data[v].id];
-                        console.log('adding data to :'+cdata_file[v]);
+                        let user_id="";
+                        for (var i = 0; i < data_id[o.data[v].id][3].split('/').length; i++) {
+                          user_id+=" "+data_id[o.data[v].id][3].split('/')[i].match(/[^/:]*/i)[0];
+                        }
+                        // o.data[v]['UserID']= 
+                        // console.log(user_id);
+                         o.data[v]['UserID']=user_id;
+                         o.data[v]['child_snp']=data_id[o.data[v].id][6]!='' ? data_id[o.data[v].id][6] :" ";
+                        // o.data[v]['child_snp']= data_id[o.data[v].id][3].match(/[^/:]*/i)[0];
+                        console.log('adding data to :'+data_id[o.data[v].id][6]);
+
                     }
                     callback(o);
                  }
@@ -227,7 +276,15 @@ $(document).ready(function() {
                 return data;
                 }
             },
-             { "data": "Identity",
+             { "data": "UserID",
+              "render": function(data, type, row, meta){
+                if(type === 'display'){
+                    data = data ;
+                }
+                return data;
+                }
+            },
+            { "data": "Identity",
               "render": function(data, type, row, meta){
                 if(type === 'display'){
                     data = data ;
@@ -295,7 +352,18 @@ $(document).ready(function() {
                     }
                     return data;
                     } 
-            },    
+            },
+            // show SNP if Present after 5th pipe child 
+              { "data" : "child_snp", 
+             "render": function(data, type, row, meta){
+                     if(data === 'undefined'||data ==null ){
+                        return "hi";    
+                    }
+                    if(type === 'display'){
+                        data =  data ;
+                    }
+                    return data;
+                    } ,"visible": false   },    
             { "data" : "ComplexFile", 
              "render": function(data, type, row, meta){
                      if(data === 'undefined'||data ==null ){
@@ -367,6 +435,7 @@ if (file_exists($dirfilep)){
             <tr>
                <th></th>
                 <th>Identity ID</th>
+                <th>User ID</th>
                 <th>Identity</th>
                 <th>Similarity</th>
                 <th>E_Value</th>
@@ -374,6 +443,7 @@ if (file_exists($dirfilep)){
                 <th>Organism</th>
                 <th>Protein_Name</th>
                 <th>Protein ID</th>
+                <th>Snp</th>
                 <th>More information</th>
             </tr>
         </thead>

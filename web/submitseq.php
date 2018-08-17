@@ -27,10 +27,9 @@ $file1name=$seq=$email=$method="";
 $seq = !empty($_POST['seq']) ? $_POST['seq'] : ''; //echo "**$seqx* $ran<br>";
 $seq = str_replace("\r", "", $seq);
 //process input. get ride of empty space and end line char start from second line till last. 
-//add 
+
 preg_match("/^>.*\n/",$seq,$match1);
 preg_match("/(?ms)(?!\A)^\S.*/",$seq,$match2);
-
 
 // check if the sequence context is empty
 if(trim($match2[0])==''||!preg_match("/^>.*\n/",$seq)){
@@ -49,10 +48,14 @@ $seq=$match1[0].$part2;
 // var_dump($seq);
 
 // Declearing db and sequence
-$rt_ck = check_seq_input($seq);
+$rt_ck = check_seq_input($seq, $match2);
 $seq =  $rt_ck[1]; 
 $db = $rt_ck[2];
-     
+
+//var_dump($rt_ck);
+// die;
+
+// $db= is_protein($match2);
 #Determine the sequece type in $seq and based on than assigned $db value
 // $db = !empty($_POST['db']) ? $_POST['db'] : ''; #echo "**$db OO**<br>";
 $method = !empty($_POST['method']) ? $_POST['method'] : ''; #echo "**$option OO**<br>";
@@ -109,18 +112,20 @@ if($seq == ""){ echo "<h2 align='center'><b><i>Please input a protein sequence i
 */
 #	if($method == "RUN BLAST against the AMRdb custome database"){ 
 		if($db == "pr") {
-		shell_exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p peptides_id.fasta");
-		#print"/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran";
+		$details=$op="";
+		$command="/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p";
+		$details=exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p & echo $!",$op);
+		#print_r($op);
+		//echo "/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p ";
 #	shell_exec("/local/ifs2_projdata/8500/projects/CDC/server/amr_db_python_env/bin/python /usr/local/projdata/8500/projects/CDC/server/AMR-Finder/scripts/amr-finder/amr-finder.py -i $dir/input_user.fasta -p -c 40 -b blastp -db /usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/dbs/amr_dbs/amrdb_peptides_id.fasta --alignments -o $dir/outx > /dev/null &");
-#	print "python /usr/local/projdata/8500/projects/CDC/server/AMR-Finder/scripts/amr-finder/amr-finder.py -i $dir/input_user.fasta -p -c 40 -b blastp -db /usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/dbs/amr_dbs/amrdb_peptides_id.fasta --alignments -o $dir/outx";
 		}
 		if($db == "nu") {
-                shell_exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran n nucleotides_id.fasta");
-		#shell_exec("python /usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/scripts/amr-finder/amr-finder.py -i $dir/input_user.fasta  -n -c 40 -t 8 -b blastn -db /usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/dbs/amr_dbs/amrdb_nucleotides_id.fasta --alignments  -o $dir/outx");
+                shell_exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran n &");
+		//echo "/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran n ";
 		}
 	echo '<img src="images/wait.gif"  class="center" alt="Please Wait"><br>';	
 	echo "<h2 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes.</h2> "; echo "<h2 align='center'> OR <br>"; echo "Visit the following link <br><a href='http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran'>http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran </a> </h2>";
-	echo "<meta  http-equiv='refresh' content='10;url=blastoutput.php?ran=$ran' />";		
+	echo "<meta  http-equiv='refresh' content='3;url=blastoutput.php?ran=$ran' />";		
 #	sleep(10);
 #	echo "<pre>";	include ("$dir/output.html"); echo "</pre>";
 #	}
@@ -147,40 +152,48 @@ if($seq == ""){ echo "<h2 align='center'><b><i>Please input a protein sequence i
 	/*This function will convert the input file into fasta if it is not one.
 		Return an Arrary [0]: sequence 
 		 				 [1] is the database that associate with either Nucleotide sequence or Protein sequence => nu or pr  */
-	function check_seq_input($sep_input){
+	function check_seq_input($sep_input,$sq){
 		// echo $sep_input;
 		$rt[]="";
 		// check if it is fasta file if not convert it into fasta file
 		if(preg_match("/^>[a-zA-z\s]*[\r\n]+/",$sep_input)){
 			// echo" It is a Fasta File<br>";
-			if(is_protein($sep_input)){
-				$rt[]=$sep_input;
-				$rt[]="pr";
+			// if(is_protein($sq)){
+			// 	$rt[]=$sep_input;
+			// 	$rt[]="pr";
 				
-			}else{
-				$rt[]=$sep_input;
-				$rt[]="nu";
-			}
+			// }else{
+			// 	$rt[]=$sep_input;
+			// 	$rt[]="nu";
+			// }
+			$rt[]=$sep_input;
+				$rt[]=is_protein($sq);
 		}else{
 			// echo "It is not a fasta file.<br> Converting...<br>";
 			#$temp =">Test Sequence\n";
 			$sep_input=$temp.$sep_input;
 			// echo $sep_input;
-			if(is_protein($sep_input)){
-				$rt[]=$sep_input;
-				$rt[]="pr";
-			}else{
-				$rt[]=$sep_input;
-				$rt[]="nu";
-			}
+		$rt[]=$sep_input;
+				$rt[]=is_protein($sq);
 		}
+		// var_dump($rt[2]);
+		// die();
 		return $rt;
 	}
 	/*This function will determind if a sequence is a protein or not 
 	  Return 1 if it is a protein sequence 
 	  Return 0 if it is not a Protein sequence */
 	function is_protein($sq){
-		return preg_match("/^>[a-zA-z\s]*[\r\n]+M/", $sq);		
+		// var_dump((count( array_unique(str_split($sq[0])))));
+		// die;
+		// preg_match("/^.*\r?\n(.*)/", $sq, $temp_seq);
+		if(count( array_unique( str_split($sq[0])))==4){
+			return 'nu';			
+		}else{
+			return 'pr';
+		}
+		// die();
+		// return preg_match("/^>[a-zA-z\s]*[\r\n]+M/", $sq);		
 	}
 ?> 
 </div>

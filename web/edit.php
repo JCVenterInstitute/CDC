@@ -703,8 +703,43 @@ HAHA;
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
-                                            <label for="meta" class="control-label">Specimen Collection Date</label>
+
+                                            <?php
+                                                // format output
+                                              $day="";
+                                                $mon="";
+                                                $yea="";
+                                            $data_string = explode('-', $meta[6]);
+                                            if(count($data_string)==1){
+                                                $day="";
+                                                $mon="";
+                                                $yea=$data_string[0];
+                                            }
+                                            if(count($data_string)==2){
+                                                $day="";
+                                                $mon="";
+                                                $yea=$data_string[0];
+                                            }
+                                            if(count($data_string)==3){
+                                                $day=$data_string[0];
+                                                $mon=$data_string[1];
+                                                $yea=$data_string[2];
+                                            }
+
+                                            ?>
+
+                                            <label for="meta" class="control-label">Specimen Collection Date (DD-MON-YYYY)</label>
                                                 <input type="text" class="form-control" name = "specimen_collection_date"  placeholder="e.g. 01/01/2015" value="<?echo $meta[6];?>">
+
+                                                    <br><input type="text" class="" name = "specimen_collection_date_DD" style="width: 2em;" id="specimen_collection_date_DD"  placeholder="DD" onkeyup="validate_date('specimen_collection_date_DD')" value="<?echo $day?>">
+                                                -&nbsp;<input type="text" class="" name = "specimen_collection_date_MON" style="width: 2em;" id="specimen_collection_date_MON"  placeholder="MON"onkeyup="validate_date('specimen_collection_date_MON')" value="<?echo $mon?>">
+                                                -&nbsp;<input type="text" class="" name = "specimen_collection_date_YY" style="width: 4em;" id="specimen_collection_date_YY"  placeholder="YYYY" onkeyup="validate_date('specimen_collection_date_YY')" value="<?echo $yea?>" required>
+
+
+
+
+                                                 <br>
+                                                 <label for="meta" class="control-label" id="date_valid_label"style="color:#ccc"></label>
                                         </div>
                                     </div>
 
@@ -1068,6 +1103,55 @@ HAHA;
 
 
 </SCRIPT>
+<!-- data entry  -->
+<script type="text/javascript">
+
+   function validate_date(f_name){
+    // console.log("called ME ");
+     let valid_date=document.getElementById("date_valid_label");
+    if(f_name=="specimen_collection_date_YY"){
+
+        let regex = /(\d){4}$/gm;
+        let match =document.getElementById(f_name).value.match(regex);
+          if(!match){
+            valid_date.style="color:red";
+           valid_date.innerHTML="Wrong format detected Correct format: DD-MON-YYYY HH:MM:SS    note: e.g. MON:Jan ";
+          }
+          if(match&&match[0].length==4){
+            valid_date.style="color:#ccc";
+           valid_date.innerHTML="Valid";
+          }
+
+    }else if(f_name=="specimen_collection_date_MON"){
+
+        let regex = /^[A-Z][a-z]{2}$/gm;
+        let match =document.getElementById(f_name).value.match(regex);
+          if(!match){
+            valid_date.style="color:red";
+           valid_date.innerHTML="Wrong format detected Correct format: DD-MON-YYYY HH:MM:SS    note: e.g. MON:Jan ";
+          }
+          if(match&&match[0].length==3){
+            valid_date.style="color:#ccc";
+           valid_date.innerHTML="Valid";
+          }
+
+    }else{
+        let regex = /^(\d){2}$/gm;
+        let match =document.getElementById(f_name).value.match(regex);
+          if(!match){
+            valid_date.style="color:red";
+           valid_date.innerHTML="Wrong format detected Correct format: DD-MON-YYYY HH:MM:SS    note: e.g. MON:Jan ";
+          }
+          if(match&&match[0].length==2){
+            valid_date.style="color:#ccc";
+           valid_date.innerHTML="Valid";
+          }
+    }
+
+}
+
+
+</script>
 
 <?php  include 'includes/footerx.php';?>
     

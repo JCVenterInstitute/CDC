@@ -373,7 +373,19 @@ tr.shown td.details-control {
 						$returnVal[]=$_POST['isolation_site'] ;
 						$returnVal[]=$_POST['serotyping_method'];//Serotyping_method 
 						$returnVal[]=$_POST['source_common_name'];//Source_common_name
-						$returnVal[]=$_POST['specimen_collection_date'];
+
+							$date_string=""; 
+
+						if(isset($_POST['specimen_collection_date_DD']) &&(!trim($_POST['specimen_collection_date_DD'])=="")){
+							$date_string.=$_POST['specimen_collection_date_DD']."-";
+						}
+						if(isset($_POST['specimen_collection_date_MON'])&&(!trim($_POST['specimen_collection_date_MON'])=="")){
+							$date_string.=$_POST['specimen_collection_date_MON']."-";
+						}
+						$date_string.=$_POST["specimen_collection_date_YY"];
+						
+						$returnVal[]=$date_string;
+						
 						$returnVal[]=$_POST['specimen_location_country'];
 						$returnVal[]=$_POST['specimen_location'];// specimen location
 						$returnVal[]=$_POST['specimen_location_lattitude'];

@@ -85,7 +85,7 @@ if(!isset($_POST["submit"])){
 
           <?php echo "<form name='myForm' id='myForm' action='{$_SERVER[PHP_SELF]}' onsubmit='return validateForm()' method=post > ";?>
 
-            <h1>Dynamic Form Fields Creation Plugin</h1>
+            <h1>Advance Search</h1>
             <TABLE class ="table table-striped" ID="tblPets" border="1">
                  <thead class="thead-dark">
                 <TR><TH scope="col">Field Name</TH><TH scope="col" WIDTH="70">Operator</TH><TH scope="col" WIDTH="230">Values</TH><TH scope="col" WIDTH="80">And / Or </TH scope="col"><TH ALIGN="center"><INPUT TYPE="Button" class="red_button"onClick="addRow('tblPets')" VALUE="+ Add"></TH></TR> </thead>

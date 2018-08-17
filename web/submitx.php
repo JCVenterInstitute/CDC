@@ -178,13 +178,13 @@ include 'includes/config.inc.php';
 									  <div class="col-sm-10 col-sm-offset-1">		                                
 		                                <div class="form-group">
 		                                    <label for="bioproject_id" class="control-label">BioSample</label>
-		                                        <input type="text" class="form-control" name = "biosample" id="" placeholder="e.g. GeneBank" value="">
+		                                        <input type="text" class="form-control" name = "biosample"  placeholder="e.g. GeneBank" value="">
 										</div>
 									</div>
 									  <div class="col-sm-10 col-sm-offset-1">		                                
 		                                <div class="form-group">
 		                                    <label for="bioproject_id" class="control-label">BioSample ID </label>
-		                                        <input type="text" class="form-control" name = "biosample_ID" id="" placeholder="e.g. 12345" value="">
+		                                        <input type="text" class="form-control" name = "biosample_ID"  placeholder="e.g. 12345" value="">
 										</div>
 									</div>
 									 <div class="col-sm-10 col-sm-offset-1">                                     
@@ -194,8 +194,6 @@ include 'includes/config.inc.php';
                                          Non curated <br><input type="radio" name="Stat" id='curated' value="Curated"> Curated</label>
                                         </div>
                                     </div>
-
-									
                               </div>
                             </div>
 
@@ -293,8 +291,15 @@ include 'includes/config.inc.php';
 
 									<div class="col-sm-10 col-sm-offset-1">		                            
 		                                <div class="form-group">
-		                                    <label for="meta" class="control-label">Specimen Collection Date</label>
-		                                        <input type="text" class="form-control" name = "specimen_collection_date"  placeholder="e.g. 2015" value="">
+		                                    <label for="meta" class="control-label">Specimen Collection Date (DD-MON-YYYY)</label>
+		                                        <br><input type="text" class="" name = "specimen_collection_date_DD" style="width: 2em;" id="specimen_collection_date_DD"  placeholder="DD" onkeyup="validate_date('specimen_collection_date_DD')" value="">
+		                                        -&nbsp;<input type="text" class="" name = "specimen_collection_date_MON" style="width: 3em;" id="specimen_collection_date_MON"  placeholder="MON"onkeyup="validate_date('specimen_collection_date_MON')" value="">
+		                                        -&nbsp;<input type="text" class="" name = "specimen_collection_date_YY" style="width: 4em;" id="specimen_collection_date_YY"  placeholder="YYYY" onkeyup="validate_date('specimen_collection_date_YY')" value="" required>
+		                                      <!--   &nbsp; <input type="text" class="" name = "specimen_collection_date_HH" style="width: 2em;" id="specimen_collection_date_HH"  placeholder="HH" onkeyup="validate_date('specimen_collection_date_HH')" value="">&nbsp;:
+		                                        <input type="text" class="" name = "specimen_collection_date_MM" style="width: 2em;" id="specimen_collection_date_MM"  placeholder="MM" onkeyup="validate_date('specimen_collection_date_MM')" value="">&nbsp;:
+		                                        <input type="text" class="" name = "specimen_collection_date_SS" style="width: 2em;" id="specimen_collection_date_SS"  placeholder="SS" onkeyup="validate_date('specimen_collection_date_SS')" value=""> -->
+		                                        <br>
+		                                         <label for="meta" class="control-label" id="date_valid_label"style="color:#ccc"></label>
 		                                </div>
 									</div>
 
@@ -853,9 +858,51 @@ include 'includes/config.inc.php';
 	}
 	
   }
-
-
 </SCRIPT>
+<script type="text/javascript">
+
+   function validate_date(f_name){
+   	// console.log("called ME ");
+	 let valid_date=document.getElementById("date_valid_label");
+	if(f_name=="specimen_collection_date_YY"){
+		let regex = /(\d){4}$/gm;
+		let match =document.getElementById(f_name).value.match(regex);
+		  if(!match){
+		  	valid_date.style="color:red";
+		   valid_date.innerHTML="Wrong format detected Correct format: DD-MON-YYYY HH:MM:SS    note: e.g. MON:Jan ";
+		  }
+		  if(match&&match[0].length==4){
+		  	valid_date.style="color:#ccc";
+		   valid_date.innerHTML="Valid";
+		  }
+	}else if(f_name=="specimen_collection_date_MON"){
+		let regex = /^[A-Z][a-z]{2}$/gm;
+		let match =document.getElementById(f_name).value.match(regex);
+		  if(!match){
+		  	valid_date.style="color:red";
+		   valid_date.innerHTML="Wrong format detected Correct format: DD-MON-YYYY HH:MM:SS    note: e.g. MON:Jan ";
+		  }
+		  if(match&&match[0].length==3){
+		  	valid_date.style="color:#ccc";
+		   valid_date.innerHTML="Valid";
+		  }
+	}else{
+		let regex = /^(\d){2}$/gm;
+		let match =document.getElementById(f_name).value.match(regex);
+		  if(!match){
+		  	valid_date.style="color:red";
+		   valid_date.innerHTML="Wrong format detected Correct format: DD-MON-YYYY HH:MM:SS    note: e.g. MON:Jan ";
+		  }
+		  if(match&&match[0].length==2){
+		  	valid_date.style="color:#ccc";
+		   valid_date.innerHTML="Valid";
+		  }
+	}
+
+}
+
+
+</script>
                     </form>
 			</div>
 		</div>
