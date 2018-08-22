@@ -123,7 +123,7 @@ $(document).ready(function() {
             <div class="main col-md-12">
             <h2 class="title">Primer Browse/Search Module</h2>
             <div class="separator-2"></div>
-                <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Users can search the entire AMRdb using the main search bar, or each main data type can be searched individually using its respective search. Additionally, each data type is sortable. <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug class, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli AND that belong to the beta-lactam drug class are displayed. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr>
+                <div style="line-height: 150%;"> <p style="text-align:justify"; >PCR Validator accesses the primers specificity on AMR or target genome. PCR Validator uses open source <a href="https://sourceforge.net/projects/simulatepcr/">Simulate_PCR</a> tools for predicting both desired and off-target amplification products.<br>   For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr>
                   <div id='btn_container'>
                   </div>
                 <a style="float: right;" href="search_qb.php" target="_blank" >Advance Search</a><br>

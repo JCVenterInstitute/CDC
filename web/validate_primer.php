@@ -10,9 +10,7 @@
             <div class="main col-md-12">
 			<h2 class="title">Primary Finder</h2>
 		    <div class="separator-2"></div>
- 				<div style="line-height: 150%;"> <p style="text-align:justify"; > Description:----------------------------------------------
- 				-------------------------------------
- 				--------------------------- For more information see AMRdb <a href="help.php#location">help page</a></p><hr></hr>
+ 				<div style="line-height: 150%;"> <p style="text-align:justify"; > PCR Validator accesses the primers specificity on AMR or target genome. PCR Validator uses open source <a href="https://sourceforge.net/projects/simulatepcr/">Simulate_PCR</a> tools for predicting both desired and off-target amplification products.<br>  For more information see AMRdb <a href="help.php#location">help page</a></p><hr></hr>
 				</div>
 				<div class="main col-md-12">
 					<form name="example" action="validate_primer_que.php" method="POST" enctype="multipart/form-data" onSubmit="return validateForm()">

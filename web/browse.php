@@ -1,5 +1,7 @@
 <?php include 'includes/header.php'; 
 
+// $haha = curl_init();
+//phpinfo();
 include_once 'export_txtfile.php';
 date_default_timezone_set('America/chicago');
 /* This script generate a datatable based on the 
@@ -72,43 +74,28 @@ $(document).ready(function() {
         "ajax":function(data,callback, setting){
              $.ajax( {
                  "url": "http://cdc-1.jcvi.org:8983/solr/my_core_exp/select",
-                 "type":"GET",
+                 "type":"POST",
                  "data": $.extend( {}, data, {'wt':'json', 'q':'id :'+escapeRegExp(data.search.value)+
-                                                            // ' Or AA_Sequence:'+escapeRegExp(data.search.value)+
                                                             ' Or Allele:'+escapeRegExp(data.search.value)+
                                                             ' Or Antibiotic:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Assemly_ID:'+escapeRegExp(data.search.value)+
                                                             ' Or BioProject_ID:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Classification_ID:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Created_By:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Created_Date:'+escapeRegExp(data.search.value)+
                                                             ' Or Drug_Class:'+escapeRegExp(data.search.value)+
                                                             ' Or Drug_Family:'+escapeRegExp(data.search.value)+
                                                             ' Or Drug_Name:'+escapeRegExp(data.search.value)+
                                                             ' Or Drug_Sub_Class:'+escapeRegExp(data.search.value)+
                                                             ' Or Drug_Symbol:'+escapeRegExp(data.search.value)+
                                                             ' Or EC_Number:'+escapeRegExp(data.search.value)+
-                                                            // ' Or End3:'+escapeRegExp(data.search.value)+
-                                                            // ' Or End5:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Feat_Type:'+escapeRegExp(data.search.value)+
                                                             ' Or Gene_Symbol:'+escapeRegExp(data.search.value)+
                                                             ' Or Health_Status:'+escapeRegExp(data.search.value)+
                                                             ' Or Host:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Ident_ID:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Identity_ID:'+escapeRegExp(data.search.value)+
                                                             ' Or Identity_Sequence_ID:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Is_Active:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Is_Reference:'+escapeRegExp(data.search.value)+
                                                             ' Or Isolation_site:'+escapeRegExp(data.search.value)+
                                                             ' Or Laboratory_Typing_Method:'+escapeRegExp(data.search.value)+
                                                             ' Or Laboratory_Typing_Platform:'+escapeRegExp(data.search.value)+
                                                             ' Or Measurement:'+escapeRegExp(data.search.value)+
                                                             ' Or Measurement_Sign:'+escapeRegExp(data.search.value)+
                                                             ' Or Measurement_Units:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Modified_By:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Modified_Date:'+escapeRegExp(data.search.value)+
                                                             ' Or Mol_Type:'+escapeRegExp(data.search.value)+
-                                                            // ' Or NA_Sequence:'+escapeRegExp(data.search.value)+
                                                             ' Or Parent_Allele:'+escapeRegExp(data.search.value)+
                                                             ' Or Parent_Allele_Family:'+escapeRegExp(data.search.value)+
                                                             ' Or Plasmid_Name:'+escapeRegExp(data.search.value)+
@@ -118,11 +105,9 @@ $(document).ready(function() {
                                                             ' Or Pubmed_IDs:'+escapeRegExp(data.search.value)+
                                                             ' Or Resistance_Phenotype:'+escapeRegExp(data.search.value)+
                                                             ' Or SNP:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Sample_Metadata_ID:'+escapeRegExp(data.search.value)+
                                                             ' Or Serotyping_Method:'+escapeRegExp(data.search.value)+
                                                             ' Or Source:'+escapeRegExp(data.search.value)+
                                                             ' Or Source_Common_Name:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Source_ID:'+escapeRegExp(data.search.value)+
                                                             ' Or Specimen_Collection_Date:'+escapeRegExp(data.search.value)+
                                                             ' Or Specimen_Collection_Location:'+escapeRegExp(data.search.value)+
                                                             ' Or Specimen_Collection_Location_Country:'+escapeRegExp(data.search.value)+
@@ -148,7 +133,6 @@ $(document).ready(function() {
                                                             ' Or Taxon_Species:'+escapeRegExp(data.search.value)+
                                                             ' Or Taxon_Strain:'+escapeRegExp(data.search.value)+
                                                             ' Or Taxon_Sub_Species:'+escapeRegExp(data.search.value)+
-                                                            // ' Or Taxonomy_ID:'+escapeRegExp(data.search.value)+
                                                             ' Or Testing_Standard:'+escapeRegExp(data.search.value)+
                                                             ' Or Treatment:'+escapeRegExp(data.search.value)+
                                                             ' Or Vendor:'+escapeRegExp(data.search.value) 
@@ -180,7 +164,7 @@ $(document).ready(function() {
 
                                 s.setAttribute('type',"submit");
                                 s.setAttribute('name',"mySubmit");
-                                s.setAttribute('value',"Submit");
+                                s.setAttribute('value',"Export");
                                 s.id='mySubmit';
                                 s.style="float: right";
                                 f.appendChild(i);
