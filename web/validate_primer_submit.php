@@ -18,7 +18,7 @@ $ran = $_GET['ran'];
 $file_path= "tmp/$ran";
 $dirfilep = "tmp/$ran/out/data.json";
 
-// var_dump($dirfilep);
+ //var_dump($dirfilep);
 // if get is empty or the file is not present then do not show data table.
 if(file_exists($dirfilep)){
 $ran = $_GET['ran'];
@@ -36,15 +36,18 @@ $ran = $_GET['ran'];
 <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
+                <th>Identity_ID</th>
                 <th>amplicon_len</th>
                 <th>HitName</th>
                 <th>FP_ID</th>
-                <th>FP_seq</th>
+                <th>FP_mismatches</th>
                 <th>RP_ID</th>
-                <th>RP_seq</th>
+                <th>RP_mismatches</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>SubjectFullLength</th>
             </tr>
         </thead>  
-   
     </table>
             </div>
         </div>
@@ -104,7 +107,16 @@ $(document).ready(function() {
         // data: dataset,
 
         "columns": [
-
+            { "data": "Identity_ID",
+            "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = '<a href=singlex.php?id=' + data + ' target=_blank>' + data + '</a>';
+                    } 
+                        return data;
+                }  },            
             { "data": "amplicon_len",
             "render": function(data, type, row, meta){
                   if(data === 'undefined'||data ==null ){
@@ -135,7 +147,7 @@ $(document).ready(function() {
                     } 
                         return data;
                 }  },
-            { "data": "FP_seq",
+            { "data": "FP_mismatches",
             "render": function(data, type, row, meta){
                   if(data === 'undefined'||data ==null ){
                         return "";    
@@ -155,7 +167,7 @@ $(document).ready(function() {
                     } 
                         return data;
                 }  },
-        { "data": "RP_seq",
+            { "data": "RP_mismatches",
             "render": function(data, type, row, meta){
                   if(data === 'undefined'||data ==null ){
                         return "";    
@@ -164,7 +176,37 @@ $(document).ready(function() {
                         data = data;
                     } 
                         return data;
-                }  }     
+                }  },
+        { "data": "Start",
+            "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                }  },
+        { "data": "End",
+            "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                }  },
+        { "data": "SubjectFullLength",
+            "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                }  }                                                 
         ]
         // "order": [[ 0, 'desc' ], [ 1, 'desc' ]] 
     } );

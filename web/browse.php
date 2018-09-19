@@ -1,6 +1,7 @@
 <?php include 'includes/header.php'; 
 
 // $haha = curl_init();
+
 //phpinfo();
 include_once 'export_txtfile.php';
 date_default_timezone_set('America/chicago');
@@ -11,7 +12,6 @@ date_default_timezone_set('America/chicago');
 <!-- self reference to get the data   -->
 <?php
 
-// var_dump($_POST['search_query']);
 
   if($_POST['mySubmit']){
       // $link_path=export_files_main($_POST['search_query']);
@@ -39,20 +39,58 @@ HAHA;
 // Load this page with the table data.
 // scripts/data.json
 $(document).ready(function() {
+  function escapeRegExp_helper(str){
+    let regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+      if(str.trim()==''){
+        // console.log('s');
+        return;
+      }
+      if(!regex.test(str)){
+         // console.log('here');
+        return '*'+str+'*';
+      }
+      return '"*'+str+'*"';
+  }
   var btn_count = 0;
   // 
   function escapeRegExp(str) {
-  let regex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
-    if(str.trim()==''){
-     return  '*';
+
+    // check if primer is passed in if not do n
+    let primer = <?php  if (isset($_GET['primer'])){
+                                    echo json_encode($_GET['primer'], JSON_HEX_TAG);
+                                }else{
+                                    echo json_encode('', JSON_HEX_TAG);
+                                };?>;
+
+    if(str.trim()==""&&primer.trim()==''){
+      return "*";
     }
-    if(!regex.test(str)){
-        return '*'+str+'*';
+    if(str.trim()==""&&primer.trim()!=''){
+        return '*'+primer.trim()+'*';
     }
-    return '"*'+str+'*"';
+    // check if primer is present if not primer should be empty. 
+    if (primer.trim()!=''){
+        primer= ' AND '+ primer;
+    }
+    
+    // split str by space then format it as => (+A+B+C) where A,B,C are each words splited by space
+    let regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+
+
+    console.log(str);
+    let new_st=str.split(' ');
+   
+    const final_st = new_st.map(x=> escapeRegExp_helper(x));
+// console.log('(+'+final_st.join('+')+')');
+    
+    rt_string = '(+ '+final_st.join(' AND ')+primer+')';
+
+    console.log(rt_string);
+  return rt_string;
 
   // return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|\&|\!|\"|\~|\:|\']/g, "\\$&");
 }
+
     var table = $('#example').DataTable({
         
 
@@ -61,7 +99,7 @@ $(document).ready(function() {
         "serverSide":    true, 
         // "bLengthChange": false, // disable page entities
         // "searching":     false,       // disable search
-        "stateSave":     true,// when refresh stay on the same page 
+        // "stateSave":     true,// when refresh stay on the same page 
 
         // "ajax": 'ztest.txt',// work with local file 
         // "displayLength" : 0,
@@ -75,67 +113,67 @@ $(document).ready(function() {
              $.ajax( {
                  "url": "http://cdc-1.jcvi.org:8983/solr/my_core_exp/select",
                  "type":"POST",
-                 "data": $.extend( {}, data, {'wt':'json', 'q':'id :'+escapeRegExp(data.search.value)+
-                                                            ' Or Allele:'+escapeRegExp(data.search.value)+
-                                                            ' Or Antibiotic:'+escapeRegExp(data.search.value)+
-                                                            ' Or BioProject_ID:'+escapeRegExp(data.search.value)+
-                                                            ' Or Drug_Class:'+escapeRegExp(data.search.value)+
-                                                            ' Or Drug_Family:'+escapeRegExp(data.search.value)+
-                                                            ' Or Drug_Name:'+escapeRegExp(data.search.value)+
-                                                            ' Or Drug_Sub_Class:'+escapeRegExp(data.search.value)+
-                                                            ' Or Drug_Symbol:'+escapeRegExp(data.search.value)+
-                                                            ' Or EC_Number:'+escapeRegExp(data.search.value)+
-                                                            ' Or Gene_Symbol:'+escapeRegExp(data.search.value)+
-                                                            ' Or Health_Status:'+escapeRegExp(data.search.value)+
-                                                            ' Or Host:'+escapeRegExp(data.search.value)+
-                                                            ' Or Identity_Sequence_ID:'+escapeRegExp(data.search.value)+
-                                                            ' Or Isolation_site:'+escapeRegExp(data.search.value)+
-                                                            ' Or Laboratory_Typing_Method:'+escapeRegExp(data.search.value)+
-                                                            ' Or Laboratory_Typing_Platform:'+escapeRegExp(data.search.value)+
-                                                            ' Or Measurement:'+escapeRegExp(data.search.value)+
-                                                            ' Or Measurement_Sign:'+escapeRegExp(data.search.value)+
-                                                            ' Or Measurement_Units:'+escapeRegExp(data.search.value)+
-                                                            ' Or Mol_Type:'+escapeRegExp(data.search.value)+
-                                                            ' Or Parent_Allele:'+escapeRegExp(data.search.value)+
-                                                            ' Or Parent_Allele_Family:'+escapeRegExp(data.search.value)+
-                                                            ' Or Plasmid_Name:'+escapeRegExp(data.search.value)+
-                                                            ' Or Protein_ID:'+escapeRegExp(data.search.value)+
-                                                            ' Or Protein_Name:'+escapeRegExp(data.search.value)+
-                                                            ' Or PubMed_IDs:'+escapeRegExp(data.search.value)+
-                                                            ' Or Pubmed_IDs:'+escapeRegExp(data.search.value)+
-                                                            ' Or Resistance_Phenotype:'+escapeRegExp(data.search.value)+
-                                                            ' Or SNP:'+escapeRegExp(data.search.value)+
-                                                            ' Or Serotyping_Method:'+escapeRegExp(data.search.value)+
-                                                            ' Or Source:'+escapeRegExp(data.search.value)+
-                                                            ' Or Source_Common_Name:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Collection_Date:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Collection_Location:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Collection_Location_Country:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Collection_Location_Latitude:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Collection_Location_Longitude:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Source_Age:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Source_Developmental_Stage:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Source_Disease:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Source_Gender:'+escapeRegExp(data.search.value)+
-                                                            ' Or Specimen_Type:'+escapeRegExp(data.search.value)+
-                                                            ' Or Status:'+escapeRegExp(data.search.value)+
-                                                            ' Or Symptom:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Bacterial_BioVar:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Class:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Family:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Genus:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_ID:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Kingdom:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Order:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Pathovar:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Phylum:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Serotype:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Species:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Strain:'+escapeRegExp(data.search.value)+
-                                                            ' Or Taxon_Sub_Species:'+escapeRegExp(data.search.value)+
-                                                            ' Or Testing_Standard:'+escapeRegExp(data.search.value)+
-                                                            ' Or Treatment:'+escapeRegExp(data.search.value)+
-                                                            ' Or Vendor:'+escapeRegExp(data.search.value) 
+                 "data": $.extend( {}, data, {'wt':'json', 'q':'all_fields:'+escapeRegExp(data.search.value) + " AND Is_Active:1"
+                 //                                            ' Or Allele:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Antibiotic:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or BioProject_ID:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Drug_Class:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Drug_Family:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Drug_Name:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Drug_Sub_Class:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Drug_Symbol:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or EC_Number:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Gene_Symbol:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Health_Status:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Host:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Identity_Sequence_ID:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Isolation_site:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Laboratory_Typing_Method:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Laboratory_Typing_Platform:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Measurement:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Measurement_Sign:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Measurement_Units:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Mol_Type:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Parent_Allele:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Parent_Allele_Family:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Plasmid_Name:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Protein_ID:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Protein_Name:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or PubMed_IDs:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Pubmed_IDs:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Resistance_Phenotype:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or SNP:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Serotyping_Method:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Source:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Source_Common_Name:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Date:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location_Country:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location_Latitude:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location_Longitude:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Age:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Developmental_Stage:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Disease:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Gender:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Type:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Status:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Symptom:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Bacterial_BioVar:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Class:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Family:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Genus:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_ID:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Kingdom:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Order:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Pathovar:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Phylum:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Serotype:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Species:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Strain:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Sub_Species:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Testing_Standard:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Treatment:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Vendor:'+escapeRegExp(data.search.value) 
                                                           ,'sort':(data.columns[data.order[0].column].data==null? 'id asc' : data.columns[data.order[0].column].data+' '+data.order[0].dir) //if order is null use id asc order
                                                           ,'rows':data.length}),
                  "dataType": "jsonp",
@@ -147,7 +185,7 @@ $(document).ready(function() {
                      data: json.response.docs
                    };        
                    callback(o);
-
+                   // console.log(escapeRegExp(data.search.value).trim()=="(+ )");
                     // create export button. 
                       if(btn_count==0){
                        let expt_btn = document.getElementById('btn_container');
@@ -178,14 +216,13 @@ $(document).ready(function() {
                  }
                } );
         },
-
         "columns": [
-            {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
+            // {
+            //     "className":      'details-control',
+            //     "orderable":      false,
+            //     "data":           null,
+            //     "defaultContent": ''
+            // },
             { "data": "id",
               "render": function(data, type, row, meta){
                 if(type === 'display'){
@@ -205,6 +242,39 @@ $(document).ready(function() {
                         return data;
                 } 
             },
+            { "data": "Allele" ,
+              "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                } 
+            },
+            { "data": "Protein_Name",
+              "render": function(data, type, row, meta){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                    } 
+            },            
+            { "data": "Protein_ID",
+              "render": function(data, type, row, meta){
+                     if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = '<a href=https://www.ncbi.nlm.nih.gov/protein/' + data + ' target=_blank>' + data + '</a>';
+                    }
+                    return data;
+                    } 
+            },            
             { "data": "Drug_Family",
               "render": function(data, type, row, meta){
                      if(data === 'undefined'||data ==null ){
@@ -223,29 +293,8 @@ $(document).ready(function() {
                         return "";    
                     }
                         return full.Taxon_Genus+ "  "+ full.Taxon_Species;
-                     }},
-            { "data": "Protein_Name",
-              "render": function(data, type, row, meta){
-                    if(data === 'undefined'||data ==null ){
-                        return "";    
-                    }
-                    if(type === 'display'){
-                        data = data;
-                    } 
-                        return data;
-                    } 
-            },
-            { "data": "Protein_ID",
-              "render": function(data, type, row, meta){
-                     if(data === 'undefined'||data ==null ){
-                        return "";    
-                    }
-                    if(type === 'display'){
-                        data = '<a href=https://www.ncbi.nlm.nih.gov/protein/' + data + ' target=_blank>' + data + '</a>';
-                    }
-                    return data;
-                    } 
-            }       
+                     }
+	        }
         ],
         // "order": [[ 0, 'desc' ], [ 1, 'desc' ]] // will not work on serverside fetching
     });
@@ -259,27 +308,27 @@ $(document).ready(function() {
             <div class="main col-md-12">
             <h2 class="title">AMRdb Browse/Search Module</h2>
             <div class="separator-2"></div>
-                <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Users can search the entire AMRdb using the main search bar, or each main data type can be searched individually using its respective search. Additionally, each data type is sortable. <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug class, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli AND that belong to the beta-lactam drug class are displayed. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr></hr>
+                <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Each data type is also sortable.  <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug family, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli AND that belong to the beta-lactam drug family are displayed. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr></hr>
                   
                   <div id='btn_container'>
                   </div>
 
-                <br><br><a style="float: right;" href="search_qb.php" target="_blank" >Advance Search</a><br>
+                <br><br><a style="float: right;" href="search_qb.php" target="_blank" >Advanced Search</a><br>
                 </div>
 <!--  <img src="images/details_open.png" alt="+ sign" style="display:inline;"> -->
 <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
-                <th></th>
+                <!-- <th></th> -->
                 <th>Identity ID</th>
                 <th>Gene Symbol</th>
+                <th>Allele</th>                
+                <th>Protein/Product Name</th>
+                <th>Protein ID</th>
                 <th>Drug Family</th>
                 <th>Organism</th>
-                <th>Protein_Name</th>
-                <th>Protein ID</th>
             </tr>
         </thead>
-   
     </table>
             </div>
         </div>

@@ -1,5 +1,4 @@
 <?php
-
 // this script creats the job
 $dir = $_POST['dir1'];
 $user_file= $_POST['user_file'];
@@ -15,26 +14,24 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
      	 $cmdresponse=shell_exec("python /usr/local/projdata/8500/projects/CDC/server/pcr_validator/pcr_validator.py --database $dir/$user_file --forward_primers $my_file_f --reverse_primers $my_file_r --simulate_PCR /usr/local/projdata/8500/projects/CDC/server/pcr_validator/simulate_PCR.pl --output $output_path/ --email yewang@jcvi.org"); 
     }else{
 	     	// default using AMR DB
-	     $cmdresponse=shell_exec("python /usr/local/projdata/8500/projects/CDC/server/pcr_validator/pcr_validator.py --database /usr/local/projdata/8500/projects/CDC/server/AMR-Finder/dbs/amr_dbs/amrdb_nucleotides.fasta --forward_primers $dir/frd_primer.fasta --reverse_primers $dir/rvs_primer.fasta --simulate_PCR /usr/local/projdata/8500/projects/CDC/server/pcr_validator/simulate_PCR.pl --output $output_path/ --email yewang@jcvi.org"); 
+	     $cmdresponse=shell_exec("python /usr/local/projdata/8500/projects/CDC/server/pcr_validator/pcr_validator.py --database /usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/dbs/amr_dbs/amrdb_nucleotides.fasta --forward_primers $dir/frd_primer.fasta --reverse_primers $dir/rvs_primer.fasta --simulate_PCR /usr/local/projdata/8500/projects/CDC/server/pcr_validator/simulate_PCR.pl --output $output_path/ --email yewang@jcvi.org"); 
 	     
     }
-
     // then take the output file convert it to json data file. 
 	// cut -f1,2,3,4,7,8 Tabular_Output.txt | perl -pi -e "s/\t/,/g" > x
 	// perl ../../../csv2json.pl x > data.json
 // echo $dir;
-    shell_exec("cut -f1,2,3,4,7,8 $dir/out/Tabular_Output.txt | perl -pi -e 's/\t/,/g' > $dir/out/x") ;
-    shell_exec("perl csv2json.pl $dir/out/x > $dir/out/data.json");
+	//shell_exec("cut -f1,2,3,4,7,8 $dir/out/Tabular_Output.txt | perl -pi -e 's/\t/,/g' > $dir/out/x") ;
+	shell_exec("cut -f1 $dir/out/Tabular_Output.txt > $dir/x1");
+	shell_exec("cut -f2 $dir/out/Tabular_Output.txt | cut -d '|' -f3- | perl -pi -e 's/\|\|\|//g' | perl -pi -e 's/\|\|//g' | perl -pi -e 's/\|/ | /g' > $dir/x2");
+	shell_exec("cut -f2 $dir/out/Tabular_Output.txt | cut -d '|' -f2 | perl -pi -e 's/HitName/Identity_ID/g' > $dir/x21");
+	shell_exec("cut -f3,6,7,10,12,13,14 $dir/out/Tabular_Output.txt > $dir/x3");
+	shell_exec("paste $dir/x21 $dir/x1 $dir/x2 $dir/x3 > $dir/x");
+    shell_exec("perl csv2json.pl $dir/x > $dir/out/data.json");
  	// echo ;
-
     // echo 'a';
     // echo back the PID to track
 // echo "";
-
-
-
-
-
 //     function exit_die($messages){
         
 //         echo "<br><br><br><br><h2 align='center'><b><i>".$messages."</i></b></h2><br><br><br><br><br><br><br><br><br><br><br><br>";
@@ -50,9 +47,7 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
 //         }
 //     if (isset($_POST['method'])) {
 //         # code...
-
 //         if(trim($_FILES['forward_seq_fileToUpload']['name'])==''&&trim($_POST['primer_f_seq_txtfield'])==''){
-
 //             exit_die("Please either upload a file or paste paste primary sequence in the textarea box");
 //         }
 //         // check file upload inputs
@@ -62,7 +57,6 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
 //         }
 //         // check if file upload has error
 //         if(trim($_FILES['rev_seq_fileToUpload']['name'])==''&&trim($_POST['primer_r_seq_txtfield'])==''){
-
 //             exit_die("Please either upload a file or paste paste primary sequence in the textarea box");
 //         }
 //         // check file upload inputs
@@ -70,9 +64,7 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
 //         if(!valid_file_upload('rev_seq_fileToUpload')&&trim($_FILES['rev_seq_fileToUpload']['name'])!=''){
 //             exit_die("Please upload correct file format");
 //         }
-
 //         // generate a temp folder consist random numbers to store input and output files 
-
 //         $ran= rand(100, 100000);
 //         $dir = "/usr/local/projdata/8500/projects/CDC/primer_examples/tmp/$ran";
 //         $output_path="/usr/local/projdata/8500/projects/CDC/primer_examples/tmp/$ran/out";
@@ -85,20 +77,14 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
 //     // use a string to check the input type. 
 //     $f_prime_input_file_type =trim($_POST['primer_f_seq_txtfield'])!='' ?'text':'file';
 //     $r_prime_input_file_type =trim($_POST['primer_r_seq_txtfield'])!=''?'text':'file';
-
-
 //     //when forward input is a file point to the file. 
 //     // if not create a local file using input text. then point to the file.
 //     $f_input_path='';
 //     $r_input_path='';
 //     $green_light_to_excute=0;
-
-
 //     // if the user uploaded a file, then move the file to correspond directory. 
 //     // if the user 
-
 //     if($f_prime_input_file_type=='file'){
-
 //         $tmp_name = $_FILES["forward_seq_fileToUpload"]["tmp_name"];
 //         // further validation/sanitation of the filename may be appropriate
 //         $name = basename($_FILES["forward_seq_fileToUpload"]["name"]);
@@ -112,7 +98,6 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
 //         $data =$_POST['primer_f_seq_txtfield'];
 //         fwrite($handle, $data);
 //         $green_light_to_excute++;
-
 //     }   
 //     if($r_prime_input_file_type=='file'){
 //         $tmp_name = $_FILES["rev_seq_fileToUpload"]["tmp_name"];
@@ -126,11 +111,8 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
 //         $data =$_POST['primer_r_seq_txtfield'] ;
 //         fwrite($handle, $data);
 //         $green_light_to_excute++;
-
 //     }
-
 //     // execute cmd to run jobs
-
 //     // if(isset($_POST['reference_genebank'])){
 //     //  if($green_light_to_excute==2){
 //     //   $cmdresponse=shell_exec("python /usr/local/projdata/8500/projects/CDC/server/pcr_validator/pcr_validator.py --genbank_id ".trim($_POST['reference_genebank'])." --forward_primers $my_file_f --reverse_primers $my_file_r --simulate_PCR /usr/local/projdata/8500/projects/CDC/server/pcr_validator/simulate_PCR.pl --output /usr/local/projdata/8500/projects/CDC/primer_examples/tmp/$ran/out/ --email yewang@jcvi.org"); 
@@ -142,9 +124,5 @@ $green_light_to_excute= $_POST['green_light_to_excute'];
 //     //           $cmdresponse=shell_exec("python /usr/local/projdata/8500/projects/CDC/server/pcr_validator/pcr_validator.py --database /usr/local/projdata/8500/projects/CDC/server/AMR-Finder/dbs/amr_dbs/amrdb_nucleotides.fasta --forward_primers $dir/frd_primer.fasta --reverse_primers $dir/rvs_primer.fasta --simulate_PCR /usr/local/projdata/8500/projects/CDC/server/pcr_validator/simulate_PCR.pl --output /usr/local/projdata/8500/projects/CDC/primer_examples/tmp/$ran/out/ --email yewang@jcvi.org"); 
 //     //  }
 //     // }
-
-
 // }
-
-
 ?>

@@ -31,6 +31,7 @@ tr.shown td.details-control {
 	         <div class="main col-md-12">
 			        
 			        <?php
+			        // ADD Check here &&isset($_SESSION['userID'])
 					if(isset($_POST['id_id'])&&isset($_SESSION['userID'])){
 						  echo '<h2 align="center">Data has been submitted into the ARMdb for admin review. <br><br>Once admin approve the data, it will be visible in AMRdb</h2><br><h5 align="center">Thank you for update new information</h5>';
 				       // var_dump($_POST);
@@ -47,22 +48,33 @@ tr.shown td.details-control {
 					Tables: Identity, classification, Identity_Squence, Variants, Assemly, Sample_Metadata, Identity_assembly, Taxonomy
 					*/
 					function update_all_tables($con){
+						//**********
 						// reverser the order
+						//**********
 						update_identity_assembly_table($con);
 						update_assemly_table($con);
+						//**********
 						//delete Antibiogram then add the updated antibiogram 
+						//**********
 						delete_antibiogram_table($con);
 						delete_variant_table($con);
 						delete_class_table($con);
+						// die;
+						//**********
 						// insert and update 
+						//**********
 						insert_antibiogram_table($con);
 						update_metadata_table($con);
 						update_threat_table($con);
 						update_tax_table($con);
 						uodate_identity_sequence_table($con);
+
+
+
+						//**********
 						// update_variant_table($con);
 						// delete variant then classification then reinsert classification and variant with the new record 
-						
+						//*********
 						$classification_table_val=insert_class_table($con);
 						if(isset($_POST['drug'])){
 							for($i=0;$i<count($_POST['drug']);$i++){
@@ -106,25 +118,65 @@ tr.shown td.details-control {
 							return $i;
 					}
 					function variant_table_array($cID){
+
+						// first parse all is active values 
+						
+						// var_dump($_POST['v_active_count']);
+						// first split the varibles then take the first as key and second as value eg 2_5  to 2=>5 2 is classification 2. 5 is the fifth varible 
+						$v_split_ar =explode('_', $_POST['v_active_count']);
+						// var_dump($_POST['v_active_count']);
+						if(isset($v_split_ar[1])){
+							echo "string";
+							$v_active_total=$v_split_ar[1];
+						
+							 for($i=1;$i<=$_POST['c_active_count'];$i++){
+							// 	if(isset($_POST["cIsActive_".$i])){
+							// 		$c_act_arrty[]=$_POST["cIsActive_".$i];
+							// 	}
+								 for ($q=1; $q<=$v_active_total ; $q++) { 
+								 	$a_str="vIsActive_".$i."_$q";
+								 	if(isset($_POST[$a_str])){
+								 		// echo "<br>$a_str<br>";
+								 		$v_active_ar[]=$_POST[$a_str];
+								 	}
+								 }
+							 }
+						}
+
+						 // var_dump($v_active_ar);
+						
 						$temp=0;
 						foreach ($_POST['drug'] as $i => $xx) {
 							// echo "here is : ".$i ;
+							$q=0;
 							foreach ($_POST['snp'][$i+1] as $key => $value) {
 								if($_POST['snp'][$i+1][$key]!=''&&$_POST['v_plasmid'][$i+1][$key]!=''){
-									  // echo $_POST['snp'][$i+1][$key]."<br>".$_POST['v_plasmid'][$i+1][$key]."<br>";
+									// echo $_POST['snp'][$i+1][$key]."<br>".$_POST['v_plasmid'][$i+1][$key]."<br>";
+
 									$vID = geneate_id($GLOBALS['con']);
 									$returnVal[]=$vID;//id
 									$returnVal[]=$_POST['snp'][$i+1][$key];//SNP	
 									$returnVal[]=$_POST['v_plasmid'][$i+1][$key];//PubMed_IDs  Plasmid
 									$returnVal[]=$_POST['id_seq_id'];//id from id_seq table 
 									$returnVal[]=$cID[$temp];//id from classification table
-									$returnVal[]=1;//is_activate
+									$returnVal[]=isset($v_active_ar[$q])?$v_active_ar[$q]:"1";//is_activate
 									$returnVal[]=$_SESSION['userID'];//created_By
 									$returnVal[]=$_SESSION['userID'];//ModifiedBy
+									$txt[]=isset($v_active_ar[$q])?$v_active_ar[$q]:"1";
+									$q++;
+
 								}
 							}
 							$temp++;
 						}
+
+
+ 						// var_dump($txt);
+
+						// die;
+						// var_dump($active_ar);
+
+						// die;
 						if(!isset($returnVal)){
 							return "";
 						}
@@ -188,7 +240,11 @@ tr.shown td.details-control {
 								// echo $t_col[$q]." : ".$class_t[$i]."<br>";
 							}
 							try {
+
 								$sth->execute();
+
+
+
 							} catch (Exception $e) {
 								echo "<br>  <b>Error ->Classification </b> <br> : ".$e;
 								die();
@@ -374,7 +430,7 @@ tr.shown td.details-control {
 						$returnVal[]=$_POST['serotyping_method'];//Serotyping_method 
 						$returnVal[]=$_POST['source_common_name'];//Source_common_name
 
-							$date_string=""; 
+						$date_string=""; 
 
 						if(isset($_POST['specimen_collection_date_DD']) &&(!trim($_POST['specimen_collection_date_DD'])=="")){
 							$date_string.=$_POST['specimen_collection_date_DD']."-";
@@ -433,24 +489,7 @@ tr.shown td.details-control {
 						$returnVal[]=$_POST['tax_id_1'];//ID
 						return $returnVal;
 					} 
-					// function init_variant_table_array(){
-					// 	for($i=0;$i<sizeof($_POST['va_id']);$i++){
-					// 		if(trim($_POST['va_id'][$i])!=''){
-					// 			$returnVal[]=$_POST['snp'][$i];//SNP
-					// 			$returnVal[]=$_POST['vpubID'][$i];//PubMed_IDs  Plasmid
-					// 			$returnVal[]=$_POST['va_ids_id'][$i];//id from id_seq table 
-					// 			$returnVal[]=$_POST['ca_id'][$i];//id from classification table
-					// 			$returnVal[]="1";// is_active 0 or1   default is 1  
-					// 			$returnVal[]=date("Y-m-d H:i:s");//Modified Date
-					// 			$returnVal[]=$_SESSION['userID'];//ModifiedBy
-					// 			$returnVal[]=$_POST['va_id'][$i];//id
-					// 		}
-					// 	}
-					// 	if(!isset($returnVal)){
-					// 		return;
-					// 	}
-					// 	return $returnVal; 
-					// }
+		
 					function identity_Sequence_table_array(){
 						$returnVal[]=$_POST['end5'];
 						$returnVal[]=$_POST['end3'];
@@ -466,7 +505,20 @@ tr.shown td.details-control {
 					function init_classification_table_array(){
 					//use a for loop to get all the information 
 						// var_dump($_POST['drug']);
-						for ($i=0; $i <count($_POST['drug']); $i++) { 
+					//first get the correspond active;
+
+
+						// var_dump($_POST['c_active_count']);
+
+						for($i=1;$i<=$_POST['c_active_count'];$i++){
+							if(isset($_POST["cIsActive_".$i])){
+								$c_act_arrty[]=$_POST["cIsActive_".$i];
+							}
+						}
+						// var_dump($c_act_arrty);
+
+						for ($i=0; $i <count($_POST['drug']); $i++) {
+
 							$cID = geneate_id($GLOBALS['con']);
 							$returnVal[]=$cID;//id
 							$returnVal[]=$_POST['drug'][$i];//drug_name 
@@ -474,10 +526,18 @@ tr.shown td.details-control {
 							$returnVal[]=$_POST['drug_family'][$i];//drug_family
 							$returnVal[]=$_POST['mechanism_of_action'][$i];//Mechanism of Action
 							$returnVal[]=$_POST['identity'];//id from identity table
-							$returnVal[]="1";// is_active 0 or1   default is 1  
+							$returnVal[]=isset($c_act_arrty[$i])? $c_act_arrty[$i]:"1";// is_active 0 or1   default is 1  
 							$returnVal[]=$_SESSION['userID'];//created_By
 							$returnVal[]=$_SESSION['userID'];//ModifiedBy
+							//vIsActive_6_11
+						
+							// echo "<br>rt***";
+							// var_dump($returnVal);
+							// echo "<br>";
+							// $active_ar[]=$_POST["cIsActive_".$q];
 						}
+						// var_dump($_POST);
+						// var_dump($active_ar);
 						// 10 entries
 						
 						return $returnVal;
@@ -498,7 +558,7 @@ tr.shown td.details-control {
 						$returnVal[]=$_POST['protein_alter_names'];
 						$returnVal[]=$_POST['pubmed_id'];
 						$returnVal[]=$_POST['hmm'];
-						$returnVal[]="1";// is_active 0 or1   default is 1  
+						$returnVal[]=$_POST['is_active_'];// is_active 0 or1   default is 1  
 						$returnVal[]=$_POST['Stat'];//Status
 						$returnVal[]=date("Y-m-d H:i:s");//Modified Date
 						$returnVal[]=$_SESSION['userID'];//ModifiedBy
@@ -582,7 +642,7 @@ tr.shown td.details-control {
 					// 		$newstart=execute_update($con,$t_col,$update_string,$id_t,'Antibiogram',$newstart+1);
 					// 	}
 					// }
-					echo "<meta  http-equiv='refresh' content='2;url=browse.php' />";
+					echo "<meta  http-equiv='refresh' content='5;url=browse.php' />";
 			        ?>
 			</div>
 		</div>

@@ -26,7 +26,7 @@ accoding json field.
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <style type="text/css" class="init">
-  
+	
 
 
 </style>
@@ -77,7 +77,7 @@ if ($dirfilepx[0] != ''){
         for ($i=0; $i<sizeof($local_id) ; $i++) { 
             if($i!=0&&$i!=sizeof($local_id)-1){
                 $data_string[$local_id[$i]][]=$local_id[$i];
-                $detail_string = explode('|',$split_by_tab[$i-1]);
+				        $detail_string = explode('|',$split_by_tab[$i-1]);
                     for ($q=0; $q <count($detail_string); $q++) { 
                         $data_string[$local_id[$i]][]=$detail_string[$q];
                         // echo $split_string[$q]."<br>";
@@ -103,7 +103,7 @@ if ($dirfilepx[0] != ''){
       // print_r($tmp_data);
       // echo "<br>";
         // hight light snp 
-      foreach (array_keys($data_string) as $value) {
+    	foreach (array_keys($data_string) as $value) {
         $dirfil_complex = "$dir/outx/alignments/".$value."_alignments.phy";
         $cdata[$value]='<h2>Sequence Alignment</h2><pre>';
         $cfile = fopen($dirfil_complex,"r");
@@ -117,7 +117,7 @@ if ($dirfilepx[0] != ''){
         $line_number=0;
         for ($x=1;$x<=sizeof($cfiles);$x++) {
             $cline = $cfiles[$x];
-            $cline = str_replace(array("\n","\r\n","\r"), '<br>', $cline);
+	          $cline = str_replace(array("\n","\r\n","\r"), '<br>', $cline);
                     if((trim($cline)!='')){
                         if(!($line_number%$seq_number)){
                             rsort($target_letter_pos[0]);
@@ -138,8 +138,9 @@ if ($dirfilepx[0] != ''){
                     }
                     $line_number++;
                   }
-                //$cline=$cline."\n";
+		            //$cline=$cline."\n";
                 $cdata[$value].= $cline;
+
         }
         //fclose($handle);
         // echo '<b>'.$line_words.'</b>';
@@ -152,8 +153,6 @@ if ($dirfilepx[0] != ''){
           $prepare_solr_data['id_id'][]=$value[0];
           $uid=explode(':', $value[3]);
           $value[3]=$uid[0];
-          $userid=$uid[0];
-	  $userid=str_replace('_', ' ', $userid);
         }
 
 
@@ -174,7 +173,7 @@ if ($dirfilepx[0] != ''){
       $write_local_file="{\"data\":[";
           foreach ($readytowrite_data as $obj ) {
           $uid=explode(':', $tmp_data[$obj->id][3]);
-          $write_local_file.="{"."\"id\":\"".$obj->id."\",\"UserID\":\"".$userid."\","."\"Identity\":\"".$tmp_data[$obj->id][1]."\",";
+          $write_local_file.="{"."\"id\":\"".$obj->id."\",\"UserID\":\"".$uid[0]."\","."\"Identity\":\"".$tmp_data[$obj->id][1]."\",";
           $write_local_file.="\"E_Value\":\"".$tmp_data[$obj->id][4]."\",";
           $write_local_file.="\"Gene_Symbol\":\"".$obj->Gene_Symbol."\",";
           $write_local_file.="\"Protein_Name\":\"".$obj->Protein_Name."\",";
@@ -255,7 +254,7 @@ if ($dirfilepx[0] != ''){
        #}
       // echo "Here";
        
-    //check if the xml file has no hits/
+  	//check if the xml file has no hits/
        // $xfile = fopen($input_fasta_xml,"r");
        // while (!feof($xfile)) {
        //  if (strpos(fgets($xfile), 'No hits found')) {
@@ -284,8 +283,8 @@ if ($dirfilepx[0] != ''){
 }
 ?>
 <script>
-  // Here the json file will be created then, edit the json file 
-  // add more field to it.
+	// Here the json file will be created then, edit the json file 
+	// add more field to it.
     var cdata_file = <?php echo json_encode($cdata, JSON_HEX_TAG);; ?>;
     var zip_path = <?php echo json_encode($zip_path, JSON_HEX_TAG);; ?>;
     var zip_path_seq = <?php echo json_encode($zip_path_seq, JSON_HEX_TAG);; ?>;
@@ -394,7 +393,7 @@ $(document).ready(function() {
 
 
              },
-            { "data": "UserID" },   
+            { "data": "UserID" },
             { "data": "Identity"},
             { "data": "E_Value"},
             { "data": "Gene_Symbol"},
@@ -445,12 +444,7 @@ $(document).ready(function() {
                         data =  data;
                     }
                     return data;
-                    } ,"visible": false   },
-            { "data" : "ComplexFilex", 
-             "render": function(data, type, row, meta){
-                    data = '<div w3-include-html="mp/16657/outx/alignments/10321_hit.html"></div>';
-                    return data;
-                    } ,"visible": false   }
+                    } ,"visible": false   }       
         ],
          // hideEmptyCols: true
         // "order": [[ 0, 'desc' ], [ 1, 'desc' ]] // will not work on serverside fetching
@@ -485,11 +479,10 @@ $(document).ready(function() {
 
 #$dirfilep = "$dir/outx/*_summary_file.txt";
 if ($dirfilepx[0] != ''&&$newpid==''){
-#    $cur = getcwd()     chdir("tmp/16657/outx/alignments/");     include("10321_hit.html");     chdir($cur);
+
 ?>
    <div class="main col-md-12">
               <div class="space"></div>
-              
               <div class="tabs-style-2">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
@@ -511,7 +504,7 @@ if ($dirfilepx[0] != ''&&$newpid==''){
                 </div>
               </div>
 <?php
-  echo '<table id="example" class="display" style="width:100%">
+	echo '<table id="example" class="display" style="width:100%">
         <thead>
             <tr>
                <th></th>
@@ -528,19 +521,18 @@ if ($dirfilepx[0] != ''&&$newpid==''){
             </tr>
         </thead>
     </table>';
-  }
+	}
 else {
   echo '<p align="center"> <img src="images/wait.gif"  class="center" alt="Please Wait"><br></p>'; 
-  echo "<h1 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes. <br> "; 
-  echo "<h1 align='center'> OR <br>";
-  echo "Visit the following link <br><a href='http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran'>http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran&pid=$pid</a> </h1>";
-  echo "<meta http-equiv='refresh' content='5;url=blastoutput.php?ran=$ran&pid=$pid'>";
-} 
-    
+	echo "<h1 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes. <br> "; 
+	echo "<h1 align='center'> OR <br>";
+	echo "Visit the following link <br><a href='http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran'>http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran&pid=$pid</a> </h1>";
+	echo "<meta http-equiv='refresh' content='5;url=blastoutput.php?ran=$ran&pid=$pid'>";
+}	
+		
 ?> 
-
-      </div>
-      </div>
+			</div>
+	    </div>
    </div>  
 </section>
 <script type="text/javascript">

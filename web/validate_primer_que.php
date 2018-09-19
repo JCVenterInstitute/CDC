@@ -23,11 +23,12 @@ tr.shown td.details-control {
 
 <div class="container">
 <?php
+
     function exit_die($messages){
         
         echo "<br><br><br><br><h2 align='center'><b><i>".$messages."</i></b></h2><br><br><br><br><br><br><br><br><br><br><br><br>";
         include 'includes/footer.php';
-            die();
+        die();
     }
     function valid_file_upload($fileName){
         $name = explode('.', $_FILES[$fileName]['name']);
@@ -39,10 +40,9 @@ tr.shown td.details-control {
     if (!isset($_POST['method'])) {
 
     	exit_die("Please go to validate primer page");
-        }
+    }
 
-
-//  check if the process is done then 
+        //  check if the process is done then 
 
         if(!isset($_POST['method'])){
         	 echo "<br><br><br><br><h2 align='center'><b><i>".$messages."</i></b></h2><br><br><br><br><br><br><br><br><br><br><br><br>";
@@ -72,13 +72,14 @@ tr.shown td.details-control {
             exit_die("Please upload correct file format");
         }
 
-        if(isset($_POST['reference_fastafile'])){
-        	if(!valid_file_upload('reference_fastafile')){
+
+        if(trim($_FILES['reference_fastafile']['name'])!=''){
+            if(!valid_file_upload('reference_fastafile')){
             exit_die("Please input correct file type for reference");
-
-        	}
-
+            }
         }
+
+      
         $date_rand='primer_'.date("Y_m_d_H_i_s");
 		$ran=$date_rand.rand(0, 10000);
 
@@ -94,32 +95,30 @@ tr.shown td.details-control {
 	    // use a string to check the input type. 
 	    $f_prime_input_file_type =trim($_POST['primer_f_seq_txtfield'])!='' ?'text':'file';
 	    $r_prime_input_file_type =trim($_POST['primer_r_seq_txtfield'])!=''?'text':'file';
-	  
-	    //when forward input is a file point to the file. 
-	    // if not create a local file using input text. then point to the file.
-	    //
-	    $f_input_path='';
-	    $r_input_path='';
-	    $green_light_to_excute=0;
-		    if($f_prime_input_file_type=='file'){
 
+	    // create input forward file and input reverse file 
+        // and  the reference input file entered(if there is any) 
+	    $green_light_to_excute=0;
+        // check if input forward seq is a file 
+		    if($f_prime_input_file_type=='file'){
 		        $tmp_name = $_FILES["forward_seq_fileToUpload"]["tmp_name"];
 		        $name = basename($_FILES["forward_seq_fileToUpload"]["name"]);
 		        $succ= move_uploaded_file($tmp_name, "$dir/$name");
 		        $green_light_to_excute++;
-		        $f_input_path="$dir".$_FILES['forward_seq_fileToUpload']['tmp_name'];
+		        $my_file_f="$dir/".$_FILES['forward_seq_fileToUpload']['name'];
 		    }else{
 		        $my_file_f = "$dir/frd_primer.fasta";
 		        $handle = fopen($my_file_f, 'w') or die('Cannot open file:  '.$my_file_f);
 		        $data =$_POST['primer_f_seq_txtfield'];
 		        fwrite($handle, $data);
 		        $green_light_to_excute++;
-
 		    }   
-		     if($reference_genbank_file_type=='file'){
+        // check if input reverse seq is a file 
+
+		     if($r_prime_input_file_type=='file'){
 		        $tmp_name = $_FILES["rev_seq_fileToUpload"]["tmp_name"];
 		        $name = basename($_FILES["rev_seq_fileToUpload"]["name"]);
-		        $r_input_path="$dir".$_FILES['rev_seq_fileToUpload']['tmp_name'];
+		        $my_file_r="$dir/".$name;
 		        move_uploaded_file($tmp_name, "$dir/$name");
 		        $green_light_to_excute++;
 		    }else{
@@ -128,15 +127,16 @@ tr.shown td.details-control {
 		        $data =$_POST['primer_r_seq_txtfield'] ;
 		        fwrite($handle, $data);
 		    }
+        // check if input reference is a file.
 
-		    if($r_prime_input_file_type=='file'){
-		        $tmp_name = $_FILES["reference_fastafile"]["tmp_name"];
-		        $name = basename($_FILES["reference_fastafile"]["name"]);
-		        $r_input_path="$dir".$_FILES['reference_fastafile']['tmp_name'];
-		        move_uploaded_file($tmp_name, "$dir/$name");
-		        $output_path= "$dir/$name";
+		    if(count($_FILES['reference_fastafile']['name'])!=0){
+                $tmp_name = $_FILES["reference_fastafile"]["tmp_name"];
+                $name = basename($_FILES["reference_fastafile"]["name"]);
+                $reference_fastafile_path="$dir/".$name;
+                move_uploaded_file($tmp_name, "$dir/$name");
 		    }
 
+	// echo "$_POST($reference_genebank)";
 	echo '<img src="images/wait.gif"  class="center" alt="Please Wait"><br>';	
 	echo "<h2 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes.</h2> "; echo "<h2 align='center'> OR <br>"; echo "Visit the following link <br><a href='http://cdc-1.jcvi.org:8081/validate_primer_submit.php?ran=$ran'>http://cdc-1.jcvi.org:8081/validate_primer_submit.php?ran=$ran </a> </h2>";
 	echo "<meta  http-equiv='refresh' content='2;url=validate_primer_submit.php?ran=$ran' />";		
@@ -144,19 +144,17 @@ tr.shown td.details-control {
 ?> 
 
 <script type="text/javascript">
+
 $.ajax({ url: 'validate_primer_ajax.php',
          data: {	output_path: '<?php echo "$output_path";?>', 
-     				reference_fastafile:'<?php echo isset($_POST["reference_fastafile"])?$_POST["reference_fastafile"]:"empty"; ?>',
+     				reference_fastafile:'<?php echo isset($reference_fastafile_path)?$reference_fastafile_path:"empty"; ?>',
      				reference_genebank:'<?php echo isset($_POST["reference_genebank"])?$_POST["reference_genebank"]:"empty"; ?>',
      				dir1:'<?php echo "$dir"; ?>',
-     				user_file:'<?php echo isset($user_file)?$user_file:"empty"; ?>'
-
-     		},
+                    my_file_r:'<?php echo isset($my_file_r)?$my_file_r:"empty";?>',
+                    my_file_f:'<?echo isset($my_file_f)?$my_file_f:"empty";?>'
+     		     },
          type: 'post',
          success: function(output) {
-                      alert(output);
-
-
                   }
 });
 

@@ -12,16 +12,16 @@ if(!isset($_POST["submit"])){
 
 <!-- no Organism ID  -->
 <?php
-    $ls = ['Select Field','Protein ID','Gene Symbol','Drug Family','Taxon Species','GenBank ID','Parent Allele','Parent Allele_Family','Allele','Drug Class','Drug_Sub Class','Taxon Phylum','Taxon Class','Taxon Order','Taxon Family','Taxon Genus','Taxon Strain','Plasmid','BioProject ID','Biosample'];
+    $ls = ['Protein ID','Gene Symbol','Drug Family','Taxon Species','GenBank ID','Parent Allele','Parent Allele Family','Allele','Drug Class','Drug','Taxon Phylum','Taxon Class','Taxon Order','Taxon Family','Taxon Genus','Taxon Strain','Plasmid Name','BioProject ID','Gene Class', 'Gene Alternative Names','EC Number','Source','Protein Name','Protein Alternative Names','Is Active','Mechanism of Action', 'SNP','Feat Type','Mol Type','Taxon Kingdom', 'Taxon Bacterial BioVar','Taxon Sub Species','Taxon Pathovar','Taxon Serotype','Taxon Sub Strain','Drug Symbol','Antibiotic','Laboratory Typing Method','Laboratory Typing Platform','Measurement','Measurement Sign','Measurement Units','Resistance Phenotype','Testing Standard','Vendor','Isolation site','Serotyping Method', 'Source Common Name','Laboratory Typing Method Version or Reagent','Specimen Collection Date', 'Specimen Collection Location', 'Specimen Collection Location Country','Specimen Collection Location Latitude','Specimen Collection Location Longitude','Specimen Source Age','Specimen Source Developmental Stage','Specimen Source Disease','Specimen Source Gender','Specimen Type','Health Status','Treatment','Symptom'];
+    sort($ls);
+    array_unshift($ls,'Select Field');
     $ls_string='<SELECT id=fn[] NAME="field_name[]">';
     // $place_holder=['e.g. ADH03009.1','e.g. AAC(1)','e.g. Aminoglycoside','e.g. baumannii','e.g. KX531051','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.','e.g.'];
     foreach ($ls as $item) {
         $new_item=$item;
-
         if($item=='GenBank ID'){
-          $new_item ='Source_ID';    
+          $new_item ='Source ID';    
         }
-
     	$new_val = str_replace(' ', '_', $new_item);
         $ls_string.='<OPTION class="inval"  VALUE='.$new_val.'>'.$new_item.'';    
     }   

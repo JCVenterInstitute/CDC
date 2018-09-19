@@ -11,6 +11,578 @@ ini_set('display_errors', 1);
     <!-- CSS Files -->
     <link href="css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"> -->
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+
+<style type="text/css" class="init">
+    
+td.details-control {
+    background: url('images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('images/details_close.png') no-repeat center center;
+}
+
+</style>
+
+<script type="text/javascript" class="init">
+
+
+
+// Load this page with the table data.
+// scripts/data.json
+$(document).ready(function() {
+  function escapeRegExp_helper(str){
+    let regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+      if(str.trim()==''){
+        // console.log('s');
+        return;
+      }
+      if(!regex.test(str)){
+         // console.log('here');
+        return '*'+str+'*';
+      }
+      return '"*'+str+'*"';
+  }
+  var btn_count = 0;
+  // 
+
+      var my_id = <?php  if (isset($_GET['id'])){
+                                    echo json_encode($_GET['id'], JSON_HEX_TAG);
+                                }else{
+                                    echo json_encode('', JSON_HEX_TAG);
+                                };?>;
+  function escapeRegExp(str) {
+
+let primer = my_id;
+
+    if(str.trim()==""&&primer.trim()==''){
+      return "*";
+    }
+    if(str.trim()==""&&primer.trim()!=''){
+        return '*'+primer.trim()+'*';
+    }
+    // check if primer is present if not primer should be empty. 
+    if (primer.trim()!=''){
+        primer= ' AND '+ primer;
+    }
+    
+    // split str by space then format it as => (+A+B+C) where A,B,C are each words splited by space
+    let regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+
+    // console.log(str);
+    let new_st=str.split(' ');
+   
+    const final_st = new_st.map(x=> escapeRegExp_helper(x));
+// console.log('(+'+final_st.join('+')+')');
+    
+    rt_string = '(+ '+final_st.join(' AND ')+primer+')';
+    console.log(rt_string);
+  return rt_string;
+
+  // return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|\&|\!|\"|\~|\:|\']/g, "\\$&");
+}
+var btn_search_me = '0';
+
+
+    var table = $('#example').DataTable({
+        
+
+        // "processing":    true, //  Enable or disable the display of a 'processing' indicator when the table is being processed
+                               // This is particularly useful for tables with large amounts of data where it can take a noticeable amount of time to sort the entries.
+        "serverSide":    true, 
+         "scrollY": 600,
+        "scrollX": true,
+     // "searching":false,
+        lengthMenu: [
+                    [ 10, 15, 25 ],
+                    [ '10', '15', '25' ]
+                    ],
+                    // make a ajax call to solr server to get all the data that matches search field
+
+        "ajax":function(data,callback, setting){
+             $.ajax( {
+                 "url": "http://cdc-1.jcvi.org:8983/solr/tax_sm_anti_relation/select",
+                 "type":"POST",
+                 "data": $.extend( {}, data, {'wt':'json', 'q':'Identity_ID:'+my_id+' AND all_fields:'+escapeRegExp(data.search.value)
+                 //                                            ' Or Health_Status:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Host:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Isolation_site:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Source_Common_Name:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Date:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location_Country:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location_Latitude:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Collection_Location_Longitude:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Age:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Developmental_Stage:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Disease:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Source_Gender:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Specimen_Type:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Status:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Symptom:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Bacterial_BioVar:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Class:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Family:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Genus:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_ID:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Kingdom:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Order:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Pathovar:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Phylum:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Serotype:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Species:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Strain:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Taxon_Sub_Species:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Testing_Standard:'+escapeRegExp(data.search.value)+
+                 //                                            ' Or Treatment:'+escapeRegExp(data.search.value)
+                 // //                                            ' Or Vendor:'+escapeRegExp(data.search.value) 
+                                                          ,'sort':(data.columns[data.order[0].column].data==null? 'id asc' : data.columns[data.order[0].column].data+' '+data.order[0].dir) //if order is null use id asc order
+                                                          ,'rows':data.length}),
+                 "dataType": "jsonp",
+                 "jsonp":"json.wrf",
+                 "success": function(json) {
+                   var o = {
+                     recordsTotal: json.response.numFound,
+                     recordsFiltered: json.response.numFound,
+                     data: json.response.docs
+                   };        
+                   callback(o);
+
+                   // need to pass the varible to next table
+
+                    // create export button. 
+               
+                 }
+               } );
+        },
+        "columns": [
+            { "data": "Sample_Metadata_ID",
+              "render": function(data, type, row, meta){
+                 // class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal
+                if(type === 'display'){
+                        
+                    data = '<a href=singlex_antibiogram.php?sm_id='+data+' target=_blank >'+data+'</a>';
+                }
+                return data;
+                }
+            },            
+            { "data": "Taxon_ID" ,
+              "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                } 
+            },
+            { "data": "Taxon_Kingdom" ,
+              "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                } 
+            },
+            { "data": "Taxon_Phylum",
+              "render": function(data, type, row, meta){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                    } 
+            },            
+            { "data": "Taxon_Class",
+              "render": function(data, type, row, meta){
+                     if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    }
+                    return data;
+                    } 
+            },            
+            { "data": "Taxon_Order",
+              "render": function(data, type, row, meta){
+                     if(data === 'undefined'||data ==null ){
+                        data= "";    
+                      }
+                    if(type === 'display'){
+                        let new_d=data.split(',');
+                        data=new_d.map(x=>x).join();;
+                    } 
+                        return data;
+                    }  
+            },
+            { "data": "Taxon_Family",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return full.Taxon_Genus+ "  "+ full.Taxon_Species;
+                     }
+            },
+                { "data": "Taxon_Genus",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Taxon_Species",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Taxon_Sub_Species",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Taxon_Strain",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Taxon_Sub_Strain",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Source_ID",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Isolation_site",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Serotyping_Method",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Source_Common_Name",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Specimen_Collection_Date",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Specimen_Collection_Location_Country",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Specimen_Collection_Location",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Specimen_Collection_Location_Longitude",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                  { "data": "Specimen_Collection_Location_Latitude",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                  { "data": "Specimen_Source_Age",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                  { "data": "Specimen_Source_Developmental_Stage",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                  { "data": "Specimen_Source_Disease",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                  { "data": "Specimen_Source_Gender",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                  { "data": "Health_Status",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                  { "data": "Treatment",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                       { "data": "Specimen_Type",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                       { "data": "Symptom",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                       { "data": "Host",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            }
+             
+        ],
+        // "order": [[ 0, 'desc' ], [ 1, 'desc' ]] // will not work on serverside fetching
+    });
+// second table 
+
+
+
+ var table2 = $('#antiTable').DataTable({
+        // "processing":    true, //  Enable or disable the display of a 'processing' indicator when the table is being processed
+                               // This is particularly useful for tables with large amounts of data where it can take a noticeable amount of time to sort the entries.
+        "serverSide":    true, 
+         "scrollY": 600,
+        "scrollX": true,
+
+     // "searching":false,
+        "ajax":function(data,callback, setting){
+             $.ajax( {
+                 "url": "http://cdc-1.jcvi.org:8983/solr/many_antibiogram_singlex/select",
+                 "type":"POST",
+                 "data": $.extend( {}, data, {'wt':'json', 'q':'Sample_Metadata_ID:'+ btn_search_me   //escapeRegExp(data.search.value) 
+                                                          ,'sort':(data.columns[data.order[0].column].data==null? 'id asc' : data.columns[data.order[0].column].data+' '+data.order[0].dir)
+                                                          ,'rows':data.length}),
+                 "dataType": "jsonp",
+                 "jsonp":"json.wrf",
+                 "success": function(json) {
+                   var o = {
+                     recordsTotal: json.response.numFound,
+                     recordsFiltered: json.response.numFound,
+                     data: json.response.docs
+                   };        
+                   callback(o);
+                   // console.log(escapeRegExp(data.search.value).trim()=="(+ )");
+                    // create export button. 
+
+                    // alert(o.data.search.value);
+               
+                 }
+               } );
+        },
+        "columns": [
+            { "data": "id",
+              "render": function(data, type, row, meta){
+                 // class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal
+                if(type === 'display'){
+                        
+                    data = '<button class="btn btn-warning">'+data+'</button>';
+                }
+                return data;
+                }
+            },            
+            { "data": "Antibiotic" ,
+              "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                } 
+            },
+            { "data": "Drug_Symbol" ,
+              "render": function(data, type, row, meta){
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                } 
+            },
+            { "data": "Laboratory_Typing_Method",
+              "render": function(data, type, row, meta){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    } 
+                        return data;
+                    } 
+            },            
+            { "data": "Laboratory_Typing_Method_Version_or_Reagent",
+              "render": function(data, type, row, meta){
+                     if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                    if(type === 'display'){
+                        data = data;
+                    }
+                    return data;
+                    } 
+            },            
+            { "data": "Laboratory_Typing_Platform",
+              "render": function(data, type, row, meta){
+                     if(data === 'undefined'||data ==null ){
+                        data= "";    
+                      }
+                    if(type === 'display'){
+                        let new_d=data.split(',');
+                        data=new_d.map(x=>x).join();;
+                    } 
+                        return data;
+                    }  
+            },
+            { "data": "Measurement",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return full.Taxon_Genus+ "  "+ full.Taxon_Species;
+                     }
+            },
+                { "data": "Measurement_Sign",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Measurement_Units",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Resistance_Phenotype",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Testing_Standard",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            },
+                { "data": "Vendor",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return data;
+                     }
+            }
+             
+        ],
+       
+    });
+   
+
+} );
+
+</script>
 <section class="main-container">
     <div class="container">
         <div class="row">
@@ -28,7 +600,7 @@ ini_set('display_errors', 1);
                         <li><a href="#h2tab5" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i> Taxonomy</a></li>             
                         <li><a href="#h2tab6" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i> Sequence</a></li>  
                         <li><a href="#h2tab7" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i>Sample Metadata</a></li>
-                        <!-- <li><a href="#h2tab8" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i>Hit</a></li> -->
+                        <li><a href="#h2tab8" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i>Hit</a></li>
                     </ul>
                     <!-- Tab panes -->
                     <form class="form-horizontal" role="form">
@@ -949,23 +1521,80 @@ TT;
                              ?>
 
 
-               <!--          <div class="tab-pane fade" id="h2tab4">
-                            <div class="row">
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                      	
+                             <!-- hit tab  -->
+                        <div class="tab-pane fade" id="h2tab8">
+                            <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <!-- <th></th> -->
+                <th>Sample Metadata ID</th>
+                <th>Taxon ID</th>
+                <th>Kingdom</th>
+                <th>Phylum</th>
+                <th>Class</th>
+                <th>Order</th>
+                <th>Family</th>
+                <th>Genus</th>
+                <th>Species</th>
+                <th>Sub Species</th>
+                <th>Strain</th>
+                <th>Sub Strain</th>
 
+                <th>Source</th>
+                <th>Isolation site</th>
+                <th>Serotyping method</th>
+                <th>Source Common Name</th>
+                <th>Date</th>
+                <th>Location Country</th>
+                <th>Location</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Source Age</th>
+                <th>Developmental Stage</th>
+                <th>Source Disease</th>
+                <th>Source Gender</th>
+                <th>Health Status</th>
+                <th>Treatment</th>
+                <th>Specimen Type</th>
+                <th>Symptom</th>
+                <th>Host</th>
 
-
-
-                                   </div>     
-                            </div>
-                        </div> -->
+            </tr>
+        </thead>
+    </table>
+                     
+                        </div>
 
 
                         </div>
 
                     </div>
                     </form>
+
+                                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <!-- <iframe > -->
+                            <table id="antiTable" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <!-- <th></th> -->
+                                        <th>Antibiogram ID</th>
+                                        <th>Antibiotic</th>
+                                        <th>Drug_Symbol</th>
+                                        <th>Laboratory Typing Method</th>
+                                        <th>Laboratory Typing Method Version or Reagent</th>
+                                        <th>Laboratory Typing Platform</th>
+                                        <th>Measurement</th>
+                                        <th>Measurement Sign</th>
+                                        <th>Measurement Units</th>
+                                        <th>Resistance Phenotype</th>
+                                        <th>Testing Standard</th>
+                                        <th>Vendor</th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+<!-- </iframe> -->
+                            </div>
                 </div>
             </div>
         </div>  
@@ -973,40 +1602,7 @@ TT;
 </section>
 <?php
 
-    // pre populate the curated button
-//     if($ids[15]=='Curated'){
-//     $scp=<<<HAHA
-//         <script type="text/javascript">
-//         $("#curated").attr('checked', 'checked');
-//         </script>
-// HAHA;
-//         echo $scp;
-//     }else{
-// 	$scp=<<<HAHA
-//         <script type="text/javascript">
-//         $("#non").attr('checked', 'checked');
-//         </script>
-// HAHA;
-//         echo $scp;
-//     }
-
-
-//     if($ids[14]=='1'){
-//     $scp=<<<HAHA
-//         <script type="text/javascript">
-//         $("#active_").attr('checked', 'checked');
-//         </script>
-// HAHA;
-//         echo $scp;
-//     }else{
-//     $scp=<<<HAHA
-//         <script type="text/javascript">
-//         $("#non_active_").attr('checked', 'checked');
-//         </script>
-// HAHA;
-//         echo $scp;
-//     }
-
+   
 
     if(isset($t1)){
         switch ($tl[1]) {
@@ -1098,6 +1694,39 @@ $(document).ready(function() {
 });
 
 </script> 
-<?php include 'includes/footer.php';?>
+
+<style>
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+</style>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+
+function btn_click(hs){
+    console.log(hs);
+    btn_search_me = hs; 
+}
+
+</script>
+<?php include 'includes/footerx.php';?>
 
 

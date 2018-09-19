@@ -33,8 +33,6 @@ $(document).ready(function() {
   // return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|\&|\!|\"|\~|\:|\']/g, "\\$&");
 }
     var table = $('#example').DataTable({
-        
-
         // "processing":    true, //  Enable or disable the display of a 'processing' indicator when the table is being processed
                                // This is particularly useful for tables with large amounts of data where it can take a noticeable amount of time to sort the entries.
         "serverSide":    true, 
@@ -63,10 +61,8 @@ $(document).ready(function() {
                      data: json.response.docs
                    };        
                    callback(o);
-
                     console.log(escapeRegExp(data.search.value));
-                    // </a>
-                
+
                  }
                } );
         },
@@ -81,7 +77,7 @@ $(document).ready(function() {
                   { "data": "Primer",
               "render": function(data, type, row, meta){
                 if(type === 'display'){
-                    data = '<a href=singlex.php?id=' + data + ' target=_blank>' + data + '</a>';
+                    data = '<a href=browse.php?primer=' + data + ' target=_blank>' + data + '</a>';
                 }
                 return data;
                 }
@@ -126,7 +122,6 @@ $(document).ready(function() {
                 <div style="line-height: 150%;"> <p style="text-align:justify"; >PCR Validator accesses the primers specificity on AMR or target genome. PCR Validator uses open source <a href="https://sourceforge.net/projects/simulatepcr/">Simulate_PCR</a> tools for predicting both desired and off-target amplification products.<br>   For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr>
                   <div id='btn_container'>
                   </div>
-                <a style="float: right;" href="search_qb.php" target="_blank" >Advance Search</a><br>
                 </div>
 <!--  <img src="images/details_open.png" alt="+ sign" style="display:inline;"> -->
 <table id="example" class="display" style="width:100%">

@@ -3,6 +3,12 @@ include 'includes/header.php';
 include 'includes/config.inc.php';
 ?>
 <script type="text/javascript">
+function validateForm(){
+  if((document.getElementById("drug_class").value).length == 0){
+ 			alert(" Please Enter a Drug Class!");  
+    		return false;
+  }	 	
+}	
 // count for variants, claassifcation, and antibiogram
   var count =1;
   var v_count=0;
@@ -43,8 +49,8 @@ include 'includes/config.inc.php';
 				<form name="example" action="dataseq.php" method="POST" enctype="multipart/form-data" onSubmit="return validateForm()">   
 				             <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
                     	<div class="wizard-header">
-                        	<h3>The form allow the user to submit new data in AMRdb </h3>
-                       	    <p>The user is able to submit new AMR data into AMRdb using the form. The data is split into six different sections or tabs: 1) Identification details of the AMR sequence, 2) any metadata associated with the AMR sequence, 3) antibiogram data if any, 4) threat level of the organism, 5) taxonomy of the organism and 6) protein and nucleotide sequence.For more information see <a href="help.php#location">help page</a>.</p>
+                        	<h3>Submit new data to the AMRdb</h3>
+                       	    <p>This page allows the user to submit new AMR data into the AMRdb. The page is split into six different sections or tabs: 1) Identification details of the AMR entry, 2) drug classification and SNP variant information, 3) antibiogram data if any, 4) threat level of the organism, 5) taxonomy of the organism, 6) protein and nucleotide sequence, and 7) any metadata associated with the AMR sequence. For more information see the <a href="help.php#location">help page</a>.</p>
                     	</div>
 
 						<div class="wizard-navigation">
@@ -75,9 +81,27 @@ include 'includes/config.inc.php';
 	                                        <input type="text" class="form-control" name="gene_symbol" id="gene_symbol" placeholder="e.g. AAC(1)" value="">
 	                                    </div>
 	                                </div>
+									<div class="col-sm-10 col-sm-offset-1">
+		                               <div class="form-group">
+		                                    <label for="gene_aliases" class="control-label">Product/Protein Name</label>
+		                                        <input type="text" class="form-control" name="protein_name"  placeholder="e.g. CMY-7 blacmy-7" value="">
+										</div>
+									</div>
+									<div class="col-sm-10 col-sm-offset-1">		                            
+		                                <div class="form-group">
+		                                    <label for="genbank_id" class="control-label">Source</label>
+		                                        <input type="text" class="form-control" name="source" id="source" placeholder="e.g. GenBank" value="">
+										</div>
+									</div>
+									<div class="col-sm-10 col-sm-offset-1">		                            
+		                                <div class="form-group">
+		                                    <label for="genbank_id" class="control-label">Source ID</label>
+		                                        <input type="text" class="form-control" name="source_id" id="source_id" placeholder="e.g. AJ011291.1" value="">
+										</div>
+									</div>																		
 	                                <div class="col-sm-10 col-sm-offset-1">
 		                                <div class="form-group">
-		                                    <label for="gene_family" class="control-label">Gene Alternative Names</label>
+		                                    <label for="gene_sybmol" class="control-label">Gene Alternative Names</label>
 	                                        <input type="text" class="form-control" name="gene_alter_names" id="gene_alter_names" placeholder="e.g. Names" value="">
 	                                    </div>
 	                                </div>
@@ -93,6 +117,12 @@ include 'includes/config.inc.php';
 	                                        <input type="text" class="form-control" name="gene_class" id="gene_class" placeholder="e.g. " value="">
 	                                    </div>
 	                                </div>
+									<div class="col-sm-10 col-sm-offset-1">
+		                                <div class="form-group">
+		                                    <label for="gene_family" class="control-label">Protein Alternative Names</label>
+	                                        <input type="text" class="form-control" name="protein_alter_names" id="protein_alter_names" placeholder="e.g. Alternative Names " value="">
+	                                    </div>
+	                                </div>																		
 	                                <div class="col-sm-10 col-sm-offset-1">		                            
 		                                <div class="form-group">
 		                                    <label for="allele" class="control-label">Allele</label>
@@ -117,38 +147,14 @@ include 'includes/config.inc.php';
 		                                    <label for="parent_allele_family" class="control-label">Parent Allele Family</label>
 		                                        <input type="text" class="form-control" name = "parent_allele_family" id="parent_allele_family" placeholder="e.g. ZEG" value="">
 										</div>
-									</div>
-									   <div class="col-sm-10 col-sm-offset-1">		                            
-		                                <div class="form-group">
-		                                    <label for="genbank_id" class="control-label">Source</label>
-		                                        <input type="text" class="form-control" name="source" id="source" placeholder="e.g. GenBank" value="">
-										</div>
-									</div>
-									<div class="col-sm-10 col-sm-offset-1">		                            
-		                                <div class="form-group">
-		                                    <label for="genbank_id" class="control-label">Source ID</label>
-		                                        <input type="text" class="form-control" name="source_id" id="source_id" placeholder="e.g. AJ011291.1" value="">
-										</div>
-									</div>
-									
+									</div>									
 									<div class="col-sm-10 col-sm-offset-1">		                            
 		                                <div class="form-group">
 		                                    <label for="protein_id" class="control-label">Protein ID</label>
 		                                        <input type="text" class="form-control" name = "protein_id" id="protein_id" placeholder="e.g. CAB36900.1" value="">
 										</div>
 									</div>
-									<div class="col-sm-10 col-sm-offset-1">
-		                               <div class="form-group">
-		                                    <label for="gene_aliases" class="control-label">Protein Name</label>
-		                                        <input type="text" class="form-control" name="protein_name"  placeholder="e.g. CMY-7 blacmy-7" value="">
-										</div>
-									</div>
-									  <div class="col-sm-10 col-sm-offset-1">
-		                                <div class="form-group">
-		                                    <label for="gene_family" class="control-label">Protein Alternative Names</label>
-	                                        <input type="text" class="form-control" name="protein_alter_names" id="protein_alter_names" placeholder="e.g. Alternative Names " value="">
-	                                    </div>
-	                                </div>
+
 									<div class="col-sm-10 col-sm-offset-1">		                            
 		                                <div class="form-group">
 		                                    <label for="pubmed_id" class="control-label">PubMed IDs</label>
@@ -173,12 +179,6 @@ include 'includes/config.inc.php';
 		                                <div class="form-group">
 		                                    <label for="bioproject_id" class="control-label">Bioproject ID</label>
 		                                        <input type="text" class="form-control" name = "bioproject_id" id="bioproject_id" placeholder="e.g. PRJNA225" value="">
-										</div>
-									</div>
-									  <div class="col-sm-10 col-sm-offset-1">		                                
-		                                <div class="form-group">
-		                                    <label for="bioproject_id" class="control-label">BioSample</label>
-		                                        <input type="text" class="form-control" name = "biosample"  placeholder="e.g. GeneBank" value="">
 										</div>
 									</div>
 									  <div class="col-sm-10 col-sm-offset-1">		                                
@@ -253,10 +253,7 @@ include 'includes/config.inc.php';
                                  		<INPUT TYPE="Button" class="control-label"onClick="addRow('vant_div','varant')" VALUE="+ Add Variant">
                                  	</div>
 									</fieldset>
-
-
-	                                 <div  ID="tblPets">
-	                                </div>
+	                                <div  ID="tblPets"></div>
 	                                <div class="col-sm-10 col-sm-offset-1">	
 	                                	<br><br>
                                  		<INPUT TYPE="Button" class="control-label"onClick="addRow('tblPets','classi')" VALUE="+ Add Classification">
@@ -645,9 +642,6 @@ include 'includes/config.inc.php';
 		                                        <input type="text" class="form-control" name ="end5"  placeholder="e.g. 4762" value ="">
 										</div>									
 									</div>
-
-									
-                                
 									<div class="col-sm-10 col-sm-offset-1">		                                                            
 		                                <div class="form-group">
 		                                    <label for="anti" class="control-label">Protein Sequence</label>

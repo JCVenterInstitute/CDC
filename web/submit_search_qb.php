@@ -94,6 +94,37 @@ $(document).ready(function(){
 // Load this page with the table data.
 // scripts/data.json
 $(document).ready(function() {
+
+  function escapeRegExp_helper(str){
+    let regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+      if(str.trim()==''){
+        console.log('s');
+        return;
+      }
+      if(!regex.test(str)){
+         console.log('here');
+        return '*'+str+'*';
+      }
+      return '"*'+str+'*"';
+  }
+  var btn_count = 0;
+  // 
+  function escapeRegExp(str) {
+    if(str.trim()=="" ){
+      return "*";
+    }
+    // split str by space then format it as => (+A+B+C) where A,B,C are each words splited by space
+    let regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+
+    let new_st=str.split(' ');
+   
+    const final_st = new_st.map(x=> escapeRegExp_helper(x));
+// console.log('(+'+final_st.join('+')+')');
+  
+  return '(+ '+final_st.join(' AND ')+')';
+
+  // return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|\&|\!|\"|\~|\:|\']/g, "\\$&");
+}
   /* load the data from search_fetch script*/
     var table = $('#example').DataTable({
          // "searchDelay": 350,
@@ -105,7 +136,7 @@ $(document).ready(function() {
              $.ajax( {
                  "url": "http://cdc-1.jcvi.org:8983/solr/my_core_exp/select",
                  "type":"GET",
-                 "data": $.extend( {}, data, {'wt':'json', 'q':datax+'AND ( id :*'+data.search.value+'* OR Gene_Symbol:*'+data.search.value+'* OR Drug_Family:*'+data.search.value+'* OR Taxon_ID:*'+data.search.value+'* OR Taxon_Species:*'+data.search.value+'* OR Protein_Name:*'+data.search.value+'* OR Protein_ID:*'+data.search.value+'* OR Taxon_Genus:*'+data.search.value+'*)' ,'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),'rows':data.length} ),
+                 "data": $.extend( {}, data, {'wt':'json', 'q':datax+'AND ( id :*'+data.search.value+'* OR Gene_Symbol:*'+data.search.value+'* OR Drug_Family:*'+data.search.value+'* OR Taxon_ID:*'+data.search.value+'* OR Taxon_Species:*'+data.search.value+'* OR Protein_Name:*'+data.search.value+'* OR Protein_ID:*'+data.search.value+'* OR Taxon_Genus:*'+data.search.value+'* '+')' + " AND Is_Active:1" ,'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),'rows':data.length} ),
                  "dataType": "jsonp",
                  "jsonp":"json.wrf",
                  "success": function(json) {
@@ -144,50 +175,34 @@ $(document).ready(function() {
                         return "";    
                     }
                     if(type === 'display'){
-                        data = '<a href=https://www.ncbi.nlm.nih.gov/nuccore/' + data + ' target=_blank>' + data + '</a>';
+                        data = data;
                     } 
-                  
                         return data;
                 } 
             },
-            { "data": "Drug_Family",
+            { "data": "Allele" ,
               "render": function(data, type, row, meta){
-                     if(data === 'undefined'||data ==null ){
-                        data= "";    
+                  if(data === 'undefined'||data ==null ){
+                        return "";    
                     }
-
                     if(type === 'display'){
-                        data = '<a href=https://www.ncbi.nlm.nih.gov/nuccore/' + data + ' target=_blank>' + data + '</a>';
+                        data = data;
                     } 
                         return data;
-                    }  
+                } 
             },
-            { "data": "Taxon_ID" ,
-              "render": function(data, type, row, meta){
-                    if(data === 'undefined'||data ==null ){
-                        return "";    
-                    }
-                        return data;
-                    } }, // no such field
-			{ "data": "Taxon_Species",
-              "mRender": function(data, type,full){
-                    if(data === 'undefined'||data ==null ){
-                        return "";    
-                    }
-                        return full.Taxon_Genus+ "  "+ full.Taxon_Species;
-                     }},
-			{ "data": "Protein_Name",
+            { "data": "Protein_Name",
               "render": function(data, type, row, meta){
                     if(data === 'undefined'||data ==null ){
                         return "";    
                     }
                     if(type === 'display'){
-                        data = '<a href=https://www.ncbi.nlm.nih.gov/nuccore/' + data + ' target=_blank>' + data + '</a>';
+                        data = data;
                     } 
                         return data;
                     } 
-            },
-			{ "data": "Protein_ID",
+            },            
+            { "data": "Protein_ID",
               "render": function(data, type, row, meta){
                      if(data === 'undefined'||data ==null ){
                         return "";    
@@ -197,7 +212,27 @@ $(document).ready(function() {
                     }
                     return data;
                     } 
-            }	        
+            },            
+            { "data": "Drug_Family",
+              "render": function(data, type, row, meta){
+                     if(data === 'undefined'||data ==null ){
+                        data= "";    
+                      }
+                    if(type === 'display'){
+                        let new_d=data.split(',');
+                        data=new_d.map(x=>x).join();;
+                    } 
+                        return data;
+                    }  
+            },
+            { "data": "Taxon_Species",
+              "mRender": function(data, type,full){
+                    if(data === 'undefined'||data ==null ){
+                        return "";    
+                    }
+                        return full.Taxon_Genus+ "  "+ full.Taxon_Species;
+                     }
+	        }
         ],
         "order": [[1, 'asc']]
     });
@@ -213,7 +248,7 @@ $(document).ready(function() {
             <div class="main col-md-12">
             <h2 class="title">AMRdb Browse/Search Module</h2>
 		    <div class="separator-2"></div>
- 				 <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Users can search the entire AMRdb using the main search bar, or each main data type can be searched individually using its respective search. Additionally, each data type is sortable. <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug class, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli AND that belong to the beta-lactam drug class are displayed. For more information see <a href="help.php#location">help page</a>.</p><hr></hr>
+            <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Each data type is also sortable.  <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug family, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli AND that belong to the beta-lactam drug family are displayed. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr></hr>
                 </div>
 
 <table id="example" class="display" style="width:100%">
@@ -222,12 +257,11 @@ $(document).ready(function() {
                 <th></th>
                 <th>Identity ID</th>
                 <th>Gene Symbol</th>
-                <th>Drug Family</th>
-                <th>Taxon ID</th>
-                <th>Organism</th>
-                <th>Protein_Name</th>
+                <th>Allele</th>                
+                <th>Protein Name</th>
                 <th>Protein ID</th>
-              
+                <th>Drug Family</th>
+                <th>Organism</th>
             </tr>
         </thead>
        

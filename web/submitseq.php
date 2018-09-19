@@ -24,16 +24,70 @@ tr.shown td.details-control {
 <div class="container">
 <?php
 $file1name=$seq=$email=$method="";
-$seq = !empty($_POST['seq']) ? $_POST['seq'] : ''; //echo "**$seqx* $ran<br>";
+
+
+// read the upload file if there is one
+// 
+function valid_file_upload($fileName){
+    $name = explode('.', $_FILES[$fileName]['name']);
+    if($name[count($name)-1]=='txt'||$name[count($name)-1]=='fasta'||$name[count($name)-1]=='fa'){
+     	return 1;
+     }
+     	return 0;
+}
+
+// var_dump(valid_file_upload('seq_file'));
+// $haha = file_get_contents($_FILES['seq_file']['tmp_name']); 
+// var_dump(isset($_FILES['seq_file']));
+// echo "<br>".$haha;
+// var_dump(($_FILES['size']==0));
+
+
+if(isset($_FILES['seq_file'])){
+	
+	// check input file type
+	if(valid_file_upload('seq_file')){
+
+
+
+		// need to move it to local file then read it 
+		// $seq = file_get_contents($_FILES['seq_file']['tmp_name']);
+		// var_dump($seq);
+		
+		// $seq = readfile($_FILES['seq_file']['tmp_name']);
+		$file = fopen($_FILES['seq_file']['tmp_name'],"r");
+		// var_dump(fgets($file));
+		$seq = fread($file,filesize($_FILES['seq_file']['tmp_name']));
+		// die;
+		// var_dump($seq);
+		// die;
+
+	}else{
+		 echo "<h2 align='center'><b><i>Please upload correct sequence file type </i></b></h2>";
+		die;
+	}
+}else{
+	$seq = !empty($_POST['seq']) ? $_POST['seq'] : ''; //echo "**$seqx* $ran<br>";
+
+}
+
+
+
+// die();
+
 $seq = str_replace("\r", "", $seq);
 //process input. get ride of empty space and end line char start from second line till last. 
 
 preg_match("/^>.*\n/",$seq,$match1);
 preg_match("/(?ms)(?!\A)^\S.*/",$seq,$match2);
+preg_match("/.*\n(.*)/",$seq,$matchx);
+
+// var_dump($matchx[1]);
+
 
 // check if the sequence context is empty
 if(trim($match2[0])==''||!preg_match("/^>.*\n/",$seq)){
-echo "<h2 align='center'><b><i>Please input a protein sequence in the text area</i></b></h2>";
+echo "<h2 align='center'><b><i>Please input a sequence in the text area</i></b></h2>";
 echo "<h2 align='center'><b><i>Or check your input</i></b></h2>"; die;
 }
 
@@ -43,14 +97,19 @@ $part2=trim(str_replace(" ","",$part2));
 $part2=trim(str_replace(" ","",$part2));
 $seq=$match1[0].$part2;
 
+// echo "1 ";
+
 // var_dump(trim($match2[0]));
 
 // var_dump($seq);
 
 // Declearing db and sequence
-$rt_ck = check_seq_input($seq, $match2);
+// var_dump($match2);
+$rt_ck = check_seq_input($seq, $matchx[1]);
 $seq =  $rt_ck[1]; 
 $db = $rt_ck[2];
+// echo "2 ";
+
 
 //var_dump($rt_ck);
 // die;
@@ -59,13 +118,21 @@ $db = $rt_ck[2];
 #Determine the sequece type in $seq and based on than assigned $db value
 // $db = !empty($_POST['db']) ? $_POST['db'] : ''; #echo "**$db OO**<br>";
 $method = !empty($_POST['method']) ? $_POST['method'] : ''; #echo "**$option OO**<br>";
-$file1name = basename($_FILES['file1']['name']); #echo "** $file1name <br>";
+// echo "2.1  ";
 
+$file1name = basename($_FILES['seq_file']['name']); #echo "** $file1name <br>";
+// echo "3";
+// seq_file
 #$email = !empty($_POST['email']) ? $_POST['email'] : ''; #echo "**$option OO**<br>";
 
 # Check for input. ignore the firs line.
-$arr1 = str_split($seq);
-if($seq == ""){ echo "<h2 align='center'><b><i>Please input a protein sequence in the text area</i></b></h2>"; die;}
+// $arr1 = str_split($seq);
+if($seq == ""){ echo "<h2 align='center'><b><i>Please input a sequence in the text area</i></b></h2>"; die;}
+// echo "4";
+
+
+
+
 
 
 # Creating tmp directory
@@ -74,16 +141,28 @@ if($seq == ""){ echo "<h2 align='center'><b><i>Please input a protein sequence i
         $dir = "/usr/local/projdata/8500/projects/CDC/server/apache/htdocs/tmp/$ran";
         exec("mkdir $dir");
         exec("chmod 777 $dir"); 
-         
+        // echo "***$ran***"; 
 #*********************Parsing of input sequenc*************
 // die();
 //used to be ^>\w+ 
+// echo "<br>";
+// var_dump(isset($_FILES['seq_file']['name']));
+// var_dump($_FILES);
 
- 
+// die;
+       
+	if(isset($_FILES['seq_file']['name'])){
+		$tmp_name = $_FILES["seq_file"]["tmp_name"];
+		$name = basename($_FILES["seq_file"]["name"]);
+		$succ= move_uploaded_file($tmp_name, "$dir/input_user.fasta");
+	}else {
+
 	$FP1=fopen("$dir/input_user.fasta","w");
 	fwrite($FP1,$seq);
 	#print "RAN:$ran";
 	fclose($FP1);
+	}
+
 
 /*              if (is_uploaded_file($_FILES['file1']['tmp_name']))
                 $filedata1 = file_get_contents($_FILES['file1']['tmp_name']);
@@ -111,21 +190,23 @@ if($seq == ""){ echo "<h2 align='center'><b><i>Please input a protein sequence i
 	fclose($fa);
 */
 #	if($method == "RUN BLAST against the AMRdb custome database"){ 
+
 		if($db == "pr") {
 		$details=$op="";
-		$command="/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p";
-		$details=exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p & echo $!",$op);
-		#print_r($op);
-		//echo "/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p ";
+	#	$command="/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p";
+               $pid =  shell_exec("nohup /bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p > /dev/null 2>/dev/null &  echo $!");
+	#	$details=exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p & echo $!",$op);
 #	shell_exec("/local/ifs2_projdata/8500/projects/CDC/server/amr_db_python_env/bin/python /usr/local/projdata/8500/projects/CDC/server/AMR-Finder/scripts/amr-finder/amr-finder.py -i $dir/input_user.fasta -p -c 40 -b blastp -db /usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/dbs/amr_dbs/amrdb_peptides_id.fasta --alignments -o $dir/outx > /dev/null &");
 		}
 		if($db == "nu") {
-                shell_exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran n &");
+
+               $pid =  shell_exec("nohup /bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran n > /dev/null 2>/dev/null &  echo $!");
 		//echo "/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran n ";
 		}
+
 	echo '<img src="images/wait.gif"  class="center" alt="Please Wait"><br>';	
-	echo "<h2 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes.</h2> "; echo "<h2 align='center'> OR <br>"; echo "Visit the following link <br><a href='http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran'>http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran </a> </h2>";
-	echo "<meta  http-equiv='refresh' content='3;url=blastoutput.php?ran=$ran' />";		
+	echo "<h2 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes.</h2> "; echo "<h2 align='center'> OR <br>"; echo "Visit the following link <br><a href='http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran'>http://cdc-1.jcvi.org:8081/blastoutput.php?ran=$ran&pid=$pid </a> </h2>";
+	echo "<meta  http-equiv='refresh' content='3;url=blastoutput.php?ran=$ran&pid=$pid' />";		
 #	sleep(10);
 #	echo "<pre>";	include ("$dir/output.html"); echo "</pre>";
 #	}
@@ -153,47 +234,33 @@ if($seq == ""){ echo "<h2 align='center'><b><i>Please input a protein sequence i
 		Return an Arrary [0]: sequence 
 		 				 [1] is the database that associate with either Nucleotide sequence or Protein sequence => nu or pr  */
 	function check_seq_input($sep_input,$sq){
+// echo "string3";
+	
 		// echo $sep_input;
 		$rt[]="";
 		// check if it is fasta file if not convert it into fasta file
-		if(preg_match("/^>[a-zA-z\s]*[\r\n]+/",$sep_input)){
-			// echo" It is a Fasta File<br>";
-			// if(is_protein($sq)){
-			// 	$rt[]=$sep_input;
-			// 	$rt[]="pr";
-				
-			// }else{
-			// 	$rt[]=$sep_input;
-			// 	$rt[]="nu";
-			// }
+		if(preg_match("/^>.*/",$sep_input)){
+// echo "string4";
+
+			$tmp_seq=$sq;
 			$rt[]=$sep_input;
-				$rt[]=is_protein($sq);
+			$rt[]=is_protein($sq);
 		}else{
 			// echo "It is not a fasta file.<br> Converting...<br>";
-			#$temp =">Test Sequence\n";
-			$sep_input=$temp.$sep_input;
-			// echo $sep_input;
-		$rt[]=$sep_input;
-				$rt[]=is_protein($sq);
+	echo "<h2 align='center'><b><i>Please check your input</i></b></h2>"; die;
 		}
-		// var_dump($rt[2]);
-		// die();
 		return $rt;
 	}
 	/*This function will determind if a sequence is a protein or not 
 	  Return 1 if it is a protein sequence 
 	  Return 0 if it is not a Protein sequence */
 	function is_protein($sq){
-		// var_dump((count( array_unique(str_split($sq[0])))));
-		// die;
-		// preg_match("/^.*\r?\n(.*)/", $sq, $temp_seq);
-		if(count( array_unique( str_split($sq[0])))==4){
+		if(count( array_unique(str_split($sq)))==4){
 			return 'nu';			
 		}else{
 			return 'pr';
 		}
-		// die();
-		// return preg_match("/^>[a-zA-z\s]*[\r\n]+M/", $sq);		
+		
 	}
 ?> 
 </div>

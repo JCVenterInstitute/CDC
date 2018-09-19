@@ -8,7 +8,7 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <div class="wrapper">
-  <h3>Organism Map</h2>
+  <h3>AMR Map</h2>
   <p>The Anti-Microbial Database (AMRdb) is a anti microbial analysis resource of AMR genes along with their details. <a id="show-btn">Show Instructions </a></p>
   <div id="notes-container" class="hidden">
       <h3>Instructions</h3>

@@ -21,6 +21,7 @@ include 'includes/config.inc.php';
     <script type="text/javascript">
     var count =1;
     var class_count=1;
+   var  v_active_count =1; 
   var v_count=0;
   var a_count=1;</script>
 
@@ -106,7 +107,7 @@ include 'includes/config.inc.php';
                 <form name="example" role="form" action="submit_edit.php" method="POST" enctype="multipart/form-data" onSubmit="return validateForm()">                <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
                         <div class="wizard-header">
                             <h3> Edit Identity ID <b><?php echo "$idd" ?></b> in AMRdb</h3>
-                            <p>The tabs allow the use to edit existing AMR selected ID in the AMRdb. The data is split into six different tabs. The first tab displays the identification details which consist of gene symbol, allele information, genebank/protein id, SNP and drug class details. The second tab displays any metadata associated with the ID. The third tab has antibiogram data from associated bioproject and the fourth tab has threat level. The taxonomy information is in the fifth tab and the protein/nucleotide sequence is present in the last tab. <a href="help.php#location">help page</a>.</p>
+                            <p>This page allows the user to edit existing data in the AMRdb for a specific AMR entry. The data is split into six different tabs. The first tab displays the identification details of the entry which consists of the gene symbol, allele information, and genebank/protein identifier. The second classification tab displays any SNP data and drug class details. The third tab has antibiogram data and the fourth tab displays the threat level associated with the entry. The taxonomy information is in the fifth tab and the protein/nucleotide sequence and any metadata is present in the last two tabs. For more information see the <a href="help.php#location">help page</a>.</p>
                         </div>
 
                         <div class="wizard-navigation">
@@ -124,7 +125,6 @@ include 'includes/config.inc.php';
                         <div class="tab-content" style="background:white;">
                             <div class="tab-pane" id="about">
                               <div class="row">
-
                                     <!-- first -->
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
@@ -135,6 +135,7 @@ include 'includes/config.inc.php';
                                             <input type="hidden" name="id_seq_id" value="<?php echo $seq[0]; ?>"><!-- //Identity_Sequence -->
                                             <input type="hidden" name="idaa_id" value="<?php echo $idaa[0]; ?>">   <!-- Identity Assembly -->
                                             <input type="hidden" name="tl_id" value="<?php echo $tl[0]; ?>">   <!-- Identity Assembly -->
+
                                          	 <label for="identity" class="control-label">Identity ID</label>
                                             <input type="text" class="form-control" name="identity" id="identity"  value="<?php echo $ids[0]; ?>" placeholder="<?php echo $ids[0]; ?>" readonly >
                                         </div>
@@ -209,7 +210,7 @@ include 'includes/config.inc.php';
 
                                     <div class="col-sm-10 col-sm-offset-1">
                                        <div class="form-group">
-                                            <label for="gene_aliases" class="control-label">Protein Name</label>
+                                            <label for="gene_aliases" class="control-label">Protein/Product Name</label>
                                                 <input type="text" class="form-control" name="protein_name" id="protein_name" placeholder="e.g. CMY-7 blacmy-7" value="<?php echo $ids[12]; ?>">
                                         </div>
                                     </div>
@@ -247,25 +248,40 @@ include 'includes/config.inc.php';
 
                                     <div class="col-sm-10 col-sm-offset-1">                                     
                                         <div class="form-group">
-                                            <label for="pubmed" class="control-label">
+                                            <label for="pubmed" class="control-label">Status
                                         <input type="radio" name="Stat" id='non' value="Non curated">
-                                         Non curated <br><br><input type="radio" name="Stat" id='curated' value="Curated"> Curated</label>
+                                         Non curated &nbsp&nbsp<input type="radio" name="Stat" id='curated' value="Curated"> Curated</label>
+                                        </div>
+                                    </div>
+
+                                     <div class="col-sm-10 col-sm-offset-1">                                     
+                                        <div class="form-group">
+                                            <label for="bioproject_id" class="control-label">Active: </label>
+                                                <input type="radio" name="is_active_" id='active_' value="1">
+                                         Yes &nbsp&nbsp<input type="radio" name="is_active_" id='nonactive_' value="0">No</label>
                                         </div>
                                     </div>
 
                                     <!-- End of first -->
                               </div>
                             </div>
-
                            <!-- Second tab: Classification and Variant-->
                                <div class="tab-pane" id="classi">
                                <?php
                                 $sql = "SELECT ise.* FROM  CDC.Classification ise,CDC.Identity i where i.ID=ise.Identity_ID and i.ID = '$idd'";
+                                $v_is_active_count=0;
+                                $c_is_active_count=0;
                                 $query=mysql_query($sql);
                                 // $second_tab_content[]="";
                                 $class_parent_count=0;
                                 while($loop_varian_class=mysql_fetch_array($query)){
                                      $class_parent_count++;
+                                     $c_is_active_count++;
+                                  
+                                     $c_checked_yes=$loop_varian_class[6]==1? 'checked':'';
+                                     $c_checked_no=$loop_varian_class[6]==0? 'checked':'';
+                                     $c_radio_name = "cIsActive_".$c_is_active_count;
+
                                     $tempContent=<<<TT
                                     <div class="row">
                                                 <script type="text/javascript"> count++; class_count++;</script>
@@ -293,9 +309,18 @@ include 'includes/config.inc.php';
                                               <div class="col-sm-10 col-sm-offset-1"> 
                                                      <div class="form-group">
                                                         <label for="drug_family" class="control-label">Mechanism of Action</label>
-                                                        <input type="text" class="form-control" name="mechanism_of_action[]"  placeholder="e.g. Beta-lactam" value='$loop_varian_class[5]'>
+                                                        <input type="text" class="form-control" name="mechanism_of_action[]"  placeholder="e.g. Beta-lactam" value='$loop_varian_class[4]'>
                                                     </div>
                                             </div>
+
+                                              <div class="col-sm-10 col-sm-offset-1"> 
+                                                     <div class="form-group">
+                                                        <label for="drug_family" class="control-label">Is Active: </label>
+                                                        <input type="radio"  name=$c_radio_name value="1" $c_checked_yes checked> Yes
+                                                        <input type="radio"  name=$c_radio_name value="0" $c_checked_no> No 
+                                                    </div>
+                                            </div>
+
                                             <fieldset class="col-sm-10 col-sm-offset-1" >
                                             <h4 >Variants</h4>
                                      
@@ -306,10 +331,16 @@ TT;
                                     
                                   $va_child_count=0;
                                          while ($loop_va_child=mysql_fetch_array($query_child)) {
+                                            // var_dump($loop_va_child);
                                             $va_child_count++;
+                                            $v_is_active_count++;
+                                  $v_radio_name = "vIsActive_".$v_is_active_count."_".$c_is_active_count;
+
                                         // echo 'Hi'.isset($loop_va_child);
                                         // if($loop_va_child)
                                         # code...
+                                             $v_checked_yes=$loop_va_child[5]==1? 'checked':'';
+                                             $v_checked_no=$loop_va_child[5]==0? 'checked':'';
                                         $tempContent2=<<<HH
                                             <input type="hidden" name="va_id[]" value='$loop_va_child[0]'><!-- //Variants -->
                                                 <div class="col-sm-10 col-sm-offset-1">
@@ -326,7 +357,16 @@ HH;
                                                          <div class="form-group">
                                                             <label for="pubmed" class="control-label">Variant PubMed ID</label>
                                                             <input type="text" class="form-control" name="v_plasmid[$class_parent_count][]"  value='$loop_va_child[2]'>
-                                                        </div><hr style="border-color:#aaa;">
+                                                        </div>
+                                                </div>
+                                                  <div class="col-sm-10 col-sm-offset-1"> 
+                                                         <div class="form-group">
+                                                            <label class="control-label">Is Active: </label>
+                                                            <input type="radio"  name=$v_radio_name value="1" $v_checked_yes > Yes
+                                                        <input type="radio"  name=$v_radio_name value="0" $v_checked_no> No 
+                                                        </div>
+
+                                                <hr style="border-color:#aaa;">
                                                 </div>
                                             
                                              
@@ -336,6 +376,9 @@ HH;
                                                 $tempContent.=$tempContent2;
                                     }
                                     if($va_child_count==0){
+                                           $v_is_active_count++;
+                                  $v_radio_name = "vIsActive_".$v_is_active_count."_".$c_is_active_count;
+
                                      $tempContent2=<<<HH
                                           <input type="hidden" name="va_id[]" value='$loop_va_child[0]'>
                                          
@@ -350,9 +393,17 @@ HH;
                                                         <div class="form-group">
                                                             <label for="pubmed" class="control-label">Variant PubMed ID</label>
                                                             <input type="text" class="form-control" name="v_plasmid[$class_parent_count][]" placeholder="e.g. 25006521" value=''>
-                                                        </div><hr style="border-color:#aaa;">
+                                                        </div>
                                                 </div>
-                                            
+                                                    <div class="col-sm-10 col-sm-offset-1"> 
+                                                         <div class="form-group">
+                                                            <label class="control-label">Is Active: </label>
+                                                            <input type="radio"  name=$v_radio_name value="1"checked > Yes
+                                                        <input type="radio"  name=$v_radio_name value="0"  > No 
+                                                        </div>
+
+                                                <hr style="border-color:#aaa;">
+                                                </div>
 
 HH;
                                                 $tempContent.=$tempContent2;
@@ -683,21 +734,21 @@ HAHA;
 
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
-                                            <label for="meta" class="control-label">Isoloation Site</label>
-                                                <input type="text" class="form-control" name ="isolation_site"  placeholder="e.g. " value="<?echo $meta[3];?>"">
+                                            <label for="meta" class="control-label">Isolation Site</label>
+                                                <input type="text" class="form-control" name ="isolation_site"  placeholder="e.g. " value="<?php echo $meta[3];?>"">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Serotyping Method</label>
-                                                <input type="text" class="form-control" name ="serotyping_method"  placeholder="e.g. " value="<?echo $meta[4];?>">
+                                                <input type="text" class="form-control" name ="serotyping_method"  placeholder="e.g. " value="<?php echo $meta[4];?>">
                                         </div>
                                     </div>
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Source Common Name</label>
-                                                <input type="text" class="form-control" name ="source_common_name"  placeholder="e.g. Rectal swab" value="<?echo $meta[5];?>">
+                                                <input type="text" class="form-control" name ="source_common_name"  placeholder="e.g. Rectal swab" value="<?php echo $meta[5];?>">
                                         </div>
                                     </div>
 
@@ -706,7 +757,7 @@ HAHA;
 
                                             <?php
                                                 // format output
-                                              $day="";
+                                                $day="";
                                                 $mon="";
                                                 $yea="";
                                             $data_string = explode('-', $meta[6]);
@@ -725,20 +776,16 @@ HAHA;
                                                 $mon=$data_string[1];
                                                 $yea=$data_string[2];
                                             }
-
                                             ?>
 
                                             <label for="meta" class="control-label">Specimen Collection Date (DD-MON-YYYY)</label>
-                                                <input type="text" class="form-control" name = "specimen_collection_date"  placeholder="e.g. 01/01/2015" value="<?echo $meta[6];?>">
+                                                <!-- <input type="text" class="form-control" name = "specimen_collection_date"  placeholder="e.g. 01/01/2015" value="<?echo $meta[6];?>"> -->
 
-                                                    <br><input type="text" class="" name = "specimen_collection_date_DD" style="width: 2em;" id="specimen_collection_date_DD"  placeholder="DD" onkeyup="validate_date('specimen_collection_date_DD')" value="<?echo $day?>">
-                                                -&nbsp;<input type="text" class="" name = "specimen_collection_date_MON" style="width: 2em;" id="specimen_collection_date_MON"  placeholder="MON"onkeyup="validate_date('specimen_collection_date_MON')" value="<?echo $mon?>">
-                                                -&nbsp;<input type="text" class="" name = "specimen_collection_date_YY" style="width: 4em;" id="specimen_collection_date_YY"  placeholder="YYYY" onkeyup="validate_date('specimen_collection_date_YY')" value="<?echo $yea?>" required>
+                                                    <br><input type="text" class="" name = "specimen_collection_date_DD" style="width: 2em;" id="specimen_collection_date_DD"  placeholder="DD" onkeyup="validate_date('specimen_collection_date_DD')" value="<?php echo $day?>">
+                                                -&nbsp;<input type="text" class="" name = "specimen_collection_date_MON" style="width: 3em;" id="specimen_collection_date_MON"  placeholder="MON"onkeyup="validate_date('specimen_collection_date_MON')" value="<?php echo $mon?>">
+                                                -&nbsp;<input type="text" class="" name = "specimen_collection_date_YY" style="width: 4em;" id="specimen_collection_date_YY"  placeholder="YYYY" onkeyup="validate_date('specimen_collection_date_YY')" value="<?php echo $yea; ?>">
 
-
-
-
-                                                 <br>
+                                                 <!-- <br> -->
                                                  <label for="meta" class="control-label" id="date_valid_label"style="color:#ccc"></label>
                                         </div>
                                     </div>
@@ -746,28 +793,28 @@ HAHA;
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Location Country</label>
-                                                <input type="text" class="form-control" name ="specimen_location_country"  placeholder="e.g. India" value ="<?echo $meta[7];?>">
+                                                <input type="text" class="form-control" name ="specimen_location_country"  placeholder="e.g. India" value ="<?php echo $meta[7];?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Location</label>
-                                                <input type="text" class="form-control" name ="specimen_location"  placeholder="e.g. India" value ="<?echo $meta[8];?>">
+                                                <input type="text" class="form-control" name ="specimen_location"  placeholder="e.g. India" value ="<?php echo $meta[8];?>">
                                         </div>
                                     </div>
                                         
                                     <div class="col-sm-10 col-sm-offset-1">                                     
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Location Lattitude</label>
-                                                <input type="text" class="form-control" name ="specimen_location_lattitude"   placeholder="e.g. 39.09802374503313" value ="<?echo $meta[9];?>">
+                                                <input type="text" class="form-control" name ="specimen_location_lattitude"   placeholder="e.g. 39.09802374503313" value ="<?php echo $meta[9];?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Location Longitude</label>
-                                                <input type="text" class="form-control" name = "specimen_location_longitude" placeholder="e.g. -77.19469801321412" value ="<?echo $meta[10];?>">
+                                                <input type="text" class="form-control" name = "specimen_location_longitude" placeholder="e.g. -77.19469801321412" value ="<?php echo $meta[10];?>">
                                         </div>
                                     </div>
                                     
@@ -781,7 +828,7 @@ HAHA;
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Development Stage</label>
-                                                <input type="text" class="form-control" name ="specimen_dev_stage"  placeholder="e.g. 32" value ="<?echo $meta[12];?>">
+                                                <input type="text" class="form-control" name ="specimen_dev_stage"  placeholder="e.g. 32" value ="<?php echo $meta[12];?>">
                                         </div>
                                     </div>
 
@@ -795,47 +842,50 @@ HAHA;
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Source Gender</label>
-                                                <input type="text" class="form-control" name ="specimen_source_gender" placeholder="e.g. Male" value ="<?echo $meta[14];?>">
+                                                <input type="text" class="form-control" name ="specimen_source_gender" placeholder="e.g. Male" value ="<?php echo $meta[14];?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Health Status</label>
-                                                <input type="text" class="form-control" name ="specimen_health_status" placeholder="e.g. " value ="<?echo $meta[15];?>">
+                                                <input type="text" class="form-control" name ="specimen_health_status" placeholder="e.g. " value ="<?php echo $meta[15];?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Treatment</label>
-                                                <input type="text" class="form-control" name ="specimen_treatment" placeholder="e.g. " value ="<?echo $meta[16];?>">
+                                                <input type="text" class="form-control" name ="specimen_treatment" placeholder="e.g. " value ="<?php echo $meta[16];?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Type</label>
-                                                <input type="text" class="form-control" name ="speciment_type" placeholder="e.g. " value ="<?echo $meta[17];?>">
+                                                <input type="text" class="form-control" name ="speciment_type" placeholder="e.g. " value ="<?php echo $meta[17];?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Specimen Symptom</label>
-                                                <input type="text" class="form-control" name ="speciment_symptom" placeholder="e.g. " value ="<?echo $meta[18];?>">
+                                                <input type="text" class="form-control" name ="speciment_symptom" placeholder="e.g. " value ="<?php echo $meta[18];?>">
                                         </div>
                                     </div>
 
                                     <div class="col-sm-10 col-sm-offset-1">                                 
                                         <div class="form-group">
                                             <label for="meta" class="control-label">Host</label>
-                                                <input type="text" class="form-control" name ="speciment_Host" placeholder="e.g. " value ="<?echo $meta[19];?>">
+                                                <input type="text" class="form-control" name ="speciment_Host" placeholder="e.g. " value ="<?php echo $meta[19];?>">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <input type="Hidden" id='a_count' name="a_count" value="1">
+                            <input type="Hidden" id='c_active_count' name="c_active_count" value="1">
+                            <input type="Hidden" id='v_active_count' name="v_active_count" value="1_1">
+
                         </div>
                         <div class="wizard-footer height-wizard">
                             <div class="pull-right">
@@ -922,12 +972,34 @@ HAHA;
 HAHA;
     echo $scp;
     }
+
+    if($ids[16]=='1'){
+    $scp=<<<HAHA
+        <script type="text/javascript">
+        $("#active_").attr('checked', 'checked');
+        </script>
+HAHA;
+        echo $scp;
+    }else{
+    $scp=<<<HAHA
+        <script type="text/javascript">
+        $("#nonactive_").attr('checked', 'checked');
+        </script>
+HAHA;
+        echo $scp;
+    }
 ?>
 <SCRIPT TYPE="text/javascript">
+                                  // $v_radio_name = "vIsActive_".$v_is_active_count;
+       var active_v_child_count = <?php echo json_encode(json_encode($v_is_active_count), JSON_HEX_TAG); ?>;
+       // console.log("v php count is: "+active_v_child_count);
+       document.getElementById('c_active_count').value= count;
   function addRow(in_tbl_name,add_options,child_varnat_index)
   {
- 
+
     if(add_options=='classi'){
+        active_v_child_count++;
+     console.log("vvvvv count is: "+active_v_child_count);
         console.log("Adding Class to "+ in_tbl_name);
         v_count++;
         let container_pas = document.getElementById(in_tbl_name);
@@ -954,7 +1026,10 @@ HAHA;
         addRow_helper('','addon_fields'+count,'Drug Family','drug_family[]','e.g. Beta-lactam',count);
         addRow_helper('','addon_fields'+count,'Drug Class','drug_class[]','e.g. Class_C_Carbapenemase',count);
         addRow_helper('','addon_fields'+count,'Sub Drug Class','sub_drug_class[]','e.g. Resistance-Nodulation_Cell_Division',count);
-        let start_indent=addRow_helper('','addon_fields'+count,'Mechanism of Action','mechanism_of_action[]','e.g. action',count);
+        addRow_helper('','addon_fields'+count,'Mechanism of Action','mechanism_of_action[]','e.g. action',count);
+        let start_indent=addRow_helper('radio','addon_fields'+count,'is Active ','cIsActive_'+count,'',count);
+
+        
         // add field set as their parents => snp and variants are children of classification 
         // let field_set = document.createElement('fieldset');
         //create a fieldset then add a div  then satrt to insert snps
@@ -968,6 +1043,8 @@ HAHA;
         child_container.appendChild(h2);
         addRow_helper('','field_set_id'+count,'SNP','snp['+count+'][]','e.g.xxxx',count);
         addRow_helper('','field_set_id'+count,'Variant PubMed ID','v_plasmid['+count+'][]','e.g.xxxx',count);
+        addRow_helper('radio','field_set_id'+count,'Is Active: ','vIsActive_'+count+'_'+active_v_child_count,'e.g.xxxx',count);
+
         // create add and remove button for varuants and snps 
         let holder_div = document.createElement('DIV');
         holder_div.id='vant_div'+count;
@@ -994,12 +1071,20 @@ HAHA;
         coldiv1.appendChild(document.createElement("BR"));
         coldiv1.appendChild(document.createElement("BR"));
         coldiv1.appendChild(h);
+        document.getElementById('c_active_count').value= count;
+        document.getElementById('v_active_count').value= count+'_'+active_v_child_count;
         count++;
-
     }
     if(add_options=='varant'){
-        console.log("adding to "+ in_tbl_name);
+        active_v_child_count++;
+        // console.log("vvvvvv count is: "+active_v_child_count);
+        // console.log("adding to "+ in_tbl_name);
         v_count++;
+        // console.log("v count is : "+ v_count);
+        // console.log(" child_varnat_index is : "+ child_varnat_index);
+        // console.log("v count is : "+ v_count);
+
+
         let container_pas = document.getElementById(in_tbl_name);
         let outter_div=document.createElement('div');
         outter_div.setAttribute("id",'addon_va_fields'+v_count);
@@ -1016,7 +1101,8 @@ HAHA;
         coldiv1.appendChild(groudiv2);
         // coldiv1.appendChild(hr);
         addRow_helper('','addon_va_fields'+v_count,'SNP','snp['+child_varnat_index+'][]','e.g.xxxx',v_count);
-        let groudiv=addRow_helper('','addon_va_fields'+v_count,'Variant PubMed ID','v_plasmid['+child_varnat_index+'][]','e.g.xxxx',v_count);
+        addRow_helper('','addon_va_fields'+v_count,'Variant PubMed ID','v_plasmid['+child_varnat_index+'][]','e.g.xxxx',v_count);
+        let groudiv=addRow_helper('radio','addon_va_fields'+v_count,'Is Active','vIsActive_'+child_varnat_index+'_'+active_v_child_count,'',v_count)
         // create remove button
         let removeMe=document.createElement("input");
         removeMe.type="Button";
@@ -1027,6 +1113,8 @@ HAHA;
         groudiv.appendChild(document.createElement("BR"));
         groudiv.appendChild(removeMe);
         groudiv.appendChild(hr);
+       document.getElementById('v_active_count').value= child_varnat_index+'_'+active_v_child_count;
+
     
     }
         if(add_options=='anti'){
@@ -1096,6 +1184,39 @@ HAHA;
         groudiv.appendChild(lb);
         groudiv.appendChild(t);
         groudiv.appendChild(input);
+       return groudiv;
+    }
+     if(parent_node=='radio'){
+        let container = document.getElementById(in_tbl_name);
+        let coldiv=document.createElement('div');
+        let groudiv=document.createElement('div');
+        let lb = document.createElement("LABEL");
+        let t = document.createTextNode(lable_name);
+        let input1 = document.createElement("input");
+        let input2 = document.createElement("input");
+        coldiv.className='col-sm-10 col-sm-offset-1';
+        // coldiv.setAttribute("id",'addon_fields'+countMe);
+        groudiv.className='form-group';
+        lb.className ='control-label';
+        input1.type = "radio";
+        input1.name = field_name;
+        
+        input2.type = "radio";
+        input2.name = field_name;
+        input1.checked = true;
+    input1.value=1;
+    input2.value=0;
+        // input1.innerHTML="Yes";
+        // input1.placeholder =holder;
+        // input1.className='form-control';
+        container.appendChild(coldiv);
+        coldiv.appendChild(groudiv);
+        groudiv.appendChild(lb);
+        groudiv.appendChild(t);
+        groudiv.appendChild(input1);
+        groudiv.appendChild(document.createTextNode("Yes  "));
+        groudiv.appendChild(input2);
+        groudiv.appendChild(document.createTextNode("No  "));
        return groudiv;
     }
     
