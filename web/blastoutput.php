@@ -334,12 +334,12 @@ function format ( d ) {
             '<td>'+d.ComplexFile+'</td>'+
         '</tr>';        
   }
-   // if(d.child_snp!=""){
+   if(d.child_snp!=""){
        return_cells+='<tr>'+
             '<td>Snp View:</td>'+
             '<td>'+d.Snp_view+'</td>'+
         '</tr>';        
-  // }
+  }
   return_cells+='</table>';
   return return_cells;
 }
