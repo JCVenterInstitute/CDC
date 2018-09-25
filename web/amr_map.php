@@ -22,7 +22,7 @@
   </div> 
   <span>Select Year (1980-2018):</span>
   <div>  
-    <input type="range" name="select" id="select" value="" min="1980" max="2018" step="1" value="2008"><span id="range_value"></span> 
+    <input type="range" name="select" id="select" value="" min="1970" max="2018" step="1" value="2008"><span id="range_value"></span><br> 
     <input type="checkbox" id="unknown-date" name="others"/> Show samples with unknown dates
     <input type="checkbox" id="unknown-location" name="others"/> Show samples with unknown locations
   </div>
