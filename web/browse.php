@@ -33,6 +33,7 @@ HAHA;
 <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"> -->
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<!-- <script type="text/javascript" src="./DataTables/datatables.min.js"></script> -->
 
 
 <script type="text/javascript" class="init">
