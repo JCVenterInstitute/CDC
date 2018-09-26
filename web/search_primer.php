@@ -5,6 +5,12 @@ date_default_timezone_set('America/chicago');
 /* This script generate a datatable based on the 
    data returned by browse_fetch.php
 */
+
+   if(!isset($_SESSION['userID'])){
+  echo '<br><br><br><br><h2 align="center">Please Log in as an admin</h5><br><br><br><br><br><br><br>';
+include 'includes/footerx.php';
+  die;
+}
 ?>
 <!-- self reference to get the data   -->
 
@@ -48,7 +54,7 @@ $(document).ready(function() {
                     ],
         "ajax":function(data,callback, setting){
              $.ajax( {
-                   "url": "http://cdc-1.jcvi.org:8983/solr/primer/select",
+                   "url": "/solr/primer/select",
                  "type":"GET",
                  "data": $.extend( {}, data, {'wt':'json',  'q':'Primer:'+escapeRegExp(data.search.value)+' Or Target:'+escapeRegExp(data.search.value) +' Or FWD:'+escapeRegExp(data.search.value)+' Or REV:'+escapeRegExp(data.search.value)
                                                ,'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),'rows':data.length}),
@@ -117,9 +123,9 @@ $(document).ready(function() {
    <div class="container">
         <div class="row">
             <div class="main col-md-12">
-            <h2 class="title">Primer Browse/Search Module</h2>
+            <h2 class="title">Primer Catalog</h2>
             <div class="separator-2"></div>
-                <div style="line-height: 150%;"> <p style="text-align:justify"; >PCR Validator accesses the primers specificity on AMR or target genome. PCR Validator uses open source <a href="https://sourceforge.net/projects/simulatepcr/">Simulate_PCR</a> tools for predicting both desired and off-target amplification products.<br>   For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr>
+                <div style="line-height: 150%;"> <p style="text-align:justify"; >Primer Catalog provides listing and advance search of all primers available in the system. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr>
                   <div id='btn_container'>
                   </div>
                 </div>

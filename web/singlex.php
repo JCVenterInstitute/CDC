@@ -7,6 +7,18 @@ include 'includes/config.inc.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
+<?php 
+// var_dump($_SESSION['userID']);
+if(!isset($_SESSION['userID'])){
+  echo '<br><br><br><br><h2 align="center">Please Log in as an admin</h5><br><br><br><br><br><br><br>';
+include 'includes/footerx.php';
+  die;
+}
+// var_dump($_POST);
+
+
+
+?>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
@@ -58,7 +70,6 @@ var primer = <?php  if (isset($_GET['id'])){
    
     if (str.trim()==''){
         console.log("s");
-        // primer= ' AND '+ primer;
         return '';
     }
     
@@ -572,7 +583,7 @@ var btn_search_me = '0';
                         <li><a href="#h2tab4" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i> Threat Level</a></li>
                         <li><a href="#h2tab5" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i> Taxonomy</a></li>             
                         <li><a href="#h2tab6" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i> Sequence</a></li>  
-                        <li><a href="#h2tab7" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i>Sample Metadata</a></li>
+                        <li><a href="#h2tab7" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i>Metadata</a></li>
                         <li><a href="#h2tab8" role="tab" data-toggle="tab"><i class="fa fa-file-o pr-10"></i>Hit</a></li>
                     </ul>
                     <!-- Tab panes -->

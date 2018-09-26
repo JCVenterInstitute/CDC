@@ -63,7 +63,7 @@
 		}
 
 		// get the total number first then get all the records
-		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q"  }'`;
+		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q"  }'`;
 
 		$js= json_decode($post_fetch);
 		// var_dump($js);
@@ -74,7 +74,7 @@
 		if($js->response->numFound==0){
 			return; 
 		}
-		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q" ,limit : $max_row_no }'`;
+		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q" ,limit : $max_row_no }'`;
 		$js= json_decode($post_fetch);
 		$x_x_readytowrite_MOST=$js->response->docs;
 // var_dump($js);
@@ -227,10 +227,10 @@
 		//exporting second file 
 		//first get the number of rows
 
-	$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
+	$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
 		$js= json_decode($post_fetch);
 		$max_row_no=$js->response->numFound;
-		$search_class_variant=`curl -X POST -H 'Content-Type: application/json' 'cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
+		$search_class_variant=`curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
 		// var_dump($search_class_variant);
 	// 	echo "<br> class <br>";
 	// var_dump($search_rows_request);
@@ -269,11 +269,11 @@
 		// echo "<br><h1>$count_me</h1><br>";
 
 		//exporting thrid file 
-	$search_rows_request= `curl -X POST -H 'Content-Type: application/json' 'cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
+	$search_rows_request= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
 
 		$js= json_decode( $search_rows_request);
 		$max_row_no=$js->response->numFound;
-		$search_class_antibiogram=`curl -X POST -H 'Content-Type: application/json' 'cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
+		$search_class_antibiogram=`curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
 
 		$js= json_decode($search_class_antibiogram);
 		$x_x_readytowrite_anti=$js->response->docs;

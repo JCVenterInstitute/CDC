@@ -182,7 +182,7 @@ if ($dirfilepx[0] != ''){
           $write_local_file.="\"Drug_Family\":\"".$obj->Drug_Family."\",";
           $write_local_file.="\"child_snp\":\"".$tmp_data[$obj->id][6]."\",";
           $write_local_file.="\"ComplexFile\":\"".$cdata[$obj->id]."\",";
-          $write_local_file.="\"Snp_view\":\"<a href=".$dir."/outx/alignments/".$obj->id."_hit.html target=_blank>link text</a>\"";
+          $write_local_file.="\"Snp_view\":\"<a href=".$dir."/outx/alignments/".$obj->id."_hit.html target=_blank>Link</a>\"";
 
           $write_local_file.="},";
 
@@ -334,12 +334,10 @@ function format ( d ) {
             '<td>'+d.ComplexFile+'</td>'+
         '</tr>';        
   }
-   if(d.child_snp!=""){
        return_cells+='<tr>'+
-            '<td>Snp View:</td>'+
+            '<td>MSA View:</td>'+
             '<td>'+d.Snp_view+'</td>'+
         '</tr>';        
-  }
   return_cells+='</table>';
   return return_cells;
 }
@@ -416,6 +414,7 @@ $(document).ready(function() {
             { "data": "Identity"},
             { "data": "E_Value"},
             { "data": "Gene_Symbol"},
+            { "data": "Allele"},
             { "data": "Protein_Name"},
             { "data": "Protein_ID",
               "render": function(data, type, row, meta){
@@ -542,6 +541,7 @@ if ($dirfilepx[0] != ''&&$newpid==''){
                 <th>Identity</th>
                 <th>E_Value</th>
                 <th>Gene Symbol</th>
+                <th>Allele</th>
                 <th>Protein Name</th>
                 <th>Protein ID</th>
                 <th>Drug Family</th>                

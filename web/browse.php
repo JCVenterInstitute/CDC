@@ -112,7 +112,7 @@ $(document).ready(function() {
 
         "ajax":function(data,callback, setting){
              $.ajax( {
-                 "url": "http://cdc-1.jcvi.org:8983/solr/my_core_exp/select",
+                 "url": "https://cdc-1.jcvi.org:8081/solr/my_core_exp/select",
                  "type":"POST",
                  "data": $.extend( {}, data, {'wt':'json', 'q':'all_fields:'+escapeRegExp(data.search.value) + " AND Is_Active:1"
                  //                                            ' Or Allele:'+escapeRegExp(data.search.value)+

@@ -1,4 +1,12 @@
-<?php include 'includes/header.php';?>
+<?php include 'includes/header.php';
+
+
+if(!isset($_SESSION['userID'])){
+  echo '<br><br><br><br><h2 align="center">Please Log in as an admin</h5><br><br><br><br><br><br><br>';
+include 'includes/footerx.php';
+  die;
+}
+?>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -62,7 +70,7 @@ $(document).ready(function() {
         // "displayLength" : 0,
         "ajax":function(data,callback, setting){
              $.ajax( {
-                 "url": "http://cdc-1.jcvi.org:8983/solr/my_core_exp/select",
+                 "url": "/solr/my_core_exp/select",
                  "type":"GET",
                  "data": $.extend( {}, data, {'wt':'json', 'q':'all_fields:'+escapeRegExp(data.search.value),
                                 'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),

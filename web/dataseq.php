@@ -187,7 +187,7 @@ tr.shown td.details-control {
 						 }
 						 $t_col = getting_colums_from_a_table($con,'Sample_Metadata');
 	
-						$sth = $con->prepare('INSERT INTO Sample_Metadata(ID,Source,Source_ID,Isolation_site,Serotyping_Method,Source_Common_Name,Specimen_Collection_Date,Specimen_Collection_Location_Country,Specimen_Collection_Location,Specimen_Collection_Location_Latitude,Specimen_Collection_Location_Longitude,Specimen_Source_Age,Specimen_Source_Developmental_Stage,Specimen_Source_Disease,Specimen_Source_Gender,Health_Status,Treatment,Specimen_Type,Symptom,Host,Created_By,Modified_By) VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );');
+						$sth = $con->prepare('INSERT INTO Sample_Metadata(ID,Source,Source_ID,Isolation_site,Serotyping_Method,Source_Common_Name,Specimen_Collection_Date,Specimen_Collection_Year,Specimen_Collection_Location_Country,Specimen_Collection_Location,Specimen_Collection_Location_Latitude,Specimen_Collection_Location_Longitude,Specimen_Source_Age,Specimen_Source_Developmental_Stage,Specimen_Source_Disease,Specimen_Source_Gender,Health_Status,Treatment,Specimen_Type,Symptom,Host,Created_By,Modified_By) VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? );');
 						for ($i=0; $i<sizeof($t_col) ; $i++) {
 							// $new_i=$i+1; 
 							$in_val = "\"".$samp_t[$i]."\"";
@@ -441,8 +441,8 @@ tr.shown td.details-control {
 							$date_string.=$_POST['specimen_collection_date_MON']."-";
 						}
 						$date_string.=$_POST["specimen_collection_date_YY"];
-
-						$returnVal[]=$date_string;
+						$returnVal[]=$date_string;// data 
+						$returnVal[]=isset($_POST["specimen_collection_date_YY"])?$_POST["specimen_collection_date_YY"]:"";// year
 						$returnVal[]=$_POST['specimen_location_country'];
 						$returnVal[]=$_POST['specimen_location'];		// specimen_location specimen location 	
 						$returnVal[]=$_POST['specimen_location_lattitude'];

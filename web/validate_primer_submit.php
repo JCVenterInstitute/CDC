@@ -17,6 +17,7 @@ $f_path = "tmp/";
 $ran = $_GET['ran'];
 $file_path= "tmp/$ran";
 $dirfilep = "tmp/$ran/out/data.json";
+$dirfiled = "tmp/$ran/out/Tabular_Output.txt";
 
  //var_dump($dirfilep);
 // if get is empty or the file is not present then do not show data table.
@@ -30,7 +31,7 @@ $ran = $_GET['ran'];
             <div class="main col-md-12">
             <h2 class="title">Validate Primer</h2>
             <div class="separator-2"></div>
-                <div style="line-height: 150%;"> <p style="text-align:justify"; >PCR Validator accesses the primers specificity on AMR or target genome. PCR Validator uses open source <a href="https://sourceforge.net/projects/simulatepcr/">Simulate_PCR</a> tools for predicting both desired and off-target amplification products.<br><a href="help.php#location">help page</a>.</p><hr></hr>
+                <div style="line-height: 150%;"> <p style="text-align:justify"; >PCR Validator accesses the primers specificity on AMR or target genome. PCR Validator uses open source <a href="https://sourceforge.net/projects/simulatepcr/">Simulate_PCR</a> tools for predicting both desired and off-target amplification products.<a href="help.php#location">help page</a>.</p><div id='btn_container'><button class='dt-button buttons-copy buttons-html5'style='float:right' id='download_btn' onclick='downloadAllignment()'>Download Alignment</button><hr>
                 </div>
 
 <table id="example" class="display" style="width:100%">
