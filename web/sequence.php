@@ -57,7 +57,7 @@ display: none;
 										Peform query against the Nucleotide database
 									</label>
 					</div> -->
-					 Select File to upload:
+					 <br>Select File to upload:
 
 	    				<input type="file" name="seq_file" id="seq_file" onclick="seq_file_activate()">
 						<br>

@@ -16,13 +16,13 @@
 					<form name="example" action="validate_primer_que.php" method="POST" enctype="multipart/form-data" onSubmit="return validateForm()">
 						Primer Forward Sequence:<br>
 						<input type="button" class="btn btn-primary btn-sm" value="use an example primer forward sequence" onClick="paste_f_example()">
-						<textarea ALIGN="TOP" ROWS="5" COLS="135" NAME="primer_f_seq_txtfield"></textarea> 
+						<textarea ALIGN="TOP" ROWS="5" COLS="135" NAME="primer_f_seq_txtfield"></textarea> <br>
 						 Select File to upload:
 	    				<input type="file" name="forward_seq_fileToUpload" id="forward_seq_fileToUpload" >
 						<br>
 						Primer Reverse Sequence:<br>
 						<input type="button" class="btn btn-primary btn-sm" value="use an example primer reverse sequence" onClick="paste_r_example()">
-						<textarea ALIGN="TOP" ROWS="5" COLS="135" NAME="primer_r_seq_txtfield"></textarea> 
+						<textarea ALIGN="TOP" ROWS="5" COLS="135" NAME="primer_r_seq_txtfield"></textarea> <br>
 						 Select File to upload:
 	    				<input type="file" name="rev_seq_fileToUpload" id="rev_seq_fileToUpload" >
 						<br>

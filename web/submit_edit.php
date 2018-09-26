@@ -440,8 +440,8 @@ tr.shown td.details-control {
 						}
 						$date_string.=$_POST["specimen_collection_date_YY"];
 						
-						$returnVal[]=$date_string;
-						
+						$returnVal[]=$date_string;// date 
+						$returnVal[]=$_POST["specimen_collection_date_YY"];// year
 						$returnVal[]=$_POST['specimen_location_country'];
 						$returnVal[]=$_POST['specimen_location'];// specimen location
 						$returnVal[]=$_POST['specimen_location_lattitude'];

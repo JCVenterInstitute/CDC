@@ -138,7 +138,7 @@ tr.shown td.details-control {
 
 	// echo "$_POST($reference_genebank)";
 	echo '<img src="images/wait.gif"  class="center" alt="Please Wait"><br>';	
-	echo "<h2 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes.</h2> "; echo "<h2 align='center'> OR <br>"; echo "Visit the following link <br><a href='http://cdc-1.jcvi.org:8081/validate_primer_submit.php?ran=$ran'>http://cdc-1.jcvi.org:8081/validate_primer_submit.php?ran=$ran </a> </h2>";
+	echo "<h2 align='center'> Please wait while we process your results. <br>The results will be ready within five minutes.</h2> "; echo "<h2 align='center'> OR <br>"; echo "Visit the following link <br><a href='https://cdc-1.jcvi.org:8081/validate_primer_submit.php?ran=$ran'>https://cdc-1.jcvi.org:8081/validate_primer_submit.php?ran=$ran </a> </h2>";
 	echo "<meta  http-equiv='refresh' content='2;url=validate_primer_submit.php?ran=$ran' />";		
 
 ?> 

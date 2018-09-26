@@ -1,0 +1,4 @@
+RewriteEngine On 
+RewriteCond %{HTTPS} !=on 
+RewriteCond %{SERVER_PORT} 8081
+RewriteRule ^/?(.*) https://%{cdc-1.jcvi.org:8081}/$1 [R,L]

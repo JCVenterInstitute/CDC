@@ -63,7 +63,8 @@ if(isset($_FILES['seq_file'])){
 		// die;
 
 	}else{
-		 echo "<h2 align='center'><b><i>Please upload correct sequence file type </i></b></h2>";
+		 echo "<h2 align='center'><b><i>Please upload correct sequence file type in valid file format (file extension *.txt, *.fa, *.fasta are allowed). </i></b></h2></div>";
+	         include 'includes/footer.php';
 		die;
 	}
 }else{
@@ -88,7 +89,9 @@ preg_match("/.*\n(.*)/",$seq,$matchx);
 // check if the sequence context is empty
 if(trim($match2[0])==''||!preg_match("/^>.*\n/",$seq)){
 echo "<h2 align='center'><b><i>Please input a sequence in the text area</i></b></h2>";
-echo "<h2 align='center'><b><i>Or check your input</i></b></h2>"; die;
+echo "<h2 align='center'><b><i>Or check your input</i></b></h2></div>"; 
+include 'includes/footer.php';
+die;
 }
 
 $part2=preg_replace("/\r/", "", $match2[0]); 
@@ -127,7 +130,9 @@ $file1name = basename($_FILES['seq_file']['name']); #echo "** $file1name <br>";
 
 # Check for input. ignore the firs line.
 // $arr1 = str_split($seq);
-if($seq == ""){ echo "<h2 align='center'><b><i>Please input a sequence in the text area</i></b></h2>"; die;}
+if($seq == ""){ echo "<h2 align='center'><b><i>Please input a sequence in the text area</i></b></h2></div>";
+include 'includes/footer.php';
+die;}
 // echo "4";
 
 
@@ -247,7 +252,7 @@ if($seq == ""){ echo "<h2 align='center'><b><i>Please input a sequence in the te
 			$rt[]=is_protein($sq);
 		}else{
 			// echo "It is not a fasta file.<br> Converting...<br>";
-	echo "<h2 align='center'><b><i>Please check your input</i></b></h2>"; die;
+	echo "<h2 align='center'><b><i>Please check your input</i></b></h2></div>"; die;
 		}
 		return $rt;
 	}
@@ -260,7 +265,6 @@ if($seq == ""){ echo "<h2 align='center'><b><i>Please input a sequence in the te
 		}else{
 			return 'pr';
 		}
-		
 	}
 ?> 
 </div>

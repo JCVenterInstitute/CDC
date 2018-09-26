@@ -76,7 +76,7 @@ tr:nth-child(even) {
 	         <div class="main col-md-12">
 			  	<div class="col-md-5">
 			        <p><font style="color: #01A9DB;"><h3 align="center">Drug Classification</h3></font></p>
-			        <iframe  src="drug-classification.krona.html" height="500px" width="100%" frameBorder="0">
+			        <iframe  src="drug-classification.kronax.html" height="500px" width="100%" frameBorder="0">
 		            <p>Your browser does not support iframes.</p>
 			        </iframe>
 			    </div>
