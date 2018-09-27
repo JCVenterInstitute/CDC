@@ -1,0 +1,21 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+driver="com.mysql.jdbc.Driver"
+url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
+user="user"
+password="password"/>
+<document>
+<entity name="DataTransfer"
+query="
+SELECT temptable.*,va.SNP,va.PubMed_IDs
+FROM (SELECT i.ID as Identity_ID, i.Source, i.Source_ID,i.Protein_ID,
+cl.ID as ClassificationID,i.Gene_Class,cl.Drug, cl.Drug_Class, cl.Drug_Family, cl.Mechanism_of_Action
+	 FROM CDC.Classification cl, CDC.Identity i 
+	 where cl.Identity_ID =i.ID) as temptable
+LEFT JOIN Variants va ON va.Classification_ID=temptable.ClassificationID
+">
+
+</entity>
+</document>
+</dataConfig>
+

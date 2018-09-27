@@ -1,0 +1,70 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+driver="com.mysql.jdbc.Driver"
+url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
+user="user"
+password="password"/>
+<document>
+<entity name="DataTransfer"
+query="
+SELECT tmp_table.ID, tmp_table.Gene_Symbol,tmp_table.Gene_Alternative_Names,tmp_table.Protein_Alternative_Names, tmp_table.Gene_Family,tmp_table.Gene_Class,tmp_table.Allele,tmp_table.EC_Number,tmp_table.Parent_Allele_Family,tmp_table.Parent_Allele,
+tmp_table.Source,tmp_table.Source_ID,tmp_table.HMM,tmp_table.Protein_ID,tmp_table.Protein_Name,tmp_table.Pubmed_IDs,tmp_table.Is_Active,tmp_table.Status
+, tmp_table.IDSID ,tmp_table.End3, tmp_table.End5, tmp_table.Feat_Type,
+tmp_table.IDAID, tmp_table.Mol_Type, tmp_table.ASBID, tmp_table.Is_Reference, tmp_table.Assemly_Source, tmp_table.Assemly_Source_ID, tmp_table.Assemly_PubMed_IDs, tmp_table.BioProject_ID, tmp_table.Plasmid_Name
+,tmp_table.TAXID, tmp_table.Taxon_ID,tmp_table.Taxon_Kingdom,tmp_table.Taxon_Phylum,tmp_table.Taxon_Sub_Strain,tmp_table.Taxon_Bacterial_BioVar,tmp_table.Taxon_Class,tmp_table.Taxon_Order,tmp_table.Taxon_Family,tmp_table.Taxon_Genus,
+tmp_table.Taxon_Species,tmp_table.Taxon_Sub_Species,tmp_table.Taxon_Pathovar,tmp_table.Taxon_Serotype,tmp_table.Taxon_Strain, tmp_table.SMID, tmp_table.Isolation_site, tmp_table.Serotyping_Method, tmp_table.Source_Common_Name,
+tmp_table.Specimen_Collection_Date, tmp_table.Specimen_Collection_Location_Country,tmp_table.Specimen_Collection_Year, tmp_table.Specimen_Collection_Location, tmp_table.Specimen_Collection_Location_Latitude, tmp_table.Specimen_Collection_Location_Longitude,
+tmp_table.Specimen_Source_Age, tmp_table.Specimen_Source_Developmental_Stage, tmp_table.Specimen_Source_Disease, tmp_table.Specimen_Source_Gender, tmp_table.Health_Status, tmp_table.Treatment, tmp_table.Specimen_Type, tmp_table.Symptom,tl.Level
+, GROUP_CONCAT( cl.Drug SEPARATOR ',')as Drug, GROUP_CONCAT(cl.Drug_Class SEPARATOR ',')as Drug_class, GROUP_CONCAT(cl.Drug_Family SEPARATOR ',')as Drug_Family,GROUP_CONCAT(cl.Mechanism_of_Action SEPARATOR ',')as Mechanism_of_Action ,
+GROUP_CONCAT(va.SNP SEPARATOR ',')as SNP ,GROUP_CONCAT(va.Pubmed_IDs SEPARATOR ',')as Variants_PubMed_IDs ,
+GROUP_CONCAT(anti.Antibiotic SEPARATOR ',')as Antibiotic ,GROUP_CONCAT(anti.Drug_Symbol SEPARATOR ',')as Drug_Symbol,GROUP_CONCAT(anti.Laboratory_Typing_Method SEPARATOR ',')as Laboratory_Typing_Method,
+GROUP_CONCAT(anti.Laboratory_Typing_Method_Version_or_Reagent SEPARATOR ',')as Laboratory_Typing_Method_Version_or_Reagent, GROUP_CONCAT(anti.Laboratory_Typing_Platform SEPARATOR ',')as Laboratory_Typing_Platform 
+,GROUP_CONCAT(anti.Measurement SEPARATOR ',')as Measurement,GROUP_CONCAT(Measurement_Sign SEPARATOR ',')as Measurement_Sign,GROUP_CONCAT(anti.Measurement_Units SEPARATOR ',')as Measurement_Units,
+GROUP_CONCAT(anti.Resistance_Phenotype SEPARATOR ',')as Resistance_Phenotype,GROUP_CONCAT(anti.Testing_Standard SEPARATOR ',')as Testing_Standard ,GROUP_CONCAT(anti.Vendor SEPARATOR ',')as Vendor
+,
+CONCAT(tmp_table.ID,' ',IFNULL( tmp_table.Gene_Symbol, ''),' ',IFNULL(tmp_table.Gene_Alternative_Names,''),' ',IFNULL(tmp_table.Protein_Alternative_Names,''),' ',IFNULL( tmp_table.Gene_Family,''),' ',IFNULL( tmp_table.Gene_Class,''),' ',IFNULL( tmp_table.Allele,''),' ',IFNULL( tmp_table.EC_Number,''),' ',IFNULL( tmp_table.Parent_Allele_Family,''),' ',
+	IFNULL( tmp_table.Parent_Allele,''),' ',
+IFNULL( tmp_table.Source,''),' ',IFNULL( tmp_table.Source_ID,''),' ',IFNULL( tmp_table.HMM,''),' ',IFNULL(tmp_table.Protein_ID,''),' ',IFNULL(tmp_table.Protein_Name,''),' ',IFNULL(tmp_table.Pubmed_IDs,''),' ',IFNULL(tmp_table.Is_Active,''),' ',IFNULL(tmp_table.Status,'')
+,' ',IFNULL(tmp_table.IDSID,''),' ' ,IFNULL(tmp_table.End3,''),' ',IFNULL(tmp_table.End5,''),' ',IFNULL(tmp_table.Feat_Type,''),
+IFNULL(tmp_table.IDAID,''),' ',IFNULL(tmp_table.Mol_Type,''),' ',IFNULL(tmp_table.ASBID,''),' ',IFNULL(tmp_table.Is_Reference,''),' ',IFNULL(tmp_table.Assemly_Source,''),' ',IFNULL(tmp_table.Assemly_Source_ID,''),' ',IFNULL(tmp_table.Assemly_PubMed_IDs,''),' ',IFNULL(tmp_table.BioProject_ID,''),' ',IFNULL(tmp_table.Plasmid_Name,''),' '
+,IFNULL(tmp_table.TAXID,''),' ',IFNULL(tmp_table.Taxon_ID,''),' ',IFNULL(tmp_table.Taxon_Kingdom,''),' ',IFNULL(tmp_table.Taxon_Phylum,''),' ',IFNULL(tmp_table.Taxon_Sub_Strain,''),' ',IFNULL(tmp_table.Taxon_Bacterial_BioVar,''),' ',IFNULL(tmp_table.Taxon_Class,''),' ',IFNULL(tmp_table.Taxon_Order,''),' ',IFNULL(tmp_table.Taxon_Family,''),' ',IFNULL(tmp_table.Taxon_Genus,''),
+IFNULL(tmp_table.Taxon_Species,''),' ',IFNULL(tmp_table.Taxon_Sub_Species,''),' ',IFNULL(tmp_table.Taxon_Pathovar,''),' ',IFNULL(tmp_table.Taxon_Serotype,''),' ',IFNULL(tmp_table.Taxon_Strain,''),' ',IFNULL(tmp_table.SMID,''),' ',IFNULL(tmp_table.Isolation_site,''),' ',IFNULL(tmp_table.Serotyping_Method,''),' ',IFNULL(tmp_table.Source_Common_Name,''),
+IFNULL(tmp_table.Specimen_Collection_Date,''),' ',IFNULL(tmp_table.Specimen_Collection_Location_Country,''),' ',IFNULL(tmp_table.Specimen_Collection_Year,''),' ',IFNULL(tmp_table.Specimen_Collection_Location,''),' ',IFNULL(tmp_table.Specimen_Collection_Location_Latitude,''),' ',IFNULL(tmp_table.Specimen_Collection_Location_Longitude,''),
+IFNULL(tmp_table.Specimen_Source_Age,''),' ',IFNULL(tmp_table.Specimen_Source_Developmental_Stage,''),' ',IFNULL(tmp_table.Specimen_Source_Disease,''),' ',IFNULL(tmp_table.Specimen_Source_Gender,''),' ',IFNULL(tmp_table.Health_Status,''),' ',IFNULL(tmp_table.Treatment,''),' ',IFNULL(tmp_table.Specimen_Type,''),' ',IFNULL(tmp_table.Symptom,''),' ',IFNULL(tl.Level,'')
+,' ',IFNULL(GROUP_CONCAT( cl.Drug SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(cl.Drug_Class SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(cl.Drug_Family SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(cl.Mechanism_of_Action SEPARATOR ' '),'') ,
+IFNULL(GROUP_CONCAT(va.SNP SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(va.Pubmed_IDs SEPARATOR ' '),''),
+IFNULL(GROUP_CONCAT(anti.Antibiotic SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(anti.Drug_Symbol SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(anti.Laboratory_Typing_Method SEPARATOR ' '),''),
+IFNULL(GROUP_CONCAT(anti.Laboratory_Typing_Method_Version_or_Reagent SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(anti.Laboratory_Typing_Platform SEPARATOR ' '),'') 
+,' ',IFNULL(GROUP_CONCAT(anti.Measurement SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(Measurement_Sign SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(anti.Measurement_Units SEPARATOR ' '),''),
+IFNULL(GROUP_CONCAT(anti.Resistance_Phenotype SEPARATOR ' '),''),' ',IFNULL(GROUP_CONCAT(anti.Testing_Standard SEPARATOR ' '),'') ,' ',IFNULL(GROUP_CONCAT(anti.Vendor SEPARATOR ' '),''))  as all_fields
+from (
+	Select idt.ID, idt.Gene_Symbol,idt.Gene_Alternative_Names,idt.Protein_Alternative_Names, idt.Gene_Family,idt.Gene_Class,idt.Allele,idt.EC_Number,idt.Parent_Allele_Family,idt.Parent_Allele,
+		   idt.Source,idt.Source_ID,idt.HMM,idt.Protein_ID,idt.Protein_Name,idt.Pubmed_IDs,idt.Is_Active,idt.Status
+		   , ids.ID as IDSID ,ids.End3, ids.End5, ids.NA_Sequence, ids.AA_Sequence, ids.Feat_Type,
+		   ida.ID as IDAID, ida.Mol_Type, asb.ID as ASBID, asb.Is_Reference, asb.Source as Assemly_Source, asb.Source_ID as Assemly_Source_ID, asb.PubMed_IDs as Assemly_PubMed_IDs, asb.BioProject_ID, asb.Plasmid_Name
+		   ,tax.ID as TAXID, tax.Taxon_ID,tax.Taxon_Kingdom,tax.Taxon_Phylum,tax.Taxon_Sub_Strain,tax.Taxon_Bacterial_BioVar,tax.Taxon_Class,tax.Taxon_Order,tax.Taxon_Family,tax.Taxon_Genus,
+		   tax.Taxon_Species,tax.Taxon_Sub_Species,tax.Taxon_Pathovar,tax.Taxon_Serotype,tax.Taxon_Strain, sm.ID as SMID, sm.Isolation_site, sm.Serotyping_Method, sm.Source_Common_Name,
+		   sm.Specimen_Collection_Date, sm.Specimen_Collection_Location_Country,sm.Specimen_Collection_Year, sm.Specimen_Collection_Location, sm.Specimen_Collection_Location_Latitude, sm.Specimen_Collection_Location_Longitude,
+		   sm.Specimen_Source_Age, sm.Specimen_Source_Developmental_Stage, sm.Specimen_Source_Disease, sm.Specimen_Source_Gender, sm.Health_Status, sm.Treatment, sm.Specimen_Type, sm.Symptom
+	 from Identity idt, Identity_Sequence ids, Identity_Assembly ida, Assemly asb, Sample_Metadata sm, Taxonomy tax
+	where idt.ID=ids.Identity_ID AND ids.ID=ida.Identity_Sequence_ID AND asb.ID=ida.Assemly_ID AND sm.ID=asb.Sample_Metadata_ID AND tax.ID=asb.Taxonomy_ID) as tmp_table
+LEFT JOIN Threat_Level tl on tl.ID=tmp_table.ID
+LEFT JOIN Classification cl on cl.Identity_ID=tmp_table.ID
+LEFT JOIN Variants va on va.Classification_ID = cl.ID OR tmp_table.IDSID= va.Identity_Sequence_ID
+LEFT JOIN Antibiogram anti on tmp_table.TAXID = anti.ID
+GROUP BY tmp_table.ID, tmp_table.Gene_Symbol,tmp_table.Gene_Alternative_Names,tmp_table.Protein_Alternative_Names, tmp_table.Gene_Family,tmp_table.Gene_Class,tmp_table.Allele,tmp_table.EC_Number,tmp_table.Parent_Allele_Family,tmp_table.Parent_Allele,
+tmp_table.Source,tmp_table.Source_ID,tmp_table.HMM,tmp_table.Protein_ID,tmp_table.Protein_Name,tmp_table.Pubmed_IDs,tmp_table.Is_Active,tmp_table.Status
+, tmp_table.IDSID ,tmp_table.End3, tmp_table.End5, tmp_table.NA_Sequence, tmp_table.AA_Sequence, tmp_table.Feat_Type,
+tmp_table.IDAID, tmp_table.Mol_Type, tmp_table.ASBID, tmp_table.Is_Reference, tmp_table.Assemly_Source, tmp_table.Assemly_Source_ID, tmp_table.Assemly_PubMed_IDs, tmp_table.BioProject_ID, tmp_table.Plasmid_Name
+,tmp_table.TAXID, tmp_table.Taxon_ID,tmp_table.Taxon_Kingdom,tmp_table.Taxon_Phylum,tmp_table.Taxon_Sub_Strain,tmp_table.Taxon_Bacterial_BioVar,tmp_table.Taxon_Class,tmp_table.Taxon_Order,tmp_table.Taxon_Family,tmp_table.Taxon_Genus,
+tmp_table.Taxon_Species,tmp_table.Taxon_Sub_Species,tmp_table.Taxon_Pathovar,tmp_table.Taxon_Serotype,tmp_table.Taxon_Strain, tmp_table.SMID, tmp_table.Isolation_site, tmp_table.Serotyping_Method, tmp_table.Source_Common_Name,
+tmp_table.Specimen_Collection_Date, tmp_table.Specimen_Collection_Location_Country,tmp_table.Specimen_Collection_Year, tmp_table.Specimen_Collection_Location, tmp_table.Specimen_Collection_Location_Latitude, tmp_table.Specimen_Collection_Location_Longitude,
+tmp_table.Specimen_Source_Age, tmp_table.Specimen_Source_Developmental_Stage, tmp_table.Specimen_Source_Disease, tmp_table.Specimen_Source_Gender, tmp_table.Health_Status, tmp_table.Treatment, tmp_table.Specimen_Type, tmp_table.Symptom,tl.Level
+
+
+">
+
+</entity>
+</document>
+</dataConfig>
+

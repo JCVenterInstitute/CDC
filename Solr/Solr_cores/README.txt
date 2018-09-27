@@ -1,0 +1,1 @@
+Direction to your core path: solr-7.3.0/server/solr/<your_core_name>

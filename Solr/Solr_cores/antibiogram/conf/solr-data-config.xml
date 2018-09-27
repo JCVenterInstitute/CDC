@@ -1,0 +1,23 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+driver="com.mysql.jdbc.Driver"
+url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
+user="user"
+password="password"/>
+<document>
+<entity name="DataTransfer"
+query="SELECT temptable.Identity_ID, temptable.Source,temptable.Source_ID, temptable.Protein_ID,anti.Antibiotic,anti.Drug_Symbol,
+anti.Laboratory_Typing_Method,anti.Laboratory_Typing_Method_Version_or_Reagent,anti.Laboratory_Typing_Platform,
+anti.Measurement,anti.Measurement_Sign,anti.Measurement_Units,anti.Resistance_Phenotype,anti.Testing_Standard,
+anti.Vendor
+FROM (SELECT idn.ID as Identity_ID, asm.Sample_Metadata_ID,idn.Source,idn.Source_ID, idn.Protein_ID 
+		FROM  CDC.Identity idn, CDC.Identity_Sequence ids, CDC.Identity_Assembly ida, CDC.Assemly asm
+		where idn.ID=ids.Identity_ID AND ids.ID=ida.Identity_Sequence_ID AND asm.ID=ida.Assemly_ID) as temptable
+LEFT JOIN CDC.Sample_Metadata sm ON sm.ID=temptable.Sample_Metadata_ID 
+LEFT JOIN CDC.Antibiogram anti ON anti.Sample_Metadata_ID=sm.ID
+">
+
+</entity>
+</document>
+</dataConfig>
+

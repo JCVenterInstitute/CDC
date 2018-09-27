@@ -1,0 +1,21 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+driver="com.mysql.jdbc.Driver"
+url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
+user="user"
+password="password"/>
+<document>
+<entity name="DataTransfer"
+query="
+SELECT anti.id,sm.ID as Sample_Metadata_ID, anti.Antibiotic,anti.Drug_Symbol,
+anti.Laboratory_Typing_Method,anti.Laboratory_Typing_Method_Version_or_Reagent,anti.Laboratory_Typing_Platform,
+anti.Measurement,anti.Measurement_Sign,anti.Measurement_Units,anti.Resistance_Phenotype,anti.Testing_Standard,
+anti.Vendor
+FROM Sample_Metadata sm ,Antibiogram anti 
+where anti.Sample_Metadata_ID = sm.ID
+">
+
+</entity>
+</document>
+</dataConfig>
+

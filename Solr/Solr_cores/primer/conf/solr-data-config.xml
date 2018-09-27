@@ -1,0 +1,21 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+driver="com.mysql.jdbc.Driver"
+url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
+user="user"
+password="password"/>
+<document>
+<entity name="DataTransfer"
+query="
+SELECT p.Primer, p.Target, p.FWD, p.REV from CDC.Primer p;
+">
+<!-- Identity table  -->
+<field column="Primer" name="Primer"/>
+<field column="Target" name="Target"/>
+<field column="FWD" name="FWD"/>
+<field column="REV" name="REV"/>
+
+</entity>
+</document>
+</dataConfig>
+

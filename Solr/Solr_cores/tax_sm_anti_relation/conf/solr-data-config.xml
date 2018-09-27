@@ -1,0 +1,21 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+driver="com.mysql.jdbc.Driver"
+url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
+user="user"
+password="password"/>
+<document>
+<entity name="DataTransfer"
+query="
+Select tempt.ID, tempt.Identity_ID,tempt.Taxonomy_ID ,tax.Taxon_ID,Sample_Metadata.ID as Sample_Metadata_ID,tax.Taxon_Kingdom, tax.Taxon_Phylum, tax.Taxon_Bacterial_BioVar, tax.Taxon_Class, tax.Taxon_Order, tax.Taxon_Family, tax.Taxon_Genus, tax.Taxon_Species, tax.Taxon_Sub_Species,tax.Taxon_Strain, tax.Taxon_Sub_Strain,Sample_Metadata.Source_ID,Sample_Metadata.Isolation_site,Sample_Metadata.Serotyping_Method,Sample_Metadata.Source_Common_Name,Sample_Metadata.Specimen_Collection_Date,Sample_Metadata.Specimen_Collection_Location_Country,Sample_Metadata.Specimen_Collection_Location,Sample_Metadata.Specimen_Collection_Location_Latitude,Sample_Metadata.Specimen_Collection_Location_Longitude,Sample_Metadata.Specimen_Source_Age,Sample_Metadata.Specimen_Source_Developmental_Stage,Sample_Metadata.Specimen_Source_Disease,Sample_Metadata.Specimen_Source_Gender,Sample_Metadata.Health_Status,Sample_Metadata.Treatment,Sample_Metadata.Specimen_Type,Sample_Metadata.Symptom,Sample_Metadata.Host, 
+CONCAT(tempt.ID,' ', tempt.Identity_ID,' ',tempt.Taxonomy_ID ,' ',tax.Taxon_ID,' ',Sample_Metadata_ID,' ',tax.Taxon_Kingdom,' ', tax.Taxon_Phylum,' ', tax.Taxon_Bacterial_BioVar,' ', tax.Taxon_Class,' ', tax.Taxon_Order,' ', tax.Taxon_Family,' ', tax.Taxon_Genus,' ', tax.Taxon_Species,' ', tax.Taxon_Sub_Species,' ',tax.Taxon_Strain,' ', tax.Taxon_Sub_Strain,' ',Sample_Metadata.Source_ID,' ',Sample_Metadata.Isolation_site,' ',Sample_Metadata.Serotyping_Method,' ',Sample_Metadata.Source_Common_Name,' ',Sample_Metadata.Specimen_Collection_Date,' ',Sample_Metadata.Specimen_Collection_Location_Country,' ',Sample_Metadata.Specimen_Collection_Location,' ',Sample_Metadata.Specimen_Collection_Location_Latitude,' ',Sample_Metadata.Specimen_Collection_Location_Longitude,' ',Sample_Metadata.Specimen_Source_Age,' ',Sample_Metadata.Specimen_Source_Developmental_Stage,' ',Sample_Metadata.Specimen_Source_Disease,' ',Sample_Metadata.Specimen_Source_Gender,' ',Sample_Metadata.Health_Status,' ',Sample_Metadata.Treatment,' ',Sample_Metadata.Specimen_Type,' ',Sample_Metadata.Symptom,' ',Sample_Metadata.Host) as all_fields
+From (select a.id, i.id as Identity_ID,a.Taxonomy_ID, a.Sample_Metadata_ID  from CDC.Identity_Sequence ise,CDC.Identity i,CDC.Identity_Assembly iss, CDC.Assemly a where i.ID=ise.Identity_ID and iss.Identity_Sequence_ID=ise.ID and a.ID=iss.Assemly_ID and a.Is_Reference=0) as tempt
+LEFT Join Taxonomy tax on tax.ID = tempt.Taxonomy_ID
+LEFT Join Sample_Metadata on Sample_Metadata.ID=tempt.Sample_Metadata_ID
+">
+<!-- Identity table  -->
+
+</entity>
+</document>
+</dataConfig>
+

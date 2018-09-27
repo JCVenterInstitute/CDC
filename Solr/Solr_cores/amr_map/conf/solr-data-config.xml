@@ -1,0 +1,18 @@
+<dataConfig>
+<dataSource type="JdbcDataSource"
+driver="com.mysql.jdbc.Driver"
+url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
+user="username"
+password="password"/>
+<document>
+<entity name="DataTransfer"
+query="
+SELECT i.ID, sm.Specimen_Collection_Date, sm.Specimen_Collection_Location_Longitude, sm.Specimen_Collection_Location_Latitude ,i.Gene_Symbol, sm.Specimen_Collection_Location_Country,sm.Specimen_Collection_Location 
+FROM Identity i, Identity_Sequence ids, Identity_Assembly ida,Assemly ass, Sample_Metadata sm 
+WHERE i.ID=ids.Identity_ID and ids.ID=ida.Identity_Sequence_ID and ida.Assemly_ID=ass.ID and sm.ID=ass.Sample_Metadata_ID
+">
+
+</entity>
+</document>
+</dataConfig>
+
