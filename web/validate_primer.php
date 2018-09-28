@@ -8,7 +8,7 @@
    <div class="container">
         <div class="row">
             <div class="main col-md-12">
-			<h2 class="title">Primary Finder</h2>
+			<h2 class="title">Primer Finder</h2>
 		    <div class="separator-2"></div>
  				<div style="line-height: 150%;"> <p style="text-align:justify"; >PCR primer finder assesses the specificity of primers on AMR genes or a target genome. PCR primer finder uses open source <a href="https://sourceforge.net/projects/simulatepcr/">Simulate_PCR</a> tools for predicting both desired and off-target amplification products.<br>  For more information see AMRdb <a href="help.php#location">help page</a></p><hr></hr>
 				</div>

@@ -6,7 +6,7 @@ $user = new USER();
 
 if($user->is_logged_in()!="")
 {
-	$user->redirect('home.php');
+	$user->redirect('index.php');
 }
 
 if(isset($_POST['reset_submit']))

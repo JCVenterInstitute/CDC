@@ -43,7 +43,7 @@ if(isset($_GET['id']) && isset($_GET['code']))
 						Password Changed.
 						</div>";
 						// die();
-				header("refresh:5;index.php");
+				// header("refresh:5;index.php");
 			}
 		}	
 	}

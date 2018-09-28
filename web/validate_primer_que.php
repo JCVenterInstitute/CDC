@@ -150,6 +150,7 @@ $.ajax({ url: 'validate_primer_ajax.php',
      				reference_fastafile:'<?php echo isset($reference_fastafile_path)?$reference_fastafile_path:"empty"; ?>',
      				reference_genebank:'<?php echo isset($_POST["reference_genebank"])?$_POST["reference_genebank"]:"empty"; ?>',
      				dir1:'<?php echo "$dir"; ?>',
+     				ran1:'<?php echo "$ran"; ?>',
                     my_file_r:'<?php echo isset($my_file_r)?$my_file_r:"empty";?>',
                     my_file_f:'<?echo isset($my_file_f)?$my_file_f:"empty";?>'
      		     },

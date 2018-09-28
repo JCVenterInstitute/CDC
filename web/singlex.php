@@ -7,18 +7,7 @@ include 'includes/config.inc.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
-<?php 
-// var_dump($_SESSION['userID']);
-if(!isset($_SESSION['userID'])){
-  echo '<br><br><br><br><h2 align="center">Please Log in as an admin</h5><br><br><br><br><br><br><br>';
-include 'includes/footerx.php';
-  die;
-}
-// var_dump($_POST);
 
-
-
-?>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
