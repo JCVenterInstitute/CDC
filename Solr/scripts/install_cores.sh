@@ -1,4 +1,7 @@
-#Create SOLR cores and copy config files from Git 
+#Create SOLR cores and copy config files from Git
+#Update mysql cdc_app user password before running the script, use only alphnumeric for password.
+CDC_APP_PASSWORD=changethis
+
 #!/bash/bin
 if [[ ! $BASE ]];
 then
@@ -7,6 +10,7 @@ then
   exit 0;
 fi
 
+#Create SOLR cores and copy config files from Git 
 $BASE/solr-7.3.0/bin/solr create -c amr_map
 $BASE/Git/CDC/Solr/Solr_cores/amr_map/conf/*  $BASE/solr-7.3.0/solr/amr_map/conf/
 
@@ -30,3 +34,13 @@ $BASE/Git/CDC/Solr/Solr_cores/primer/conf/*  $BASE/solr-7.3.0/solr/primer/conf/
 
 $BASE/solr-7.3.0/bin/solr create -c tax_sm_anti_relation
 $BASE/Git/CDC/Solr/Solr_cores/tax_sm_anti_relation/conf/*  $BASE/solr-7.3.0/solr/tax_sm_anti_relation/conf/
+
+
+sed -i '' 's/replaceDBpassword/$CDC_APP_PASSWORD/' $BASE/solr-7.3.0/solr/amr_map/conf/solr-data-config.xml
+sed -i '' 's/replaceDBpassword/$CDC_APP_PASSWORD/' $BASE/solr-7.3.0/solr/antibiogram/conf/solr-data-config.xml
+sed -i '' 's/replaceDBpassword/$CDC_APP_PASSWORD/' $BASE/solr-7.3.0/solr/classification_variants/conf/solr-data-config.xml
+sed -i '' 's/replaceDBpassword/$CDC_APP_PASSWORD/' $BASE/solr-7.3.0/solr/many_antibiogram_singlex/conf/solr-data-config.xml
+sed -i '' 's/replaceDBpassword/$CDC_APP_PASSWORD/' $BASE/solr-7.3.0/solr/my_core_exp/conf/solr-data-config.xml
+sed -i '' 's/replaceDBpassword/$CDC_APP_PASSWORD/' $BASE/solr-7.3.0/solr/primer/conf/solr-data-config.xml
+sed -i '' 's/replaceDBpassword/$CDC_APP_PASSWORD/' $BASE/solr-7.3.0/solr/tax_sm_anti_relation/conf/solr-data-config.xml
+
