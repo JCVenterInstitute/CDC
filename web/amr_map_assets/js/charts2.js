@@ -97,7 +97,7 @@ function bakePieChart(data) {
 
 // MAIN
 //  change this
-Plotly.d3.csv("http://cdc-1.jcvi.org:8081/getMapData", function(err, rows) {
+Plotly.d3.csv("https://cdc-1.jcvi.org:8081/getMapData", function(err, rows) {
     filteredRows = getFilteredRows(rows);
     data = getData(filteredRows);
     // console.log(data);
@@ -154,7 +154,7 @@ Plotly.d3.csv("http://cdc-1.jcvi.org:8081/getMapData", function(err, rows) {
     Plotly.plot('amr_map', data, layout, {displayModeBar: false});
 
     document.addEventListener('change', function(e){
-        Plotly.d3.csv("http://cdc-1.jcvi.org:8081/getMapData", function(err, rows) {
+        Plotly.d3.csv("https://cdc-1.jcvi.org:8081/getMapData", function(err, rows) {
             filteredRows = getFilteredRows(rows);
             data = getData(filteredRows)
             // console.log(data);

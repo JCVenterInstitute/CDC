@@ -134,7 +134,7 @@ $(document).ready(function() {
         // "ajax": da,
          "ajax":function(data,callback, setting){
              $.ajax( {
-                 "url": "http://cdc-1.jcvi.org:8983/solr/my_core_exp/select",
+                 "url": "/solr/my_core_exp/select",
                  "type":"GET",
                  "data": $.extend( {}, data, {'wt':'json', 'q':datax+'AND ( id :*'+data.search.value+'* OR Gene_Symbol:*'+data.search.value+'* OR Drug_Family:*'+data.search.value+'* OR Taxon_ID:*'+data.search.value+'* OR Taxon_Species:*'+data.search.value+'* OR Protein_Name:*'+data.search.value+'* OR Protein_ID:*'+data.search.value+'* OR Taxon_Genus:*'+data.search.value+'* '+')' + " AND Is_Active:1" ,'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),'rows':data.length} ),
                  "dataType": "jsonp",

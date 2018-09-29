@@ -1,6 +1,6 @@
 <?php include 'includes/header.php';?>
 <section class="main-container">
-   <div class="containerx">
+   <div class="container">
         <div class="row">
 	         <div class="main col-md-12">
 <h2 class="title text-center">Center for Disease Control and Prevention (CDC) </h2>

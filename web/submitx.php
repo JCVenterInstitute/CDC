@@ -2,6 +2,16 @@
 include 'includes/header.php';
 include 'includes/config.inc.php';
 ?>
+<?php 
+// var_dump($_SESSION['userID']);
+if(!isset($_SESSION['userID'])){
+  echo '<br><br><br><br><h2 align="center">Please Log in as an admin</h5><br><br><br><br><br><br><br>';
+include 'includes/footerx.php';
+  die;
+}
+// var_dump($_POST);
+
+?>
 <script type="text/javascript">
 function validateForm(){
   if((document.getElementById("drug_class").value).length == 0){

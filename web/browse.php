@@ -190,6 +190,7 @@ $(document).ready(function() {
                     // create export button. 
                       if(btn_count==0){
                        let expt_btn = document.getElementById('btn_container');
+                                // let gap = document.createElement('&emsp');
                                 let f = document.createElement("form");
                                 f.setAttribute('method',"post");
                                 f.setAttribute('action',"browse.php");
@@ -209,10 +210,38 @@ $(document).ready(function() {
                                 f.appendChild(i);
                                 f.appendChild(s);
                                 expt_btn.appendChild(f);
+                                // expt_btn.appendChild(gap);
+
+
+                                let map_btn = document.getElementById('btn_container');
+                                let m = document.createElement("form");
+                                m.setAttribute('method',"post");
+                                m.setAttribute('action',"amr_map.php");
+                                // m.formAction="/export_txtfile.php";
+                                let m_i = document.createElement("input"); //input element, text
+                                m_i.id="search_input_to_map";
+                                m_i.setAttribute('type',"hidden");
+                                m_i.setAttribute('name',"search_query");
+                                m_i.setAttribute('value',escapeRegExp(data.search.value));
+                                let m_s = document.createElement("input"); //input element, Submit button
+
+                                m_s.setAttribute('type',"submit");
+                                m_s.setAttribute('name',"mySubmit");
+                                m_s.setAttribute('value',"AMR Map");
+                                m_s.id='mySubmit_map';
+                                m_s.style="float: right";
+                                m.appendChild(m_i);
+                                m.appendChild(m_s);
+                                map_btn.appendChild(m);
+
+
+
                                 btn_count++;
                         }else{
                               let i= document.getElementById('search_input');
                               i.setAttribute('value',escapeRegExp(data.search.value));
+                                let r= document.getElementById('search_input_to_map');
+                              r.setAttribute('value',escapeRegExp(data.search.value));
                         }
                  }
                } );
@@ -295,7 +324,7 @@ $(document).ready(function() {
                     }
                         return full.Taxon_Genus+ "  "+ full.Taxon_Species;
                      }
-	        }
+            }
         ],
         // "order": [[ 0, 'desc' ], [ 1, 'desc' ]] // will not work on serverside fetching
     });
@@ -309,7 +338,7 @@ $(document).ready(function() {
             <div class="main col-md-12">
             <h2 class="title">AMRdb Browse/Search Module</h2>
             <div class="separator-2"></div>
-                <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Each data type is also sortable.  <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug family, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli AND that belong to the beta-lactam drug family are displayed. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr></hr>
+                <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Each data type is also sortable.  <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug family, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli and that belong to the beta-lactam drug family are displayed. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr></hr>
                   
                   <div id='btn_container'>
                   </div>

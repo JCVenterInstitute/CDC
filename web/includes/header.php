@@ -1,5 +1,4 @@
-<?php
-session_start();
+<?php session_start();
 date_default_timezone_set('America/Chicago'); // eliminate the date warning.
 require_once 'class.user.php';
 $user_login = new USER();
@@ -129,8 +128,8 @@ HH;
 		<link rel="shortcut icon" href="images/favicon.ico">
 
 		<!-- Web Fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
 
 		<!-- Bootstrap core CSS -->
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -147,7 +146,7 @@ HH;
 		<link href="plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
 		<link href="css/animations.css" rel="stylesheet">
 		<link href="plugins/owl-carousel/owl.carousel.css" rel="stylesheet">
-		<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.js"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 
 	    <!-- Count Down javascript -->
@@ -421,7 +420,10 @@ HH;
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">ANALYSIS</a>
                         <ul class="dropdown-menu">
                           <li class="dropdown">
-                            <a href="sequence.php" class="dropdown-toggle" data-toggle="dropdown">BLAST</a>
+                            <a href="amr_map.php" class="dropdown-toggle" data-toggle="dropdown">AMR Map</a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="sequence.php" class="dropdown-toggle" data-toggle="dropdown">Sequence Similarity Search Module</a>
                           </li>
                           <li class="dropdown">
                             <a href="browse.php" class="dropdown-toggle" data-toggle="dropdown">Browse and Search</a>
@@ -434,10 +436,10 @@ HH;
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">PRIMER</a>
                         <ul class="dropdown-menu">
                           <li class="dropdown">
-                            <a href="primer.php" class="dropdown-toggle" data-toggle="dropdown">Search primer</a>
+                            <a href="search_primer.php" class="dropdown-toggle" data-toggle="dropdown">Primer Catalog</a>
                           </li>
                           <li class="dropdown">
-                            <a href="primer.php" class="dropdown-toggle" data-toggle="dropdown">Validate primer</a>
+                            <a href="validate_primer.php" class="dropdown-toggle" data-toggle="dropdown">Primer Finder</a>
                           </li>
                         </ul>
                       </li>
@@ -448,10 +450,7 @@ HH;
                             <a href="help.php" class="dropdown-toggle" data-toggle="dropdown">User Manual</a>
                           </li>
                           <li class="dropdown">
-                            <a href="faq.php" class="dropdown-toggle" data-toggle="dropdown">Frequently Asked Question</a>
-                          </li>
-                          <li class="dropdown">
-                            <a href="about.php" class="dropdown-toggle" data-toggle="dropdown">Cite AMRDB</a>
+                            <a href="faq.php" class="dropdown-toggle" data-toggle="dropdown">Admin Manual</a>
                           </li>
                         </ul>
                       </li>
@@ -470,6 +469,9 @@ HH;
 							</li>
 							<li class="dropdown">
                             <a href="browse_admin.php" class="dropdown-toggle" data-toggle="dropdown">Edit Data</a>
+							</li>
+							<li class="dropdown">
+                            <a href="submit_primer.php" class="dropdown-toggle" data-toggle="dropdown">Submit New Primer</a>
 							</li>
 						</ul>
 					  </li>

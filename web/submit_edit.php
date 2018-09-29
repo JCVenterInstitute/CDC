@@ -126,7 +126,7 @@ tr.shown td.details-control {
 						$v_split_ar =explode('_', $_POST['v_active_count']);
 						// var_dump($_POST['v_active_count']);
 						if(isset($v_split_ar[1])){
-							echo "string";
+							//echo "string";
 							$v_active_total=$v_split_ar[1];
 						
 							 for($i=1;$i<=$_POST['c_active_count'];$i++){
@@ -642,7 +642,7 @@ tr.shown td.details-control {
 					// 		$newstart=execute_update($con,$t_col,$update_string,$id_t,'Antibiogram',$newstart+1);
 					// 	}
 					// }
-					echo "<meta  http-equiv='refresh' content='5;url=browse.php' />";
+					echo "<meta  http-equiv='refresh' content='5;url=browse_admin.php' />";
 			        ?>
 			</div>
 		</div>

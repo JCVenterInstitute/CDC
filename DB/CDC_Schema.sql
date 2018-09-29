@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `CDC` /*!40100 DEFAULT CHARACTER SET utf32 */;
-USE `CDC`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
--- Host: cdc-1.jcvi.org    Database: CDC
+-- Host: cdc-1    Database: CDC
 -- ------------------------------------------------------
 -- Server version	5.7.21
 
@@ -44,7 +42,7 @@ CREATE TABLE `Actor` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `User_ID` (`User_ID`),
   UNIQUE KEY `Email` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -100,14 +98,14 @@ CREATE TABLE `Antibiogram` (
   `Drug_Symbol` varchar(45) DEFAULT NULL,
   `Laboratory_Typing_Method` varchar(45) DEFAULT NULL,
   `Laboratory_Typing_Method_Version_or_Reagent` varchar(45) DEFAULT NULL,
-  `Laboratory_Typing_Platform` varchar(45) DEFAULT NULL,
+  `Laboratory_Typing_Platform` varchar(150) DEFAULT NULL,
   `Measurement` varchar(45) DEFAULT NULL,
   `Measurement_Sign` varchar(45) DEFAULT NULL,
   `Measurement_Units` varchar(45) DEFAULT NULL,
   `Resistance_Phenotype` varchar(45) DEFAULT NULL,
   `Testing_Standard` varchar(45) DEFAULT NULL,
   `Vendor` varchar(45) DEFAULT NULL,
-  `Sample_Metadata_ID` int(11) NOT NULL,
+  `Sample_Metadata_ID` int(13) NOT NULL,
   `Created_Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Modified_Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Created_By` int(11) NOT NULL,
@@ -524,7 +522,7 @@ CREATE TABLE `Primer` (
   `FWD` varchar(50) NOT NULL,
   `REV` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf32;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -538,12 +536,13 @@ CREATE TABLE `Sample_Metadata` (
   `ID` int(11) NOT NULL,
   `Source` varchar(45) DEFAULT NULL,
   `Source_ID` varchar(45) DEFAULT NULL,
-  `Isolation_site` varchar(250) DEFAULT NULL,
+  `Isolation_site` varchar(500) DEFAULT NULL,
   `Serotyping_Method` varchar(100) DEFAULT NULL,
   `Source_Common_Name` varchar(255) DEFAULT NULL,
   `Specimen_Collection_Date` varchar(45) DEFAULT NULL,
+  `Specimen_Collection_Year` varchar(4) DEFAULT NULL,
   `Specimen_Collection_Location_Country` varchar(45) DEFAULT NULL,
-  `Specimen_Collection_Location` varchar(45) DEFAULT NULL,
+  `Specimen_Collection_Location` varchar(100) DEFAULT NULL,
   `Specimen_Collection_Location_Latitude` varchar(45) DEFAULT NULL,
   `Specimen_Collection_Location_Longitude` varchar(45) DEFAULT NULL,
   `Specimen_Source_Age` varchar(45) DEFAULT NULL,
@@ -554,7 +553,7 @@ CREATE TABLE `Sample_Metadata` (
   `Treatment` varchar(45) DEFAULT NULL,
   `Specimen_Type` varchar(45) DEFAULT NULL,
   `Symptom` varchar(100) DEFAULT NULL,
-  `Host` varchar(45) DEFAULT NULL,
+  `Host` varchar(100) DEFAULT NULL,
   `Created_Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Modified_Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Created_By` int(11) NOT NULL,
@@ -930,4 +929,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-13  9:20:30
+-- Dump completed on 2018-09-28 16:32:31

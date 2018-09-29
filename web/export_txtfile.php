@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '-1');
 	date_default_timezone_set('America/Chicago');
 	function export_files_main($query){
 		//create radom file path
@@ -9,7 +10,7 @@
 		//make dir 
 		make_dir($path);
 		//create file content Three files. Now just one
-		$file_array =file_content($query);
+		$file_array =file_content($query,$path);
 		//create files
 		create_files($path,$file_array);
 		//create zipfiles using linux cmd to zip it
@@ -34,36 +35,15 @@
 		First request  the max rows then request a full fetch. 
 		return an array of each output files array[0]=> Identity,array[1]=> antibiogram,array[2]=> Classification_Variants, 
 	*/
-	function file_content($query){
+	function file_content($query,$local_path){
 		$search_q="*";
 		// $search_q_anti="*:*";
 		if(trim($query)!='*'){
-			// $search_q='id:'.$query.'  Or  Allele:'.$query.'  Or  Antibiotic:'.$query.'  Or  BioProject_ID:'.$query.
-   //                                                           '  Or  Drug_Class:'.$query.'  Or  Drug_Family:'.$query.'  Or  Drug_Name:'.$query.
-   //                                                           '  Or  Drug_Symbol:'.$query.'  Or  EC_Number:'.$query.'  Or  Isolation_site:'.$query.
-   //                                                           '  Or  Gene_Symbol:'.$query.'  Or  Health_Status:'.$query.
-   //                                                           '  Or  Host:'.$query.'  Or  Identity_ID:'.$query.'  Or  Identity_Sequence_ID:'.$query.
-   //                                                           '  Or  Laboratory_Typing_Method:'.$query.'  Or  Laboratory_Typing_Platform:'.$query.'  Or  Measurement:'.$query.'  Or  Measurement_Sign:'.$query.
-   //                                                           '  Or  Measurement_Units:'.$query.'Or  Mol_Type:'.$query.
-   //                                                           '  Or  Parent_Allele:'.$query.'  Or  Parent_Allele_Family:'.$query.'  Or  Plasmid_Name:'.$query.
-   //                                                           '  Or  Protein_ID:'.$query.'  Or  Protein_Name:'.$query.'  Or  PubMed_IDs:'.$query.'  Or  Pubmed_IDs:'.$query.
-   //                                                           '  Or  Resistance_Phenotype:'.$query.'  Or  SNP:'.$query.
-   //                                                           '  Or  Serotyping_Method:'.$query.'  Or  Source:'.$query.'  Or  Source_Common_Name:'.$query.
-   //                                                           '  Or  Specimen_Collection_Date:'.$query.'  Or  Specimen_Collection_Location:'.$query.
-   //                                                           '  Or  Specimen_Collection_Location_Country:'.$query.'  Or  Specimen_Collection_Location_Latitude:'.$query.
-   //                                                           '  Or  Specimen_Collection_Location_Longitude:'.$query.'  Or  Specimen_Source_Age:'.$query.
-   //                                                           '  Or  Specimen_Source_Developmental_Stage:'.$query.'  Or  Specimen_Source_Disease:'.$query.'  Or  Specimen_Source_Gender:'.$query.
-   //                                                           '  Or  Specimen_Type:'.$query.'  Or  Status:'.$query.'  Or  Symptom:'.$query.'  Or  Taxon_Bacterial_BioVar:'.$query.
-   //                                                           '  Or  Taxon_Class:'.$query.'  Or  Taxon_Family:'.$query.'  Or  Taxon_Genus:'.$query.'  Or  Taxon_ID:'.$query.
-   //                                                           '  Or  Taxon_Kingdom:'.$query.'  Or  Taxon_Order:'.$query.'  Or  Taxon_Pathovar:'.$query.
-   //                                                           '  Or  Taxon_Phylum:'.$query.'  Or  Taxon_Serotype:'.$query.'  Or  Taxon_Species:'.$query.'  Or  Taxon_Strain:'.$query.
-   //                                                           '  Or  Taxon_Sub_Species:'.$query.'  Or  Testing_Standard:'.$query.'  Or  Treatment:'.$query.
-   //                                                           '  Or  Vendor:'.$query;
 			$search_q=$query;
 		}
 
 		// get the total number first then get all the records
-		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q"  }'`;
+		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'http://cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q"  }'`;
 
 		$js= json_decode($post_fetch);
 		// var_dump($js);
@@ -74,7 +54,8 @@
 		if($js->response->numFound==0){
 			return; 
 		}
-		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q" ,limit : $max_row_no }'`;
+		$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'http://cdc-1.jcvi.org:8983/solr/my_core_exp/query' -d   '{  query : "all_fields:$search_q" ,limit : $max_row_no }'`;
+
 		$js= json_decode($post_fetch);
 		$x_x_readytowrite_MOST=$js->response->docs;
 // var_dump($js);
@@ -224,17 +205,18 @@
 		}else{
 			$relative_Identity_ID="*:*";
 		}
+
 		//exporting second file 
 		//first get the number of rows
 
-	$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
+	$post_fetch= `curl -X POST -H 'Content-Type: application/json' 'http://cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
 		$js= json_decode($post_fetch);
 		$max_row_no=$js->response->numFound;
-		$search_class_variant=`curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
+		$search_class_variant=`curl -X POST -H 'Content-Type: application/json' 'http://cdc-1.jcvi.org:8983/solr/classification_variants/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
 		// var_dump($search_class_variant);
 	// 	echo "<br> class <br>";
 	// var_dump($search_rows_request);
-	
+
 		$js= json_decode( $search_class_variant);
 		$x_x_readytowrite_class_variant=$js->response->docs;
 		
@@ -269,18 +251,50 @@
 		// echo "<br><h1>$count_me</h1><br>";
 
 		//exporting thrid file 
-	$search_rows_request= `curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
+	$search_rows_request= `curl -X POST -H 'Content-Type: application/json' 'http://cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  }'`;
+
 
 		$js= json_decode( $search_rows_request);
 		$max_row_no=$js->response->numFound;
-		$search_class_antibiogram=`curl -X POST -H 'Content-Type: application/json' 'https://cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
+		$search_class_antibiogram=`curl -X POST -H 'Content-Type: application/json' 'http://cdc-1.jcvi.org:8983/solr/antibiogram/query' -d   '{  query : "*:*", filter : "Identity_ID:($relative_Identity_ID)"  limit: $max_row_no}'`;
+// stop working after next line 
+		// var_dump($search_class_antibiogram);
+// 		// die;
+// $my_mb_memory = intval(ini_get('memory_limit'));
+// 		if (strlen($search_class_antibiogram) * 10 > ($my_mb_memory * 1024 * 1024)) {
+//   echo "not real: ".(memory_get_peak_usage(false)/1024/1024)." MiB\n";
+//   echo "real: ".(memory_get_peak_usage(true)/1024/1024)." MiB\n\n";
+// //echo "mem usage : ". memory_get_usage()."<br>";
+// //echo "<br>";
+// $cal = $my_mb_memory * 1024 * 1024;
+//  echo "js size strlen* 10   :".strlen($search_class_antibiogram) * 10 ."  memory limit memory limit * 1024 * 1024: ".$cal."<br>";
+// }
+// #		$js= json_decode($search_class_antibiogram);
+// $js = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $search_class_antibiogram), true );
+ 
+// die;
 
+		// $write_local = fopen($path.'/local_file', "w");
+		// 		fwrite($write_local, $search_class_antibiogram);
+		// 		fclose($write_local);
+
+		// 		die;
+
+	$antibiogram_file = fopen($local_path.'/antibiogram.json', "w");
+				fwrite($antibiogram_file, $search_class_antibiogram);
+				fclose($antibiogram_file);
+				$search_class_antibiogram = file_get_contents("$local_path/antibiogram.json");
 		$js= json_decode($search_class_antibiogram);
+		// var_dump($js);
+
 		$x_x_readytowrite_anti=$js->response->docs;
 		$thd_file="";
 		//creating third file 
 		$firstline=1;
-		foreach ($x_x_readytowrite_class_variant as $key => $item) {
+
+
+
+		foreach ($x_x_readytowrite_anti as $key => $item) {
 			if($firstline){
 				$thd_file.="Identity_ID"."\t";
 				$thd_file.="Source"."\t";
@@ -321,6 +335,12 @@
 		$file_array[]=$first_file;
 		$file_array[]=$sec_file;
 		$file_array[]=$thd_file;
+
+		// delete json file. 
+		`rm $local_path/antibiogram.json`;
+
+		// var_dump($first_file);
+		// die;
 		return $file_array;
 	}
 	function generate_random_path(){
