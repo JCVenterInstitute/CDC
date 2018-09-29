@@ -10,6 +10,9 @@ then
   exit 0;
 fi
 
+#Copy mysql connector lib
+mkdir -p $BASE/server/solr-7.3.0/contrib/dataimporthandler/lib
+cp  $BASE/git/CDC/Solr/lib/mysql-connector-java-8.0.11.jar  $BASE/server/solr-7.3.0/contrib/dataimporthandler/lib/
 #Create SOLR cores and copy config files from Git
 $BASE/server/solr-7.3.0/bin/solr create -c amr_map
 cp $BASE/git/CDC/Solr/Solr_cores/amr_map/conf/*  $BASE/server/solr-7.3.0/server/solr/amr_map/conf/
