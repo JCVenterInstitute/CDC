@@ -1,6 +1,0 @@
-Date: 2018-09-28
-Cannot run BLASTP on a Nucleotide BLAST DB.
-Error: Can't look for rRNA genes from protein input.
-Running blastp on /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/tmp/3609/outx/input_user.fasta with a percent identity cutoff of 40.0 and query cover cutoff of 60.0 on the blast database: /usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/dbs/amr_dbs/amrdb_peptides.fasta
-
-Running blastp on /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/tmp/3609/outx/input_user.fasta.

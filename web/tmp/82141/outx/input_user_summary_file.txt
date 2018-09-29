@@ -1,2 +1,0 @@
-Genome	12398
-input_user	100.0|100.0|Test_Sequence:1-132|5.54137e-97|275.789|
