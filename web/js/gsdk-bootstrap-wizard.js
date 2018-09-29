@@ -22,14 +22,37 @@ $(document).ready(function(){
 
     /*  Activate the tooltips      */
     $('[rel="tooltip"]').tooltip();
-
     // Code for the Validator
     var $validator = $('.wizard-card form').validate({
 		  rules: {
 		    gene_symbol: {
 		      required: true,
 		      minlength: 3
-		    },
+            },
+            protein_name: {
+                required: true,
+                minlength: 5
+              },
+            source: {
+                required: true,
+                minlength: 3
+              },
+            source_id: {
+                required: true,
+                minlength: 3
+              },
+            tax_id: {
+                required: true,
+                minlength: 3
+              },
+            feat_type: {
+                required: true,
+                minlength: 3
+              },
+            nucleotide_sequence: {
+                required: true,
+                minlength: 50
+              },
 		    identity: {
 		      required: true,
 		      minlength: 4

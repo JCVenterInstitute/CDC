@@ -6,11 +6,11 @@ date_default_timezone_set('America/chicago');
    data returned by browse_fetch.php
 */
 
-   if(!isset($_SESSION['userID'])){
-  echo '<br><br><br><br><h2 align="center">Please Log in as an admin</h5><br><br><br><br><br><br><br>';
-include 'includes/footerx.php';
-  die;
-}
+//    if(!isset($_SESSION['userID'])){
+//   echo '<br><br><br><br><h2 align="center">Please Log in as an admin</h5><br><br><br><br><br><br><br>';
+// include 'includes/footerx.php';
+//   die;
+// }
 ?>
 <!-- self reference to get the data   -->
 
@@ -54,7 +54,7 @@ $(document).ready(function() {
                     ],
         "ajax":function(data,callback, setting){
              $.ajax( {
-                   "url": "/solr/primer/select",
+                   "url": "https://cdc-1.jcvi.org:8081/solr/primer/select",
                  "type":"GET",
                  "data": $.extend( {}, data, {'wt':'json',  'q':'Primer:'+escapeRegExp(data.search.value)+' Or Target:'+escapeRegExp(data.search.value) +' Or FWD:'+escapeRegExp(data.search.value)+' Or REV:'+escapeRegExp(data.search.value)
                                                ,'sort':(data.columns[data.order[0].column].data==null?'': data.columns[data.order[0].column].data+' '+data.order[0].dir),'rows':data.length}),

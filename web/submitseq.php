@@ -143,8 +143,18 @@ die;}
 # Creating tmp directory
 		#$ran= "61899";
 	$ran= rand(100, 100000);
-        $dir = "/usr/local/projdata/8500/projects/CDC/server/apache/htdocs/tmp/$ran";
+	$cur_dir = `pwd`;
+	$ht_cur_dir=trim($cur_dir);
+	// echo "$cur_dir<br>";
+	// die;
+    $dir = "$ht_cur_dir/tmp/$ran"; 
+	// echo $dir;
+// die;
+
+        // die;
+        // echo "/usr$dir";
         exec("mkdir $dir");
+	// die;
         exec("chmod 777 $dir"); 
         // echo "***$ran***"; 
 #*********************Parsing of input sequenc*************
@@ -198,6 +208,12 @@ die;}
 
 		if($db == "pr") {
 		$details=$op="";
+
+
+		// $excute_cmd = "nohup /bin/sh /usr$ht_cur_dir/scripts/run_amr_finder.sh $ran p > /dev/null 2>/dev/null &  echo $!";
+
+		// echo "$excute_cmd<br>";
+
 	#	$command="/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p";
                $pid =  shell_exec("nohup /bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p > /dev/null 2>/dev/null &  echo $!");
 	#	$details=exec("/bin/sh /usr/local/projdata/8500/projects/CDC/server/apache/htdocs/scripts/run_amr_finder.sh $ran p & echo $!",$op);

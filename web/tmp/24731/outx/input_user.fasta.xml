@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE BlastOutput PUBLIC "-//NCBI//NCBI BlastOutput/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_BlastOutput.dtd">
+<BlastOutput>
+  <BlastOutput_program>blastp</BlastOutput_program>
+  <BlastOutput_version>BLASTP 2.2.31+</BlastOutput_version>
+  <BlastOutput_reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), &quot;Gapped BLAST and PSI-BLAST: a new generation of protein database search programs&quot;, Nucleic Acids Res. 25:3389-3402.</BlastOutput_reference>
+  <BlastOutput_db>/usr/local/projdata/8500/projects/CDC/server/apache/htdocs/tmp/24731/outx/amrdb_peptides</BlastOutput_db>
+  <BlastOutput_query-ID>Query_1</BlastOutput_query-ID>
+  <BlastOutput_query-def>Test_Sequence</BlastOutput_query-def>
+  <BlastOutput_query-len>216</BlastOutput_query-len>
+  <BlastOutput_param>
+    <Parameters>
+      <Parameters_matrix>BLOSUM62</Parameters_matrix>
+      <Parameters_expect>1e-10</Parameters_expect>
+      <Parameters_gap-open>11</Parameters_gap-open>
+      <Parameters_gap-extend>1</Parameters_gap-extend>
+      <Parameters_filter>F</Parameters_filter>
+    </Parameters>
+  </BlastOutput_param>
+<BlastOutput_iterations>
+<Iteration>
+  <Iteration_iter-num>1</Iteration_iter-num>
+  <Iteration_query-ID>Query_1</Iteration_query-ID>
+  <Iteration_query-def>Test_Sequence</Iteration_query-def>
+  <Iteration_query-len>216</Iteration_query-len>
+<Iteration_hits>
+<Hit>
+  <Hit_num>1</Hit_num>
+  <Hit_id>gnl|BL_ORD_ID|2089</Hit_id>
+  <Hit_def>CARD|10320|CP000647:489264-489915|acrR_(K._pneumoniae)||Multi-drug_resistance|||||Y114F,M109I,V165I|</Hit_def>
+  <Hit_accession>2089</Hit_accession>
+  <Hit_len>216</Hit_len>
+  <Hit_hsps>
+    <Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>445.277</Hsp_bit-score>
+      <Hsp_score>1144</Hsp_score>
+      <Hsp_evalue>4.79691e-161</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>216</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>216</Hsp_hit-to>
+      <Hsp_query-frame>0</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>216</Hsp_identity>
+      <Hsp_positive>216</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>216</Hsp_align-len>
+      <Hsp_qseq>MARKTKQQARETRQLILDVALRLFSQQGVSSTSLATIAKAAGVTRGAIYWHFKNKSDLFNEIWELSDASISDLEIEYRAKFPNDPLSVIREILVYVLEATVTEERRRLMMEIIYHKCEFVGEMTVVQQAQRQLSLASYERIEQTLKECIAAKLLPANLLTRRAAVLMRSYLSGLMENWLFAPDSFDLHAEARDYVAILLEMYQFCPTLRGPESLSA</Hsp_qseq>
+      <Hsp_hseq>MARKTKQQARETRQLILDVALRLFSQQGVSSTSLATIAKAAGVTRGAIYWHFKNKSDLFNEIWELSDASISDLEIEYRAKFPNDPLSVIREILVYVLEATVTEERRRLMMEIIYHKCEFVGEMTVVQQAQRQLSLASYERIEQTLKECIAAKLLPANLLTRRAAVLMRSYLSGLMENWLFAPDSFDLHAEARDYVAILLEMYQFCPTLRGPESLSA</Hsp_hseq>
+      <Hsp_midline>MARKTKQQARETRQLILDVALRLFSQQGVSSTSLATIAKAAGVTRGAIYWHFKNKSDLFNEIWELSDASISDLEIEYRAKFPNDPLSVIREILVYVLEATVTEERRRLMMEIIYHKCEFVGEMTVVQQAQRQLSLASYERIEQTLKECIAAKLLPANLLTRRAAVLMRSYLSGLMENWLFAPDSFDLHAEARDYVAILLEMYQFCPTLRGPESLSA</Hsp_midline>
+    </Hsp>
+  </Hit_hsps>
+</Hit>
+<Hit>
+  <Hit_num>2</Hit_num>
+  <Hit_id>gnl|BL_ORD_ID|2594</Hit_id>
+  <Hit_def>CARD|10319|AJ306389.1:636-1287|acrR_(E._aerogenes)||Multi-drug_resistance|||||R45C|</Hit_def>
+  <Hit_accession>2594</Hit_accession>
+  <Hit_len>216</Hit_len>
+  <Hit_hsps>
+    <Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>384.8</Hsp_bit-score>
+      <Hsp_score>987</Hsp_score>
+      <Hsp_evalue>3.26733e-137</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>216</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>216</Hsp_hit-to>
+      <Hsp_query-frame>0</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>184</Hsp_identity>
+      <Hsp_positive>197</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>216</Hsp_align-len>
+      <Hsp_qseq>MARKTKQQARETRQLILDVALRLFSQQGVSSTSLATIAKAAGVTRGAIYWHFKNKSDLFNEIWELSDASISDLEIEYRAKFPNDPLSVIREILVYVLEATVTEERRRLMMEIIYHKCEFVGEMTVVQQAQRQLSLASYERIEQTLKECIAAKLLPANLLTRRAAVLMRSYLSGLMENWLFAPDSFDLHAEARDYVAILLEMYQFCPTLRGPESLSA</Hsp_qseq>
+      <Hsp_hseq>MARKTKQQALETRQLILDVALRLFSQQGVSSTSLAAIAKAAGVTRGAIYWHFKNKSDLFNEIWSLSDASISDLEVEYRAKFPNDPLSVVREILVYILEATVVEERRRLMMEIIFHKCEFVGEMAVVQQAQRSLWLESYDRIEQTLKDCITAQQLPANLLTRRAAILMRSYLSGLMENWLFAPESFNLHAEARAYVDALIEMYQTCPSLRSSSEVMA</Hsp_hseq>
+      <Hsp_midline>MARKTKQQA ETRQLILDVALRLFSQQGVSSTSLA IAKAAGVTRGAIYWHFKNKSDLFNEIW LSDASISDLE+EYRAKFPNDPLSV+REILVY+LEATV EERRRLMMEII+HKCEFVGEM VVQQAQR L L SY+RIEQTLK+CI A+ LPANLLTRRAA+LMRSYLSGLMENWLFAP+SF+LHAEAR YV  L+EMYQ CP+LR    + A</Hsp_midline>
+    </Hsp>
+  </Hit_hsps>
+</Hit>
+<Hit>
+  <Hit_num>3</Hit_num>
+  <Hit_id>gnl|BL_ORD_ID|2121</Hit_id>
+  <Hit_def>CARD|10321|U00096:3412802-3413465|acrS||Multi-drug_resistance|Efflux_pump|||||</Hit_def>
+  <Hit_accession>2121</Hit_accession>
+  <Hit_len>220</Hit_len>
+  <Hit_hsps>
+    <Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>133.265</Hsp_bit-score>
+      <Hsp_score>334</Hsp_score>
+      <Hsp_evalue>6.41109e-39</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>202</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>201</Hsp_hit-to>
+      <Hsp_query-frame>0</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>74</Hsp_identity>
+      <Hsp_positive>120</Hsp_positive>
+      <Hsp_gaps>3</Hsp_gaps>
+      <Hsp_align-len>203</Hsp_align-len>
+      <Hsp_qseq>MARKTKQQARETRQLILDVALRLFSQQGVSSTSLATIAKAAGVTRGAIYWHFKNKSDLFNEIWELSDASISDLEIEY-RAKFPNDPLSVIREILVYVLEATVTEERRRLMMEIIYHKCEFVGEMTVVQQAQRQLSLASYERIEQTLKECIAAKLLPANLLTRRAAVLMRSYLSGLMENWLFAPDSFDLHAEARDYVAILLEMY</Hsp_qseq>
+      <Hsp_hseq>MAKRTKAEALKTRQELIETAIAQFAQHGVSKTTLNDIADAANVTRGAIYWHFENKTQLFNEMW-LQQPSLRELIQEHLTAGLEHDPFQQLREKLIVGLQYIAKIPRQQALLKILYHKCEFNDEM-LAEGVIREKMGFNPQTLREVLQACQQQGCVANNLDLDVVMIIIDGAFSGIVQNWLMNMAGYDLYKQAPALVDNVLRMF</Hsp_hseq>
+      <Hsp_midline>MA++TK +A +TRQ +++ A+  F+Q GVS T+L  IA AA VTRGAIYWHF+NK+ LFNE+W L   S+ +L  E+  A   +DP   +RE L+  L+      R++ +++I+YHKCEF  EM + +   R+    + + + + L+ C     +  NL      +++    SG+++NWL     +DL+ +A   V  +L M+</Hsp_midline>
+    </Hsp>
+  </Hit_hsps>
+</Hit>
+<Hit>
+  <Hit_num>4</Hit_num>
+  <Hit_id>gnl|BL_ORD_ID|1834</Hit_id>
+  <Hit_def>CARD|12525|NC_011035:1332867-1333499|mtrR||Multi-drug_resistance|Efflux_pump|linoleic_acid,penicillin,palmitic_acid,oleic_acid,azithromycin,erythromycin||||</Hit_def>
+  <Hit_accession>1834</Hit_accession>
+  <Hit_len>210</Hit_len>
+  <Hit_hsps>
+    <Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>112.079</Hsp_bit-score>
+      <Hsp_score>279</Hsp_score>
+      <Hsp_evalue>5.43761e-31</Hsp_evalue>
+      <Hsp_query-from>3</Hsp_query-from>
+      <Hsp_query-to>209</Hsp_query-to>
+      <Hsp_hit-from>2</Hsp_hit-from>
+      <Hsp_hit-to>208</Hsp_hit-to>
+      <Hsp_query-frame>0</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>66</Hsp_identity>
+      <Hsp_positive>108</Hsp_positive>
+      <Hsp_gaps>0</Hsp_gaps>
+      <Hsp_align-len>207</Hsp_align-len>
+      <Hsp_qseq>RKTKQQARETRQLILDVALRLFSQQGVSSTSLATIAKAAGVTRGAIYWHFKNKSDLFNEIWELSDASISDLEIEYRAKFPNDPLSVIREILVYVLEATVTEERRRLMMEIIYHKCEFVGEMTVVQQAQRQLSLASYERIEQTLKECIAAKLLPANLLTRRAAVLMRSYLSGLMENWLFAPDSFDLHAEARDYVAILLEMYQFCPTLR</Hsp_qseq>
+      <Hsp_hseq>RKTKTEALKTKEHLMLAALETFYRKGIARTSLNEIAQAAGVTRGALYWHFKNKEDLFDALFQRICDDIENCIAQDAADAEGGSWTVFRHTLLHFFERLQSNDIYYKFHNILFLKCEHTEQNAAVIAIARKHQAIWREKITAVLTEAVENQDLADDLDKETAVIFIKSTLDGLIWRWFSSGESFDLGKTAPRIIGIMMDNLENHPCLR</Hsp_hseq>
+      <Hsp_midline>RKTK +A +T++ ++  AL  F ++G++ TSL  IA+AAGVTRGA+YWHFKNK DLF+ +++     I +   +  A       +V R  L++  E   + +       I++ KCE   +   V    R+      E+I   L E +  + L  +L    A + ++S L GL+  W  + +SFDL   A   + I+++  +  P LR</Hsp_midline>
+    </Hsp>
+  </Hit_hsps>
+</Hit>
+<Hit>
+  <Hit_num>5</Hit_num>
+  <Hit_id>gnl|BL_ORD_ID|27</Hit_id>
+  <Hit_def>CARD|10139|AFRQ01000061.1:28538-29177|AxyZ||Multi-drug_resistance||cefepime,erythromycin|||V29G|</Hit_def>
+  <Hit_accession>27</Hit_accession>
+  <Hit_len>212</Hit_len>
+  <Hit_hsps>
+    <Hsp>
+      <Hsp_num>1</Hsp_num>
+      <Hsp_bit-score>76.2554</Hsp_bit-score>
+      <Hsp_score>186</Hsp_score>
+      <Hsp_evalue>5.89754e-18</Hsp_evalue>
+      <Hsp_query-from>1</Hsp_query-from>
+      <Hsp_query-to>213</Hsp_query-to>
+      <Hsp_hit-from>1</Hsp_hit-from>
+      <Hsp_hit-to>211</Hsp_hit-to>
+      <Hsp_query-frame>0</Hsp_query-frame>
+      <Hsp_hit-frame>0</Hsp_hit-frame>
+      <Hsp_identity>59</Hsp_identity>
+      <Hsp_positive>108</Hsp_positive>
+      <Hsp_gaps>14</Hsp_gaps>
+      <Hsp_align-len>219</Hsp_align-len>
+      <Hsp_qseq>MARKTKQQARETRQLILDVALRLFSQQGVSSTSLATIAKAAGVTRGAIYWHFKNKSDLFNEIWELSDASISDLEIEYRAKFPNDPL-----SVIREILVYVLEATVTEERRRLMMEIIYHKCEFVGEMTVVQQAQRQLSLASYERIEQTLKECIAAKLLPANLLTRRAAVLMRSYLSGLMENWLFAPD-SFDLHAEARDYVAILLEMYQFCPTLRGPES</Hsp_qseq>
+      <Hsp_hseq>MARKTKEESQRTRDRILDAAEHVFLSKGVASTTMSDIADFAGVSRGAVYGHYKNKIDV---CIAMCDRALGEAVSLTRVSTDGEALEALYASMRQYVQIYAEEGSVQR-----VLEILYLKCERSDENAPLLRRRDLWERHALRTSEKLLRAAVSREDLPPALDVRLSNVYLHSLVEGVFGTICWSDRLKGDIWPRVERMLRAAIDTLRLSPQLRLPQA</Hsp_hseq>
+      <Hsp_midline>MARKTK++++ TR  ILD A  +F  +GV+ST+++ IA  AGV+RGA+Y H+KNK D+      + D ++ +     R     + L     S+ + + +Y  E +V       ++EI+Y KCE   E   + + +      +    E+ L+  ++ + LP  L  R + V + S + G+     ++     D+       +   ++  +  P LR P++</Hsp_midline>
+    </Hsp>
+  </Hit_hsps>
+</Hit>
+</Iteration_hits>
+  <Iteration_stat>
+    <Statistics>
+      <Statistics_db-num>2845</Statistics_db-num>
+      <Statistics_db-len>918005</Statistics_db-len>
+      <Statistics_hsp-len>78</Statistics_hsp-len>
+      <Statistics_eff-space>96061110</Statistics_eff-space>
+      <Statistics_kappa>0.041</Statistics_kappa>
+      <Statistics_lambda>0.267</Statistics_lambda>
+      <Statistics_entropy>0.14</Statistics_entropy>
+    </Statistics>
+  </Iteration_stat>
+</Iteration>
+</BlastOutput_iterations>
+</BlastOutput>
+

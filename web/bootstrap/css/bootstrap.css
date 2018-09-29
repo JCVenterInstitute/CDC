@@ -1601,7 +1601,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1210px;
   }
 }
 .container-fluid {
@@ -2983,6 +2983,13 @@ select[multiple].input-lg {
 }
 @media (min-width: 768px) {
   .form-horizontal .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+}
+@media (min-width: 768px) {
+  .form-horizontal .control-labelx {
     padding-top: 7px;
     margin-bottom: 0;
     text-align: right;

@@ -1,0 +1,2 @@
+Genome	10321
+input_user	59.11|91.82|Test_Sequence:1-202|6.41109e-39|133.265|

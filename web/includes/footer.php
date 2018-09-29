@@ -19,9 +19,6 @@
           </div>
           <div class="collapse navbar-collapse" id="navbar-collapse-2">
             <ul class="nav navbar-nav">
-              <li><a href="index.php">Home</a></li>
-              <li><a href="sequence.php">BLAST</a></li>
-              <li><a href="browse.php">Browse</a></li>
               <li><a href="about.php">About Us</a></li>
               <li><a href="contact.php">Contact</a></li>
             </ul>
