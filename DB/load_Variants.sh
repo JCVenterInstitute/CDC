@@ -1,0 +1,1 @@
+mysql -h cdc-1 -u cdc_admin -pxjCS6ufdVaWHMHYJ --local-infile  CDC --execute=" LOAD DATA LOCAL INFILE 'Variants.txt' INTO TABLE Variants CHARACTER SET UTF8 FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' (ID, SNP, PubMed_IDs, Identity_Sequence_ID, Classification_ID, Is_Active) ; SHOW WARNINGS;"

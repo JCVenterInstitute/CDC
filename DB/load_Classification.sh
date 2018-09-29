@@ -1,0 +1,1 @@
+mysql -h cdc-1 -u cdc_admin -pxjCS6ufdVaWHMHYJ --local-infile  CDC --execute=" LOAD DATA LOCAL INFILE 'Classification.txt' INTO TABLE  Classification CHARACTER SET UTF8 FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' (ID, Drug, Drug_Class, Drug_Family, Mechanism_of_Action, Identity_ID, Is_Active) ; SHOW WARNINGS;"

@@ -1,0 +1,1 @@
+mysql -h cdc-1 -u cdc_admin -pxjCS6ufdVaWHMHYJ --local-infile  CDC --execute=" LOAD DATA LOCAL INFILE 'Assemly.txt' INTO TABLE  Assemly CHARACTER SET UTF8 FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' (ID, Is_Reference, Sample_Metadata_ID, Source, Source_ID, PubMed_IDs, BioProject_ID, Taxonomy_ID, Plasmid_Name) ; SHOW WARNINGS;"

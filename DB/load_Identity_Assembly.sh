@@ -1,0 +1,1 @@
+mysql -h cdc-1 -u cdc_admin -pxjCS6ufdVaWHMHYJ --local-infile  CDC --execute=" LOAD DATA LOCAL INFILE 'Identity_Assembly.txt' INTO TABLE Identity_Assembly CHARACTER SET UTF8 FIELDS TERMINATED BY '\t' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' (ID, Mol_Type, Identity_Sequence_ID, Assemly_ID) ; SHOW WARNINGS;"
