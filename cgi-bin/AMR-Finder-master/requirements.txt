@@ -1,0 +1,6 @@
+scipy==1.0.0
+requests==2.18.4
+urllib3==1.22
+pandas==0.17.1
+geopy==1.16.0
+beautifulsoup4==4.6.3

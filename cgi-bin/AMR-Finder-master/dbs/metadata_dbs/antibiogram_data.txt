@@ -1,0 +1,50 @@
+BioSampleID	Antibiotic	Resistance phenotype	Measurement sign	Measurement	Measurement units	Laboratory typing method	Laboratory typing platform	Vendor	Laboratory typing method version or reagent	Testing standard
+SAMN05022863	meropenem	resistant	==	128	mg/L	MIC				EUCAST
+SAMN05022863	imipenem	resistant	==	256	mg/L	MIC				EUCAST
+SAMN05022863	ciprofloxacin	susceptible	==	0.25	mg/L	MIC				EUCAST
+SAMN05022863	tigecycline	not defined	==	0.25	mg/L	MIC				EUCAST
+SAMN05022863	gentamicin	susceptible	==	1	mg/L	MIC				EUCAST
+SAMN05022863	tetracycline	not defined	==	1	mg/L	MIC				EUCAST
+SAMN05022863	amikacin	resistant	==	64	mg/L	MIC				EUCAST
+SAMN05022878	meropenem	resistant	==	8	mg/L	MIC				EUCAST
+SAMN05022878	imipenem	resistant	==	4	mg/L	MIC				EUCAST
+SAMN05022878	ciprofloxacin	resistant	==	16	mg/L	MIC				EUCAST
+SAMN05022878	tigecycline	not defined	==	0.5	mg/L	MIC				EUCAST
+SAMN05022878	gentamicin	resistant	==	8	mg/L	MIC				EUCAST
+SAMN05022878	tetracycline	not defined	==	1	mg/L	MIC				EUCAST
+SAMN05022878	amikacin	resistant	==	128	mg/L	MIC				EUCAST
+SAMN05022855	meropenem	resistant	==	32	mg/L	MIC				EUCAST
+SAMN05022855	imipenem	resistant	==	16	mg/L	MIC				EUCAST
+SAMN05022855	ciprofloxacin	susceptible	==	0.5	mg/L	MIC				EUCAST
+SAMN05022855	tigecycline	not defined	==	0.25	mg/L	MIC				EUCAST
+SAMN05022855	gentamicin	susceptible	==	1	mg/L	MIC				EUCAST
+SAMN05022855	tetracycline	not defined	==	2	mg/L	MIC				EUCAST
+SAMN05022855	amikacin	susceptible	==	8	mg/L	MIC				EUCAST
+SAMN05022851	meropenem	susceptible	==	0.5	mg/L	MIC				EUCAST
+SAMN05022851	imipenem	susceptible	==	0.25	mg/L	MIC				EUCAST
+SAMN05022851	ciprofloxacin	susceptible	==	0.5	mg/L	MIC				EUCAST
+SAMN05022851	tigecycline	not defined	==	1	mg/L	MIC				EUCAST
+SAMN05022851	gentamicin	susceptible	==	2	mg/L	MIC				EUCAST
+SAMN05022851	tetracycline	not defined	==	2	mg/L	MIC				EUCAST
+SAMN05022851	amikacin	susceptible	==	4	mg/L	MIC				EUCAST
+SAMN05022869	meropenem	nonsusceptible	==	4	mg/L	MIC				EUCAST
+SAMN05022869	imipenem	resistant	==	16	mg/L	MIC				EUCAST
+SAMN05022869	ciprofloxacin	susceptible	==	0.25	mg/L	MIC				EUCAST
+SAMN05022869	tigecycline	not defined	==	0.25	mg/L	MIC				EUCAST
+SAMN05022869	gentamicin	susceptible	==	2	mg/L	MIC				EUCAST
+SAMN05022869	tetracycline	not defined	==	1	mg/L	MIC				EUCAST
+SAMN05022869	amikacin	resistant	>	128	mg/L	MIC				EUCAST
+SAMN04681058	amikacin	susceptible	<	4	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	ampicillin-sulbactam	resistant	>	16/8	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	aztreonam	resistant	>	16	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	cefepime	resistant	==	32	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	cefotaxime	resistant	>	64	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	cefoxitin	resistant	>	16	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	ceftazidime	resistant	==	32	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	ceftriaxone	resistant	>	32	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	ciprofloxacin	resistant	>	2	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	colistin	not defined	<	1	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	ertapenem	intermediate	==	1	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	imipenem	susceptible	<	0.5	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	levofloxacin	resistant	>	4	mg/L	MIC	96-well plate			CLSI
+SAMN04681058	piperacillin-tazobactam	resistant	>	64/4	mg/L	MIC	96-well plate			CLSI

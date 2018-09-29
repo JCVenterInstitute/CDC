@@ -1,0 +1,197 @@
+	Health status of host	Habitat	host taxonomy ID	Check list type	Relevant e-resources	GCAT ID	longitude	collection date	observed biotic relationship	relationship to oxygen	trophic level	latitude	sample name	pathogenicity	strain	host	isolation source	geographic location	Nucleic acid preparation	source material identifiers	sub species	latitude and longitude	collected by	PFGE_SecondaryEnzyme_pattern	PFGE_PrimaryEnzyme_pattern	host disease	beta-lactamase family	lab host	carbapenemase	EDTA inhibitor tested	Pasteur sequence type	acquired carbapenemase	carbapenem susceptible/resistant	isolate name alias	sample type	type-material	reference for biomaterial	note	isolate	substrain	finishing strategy (depth of coverage)	project_type	estimated size	number of replicons	misc_param: HMP body site	nucleic acid extraction	investigation type	isolation and growth condition	assembly	environment feature	misc_param: HMP supersite	sequencing method	environment biome	sop	environment material	project name	environmental package	identified by	biomaterial provider	serovar	culture collection	ENA-FIRST-PUBLIC	ENA-LAST-UPDATE	serotype	host description	specimen voucher	genotype	host tissue sampled	host disease stage	host sex	pathotype	host disease outcome	host health state	passage history	host subject id	subtype	host age	subgroup	identification method	Laboratory Host	Passage Date	Extraction Method	Extraction Date	strain_name_alias	NMRC sample ID	organism modifier note	alternate strain name	supplier name	anonymized name	habitat	biovar	description	GenBank ID
+SAMD00058707													RIMD 2210633		RIMD 2210633																																														RIMD:2210633			O3:K6																													BA000032.2
+SAMD00060913													AP009351		Newman						aureus																																																																								NC_009641.1
+SAMD00060922													AP009380		ATCC 33277																					type strain of Porphyromonas gingivalis																																																									AP009380.1
+SAMD00060938													AP009608		PG18																																																																														NC_021002.1
+SAMD00060942													AP008955		NBRC 100599																																																																							strain coidentity: NBRC 100599 = 47							NC_012491.1
+SAMD00060998													AP012279		S23321																																																																														AP012279.1
+SAMD00061069													AP006618-AP006620		IFM 10152																																																																														AP006618.1
+SAMD00061074													AP006627		KSM-K16																																																																														NC_006582.1
+SAMD00061081													AP009048		K-12																									W3110																																																					NC_007779.1
+SAMD00061082													AP008230		Y51																																																																														NC_007907.1
+SAMD00061099													BA000018.AP003139		N315						aureus																																																																								NC_002745.2
+SAMD00061104													BA000033		MW2						aureus																																																																								NC_003923.1
+SAMEA1705916	alive	animal-associated habitat	9606 (9606)	prokaryote	http://www.sanger.ac.uk/Projects/P_aeruginosa/	001388_GCAT	-2.9	1988	pathogen	aerobic	heterotroph (consumer)	53.4	ERS000071	human					Phenol/Chloroform																																																																										FM209186.1
+SAMEA1705917	dead		8049 (8049)	prokaryote	http://www.sanger.ac.uk/Projects/V_salmonicida/	001693_GCAT	23.7		pathogen	facultative anaerobic	heterotroph	70.7	ERS000076	animal					Phenol/Chloroform																																																																							aquatic			FM178379.1
+SAMEA1705921	alive	animal-associated habitat	9606 (9606)	prokaryote	http://www.sanger.ac.uk/Projects/M_leprae/	000565_GCAT	78		pathogen	aerobic	heterotroph	11	ERS000060	human					Phenol/Chloroform																																																																										AL450380.1
+SAMEA1705929	alive	animal-associated habitat	9606 (9606)	prokaryote	http://www.sanger.ac.uk/Projects/C_jejuni/	000585_GCAT	-2		pathogen	aerobic	heterotroph	53	ERS000062	human					Phenol/Chloroform	NCTC 11168	jejuni																																																																								AL111168.1
+SAMEA1705932	alive	animal-associated habitat	9606 (9606)	prokaryote	http://www.sanger.ac.uk/Projects/C_difficile/	000190_GCAT	8.5	1982	pathogen	obligate anaerobic	heterotroph	47.4	ERS000041	human																																																																															AM180355.1
+SAMEA1705935	alive	animal-associated habitat	9606 (9606)	prokaryote	http://www.sanger.ac.uk/Projects/S_aureus/	000416_GCAT	-2	1998	pathogen	facultative anaerobic	heterotroph	53	ERS000049	human					Phenol/Chloroform	NARSA NRS72	aureus																																																																								NC_002952.2
+SAMEA1705955	alive	animal-associated habitat	9913 (9913)	prokaryote	http://www.sanger.ac.uk/Projects/M_bovis/	000472_GCAT	-2	1997	pathogen	aerobic	heterotroph	53	ERS000055	animal					Phenol/Chloroform																																																																										BX248333.1
+SAMEA2057234													ERS222037																																																																																CXOC01000011.1
+SAMEA2272237													ERS379683		ETEC H10407																																															2013-12-19	2013-12-09																														FN649414.1
+SAMEA2272432													ERS379856		UT205																																															2013-12-19	2013-12-09																														HE608151.1
+SAMEA2272483													ERS379904		M1																																															2013-12-19	2013-12-09																														HE577054.1
+SAMEA2272502													ERS379921		ST228						aureus																		18583																							2013-12-19	2013-12-09																														HE579073.1
+SAMEA2272573													ERS379989		La111																																															2013-12-19	2013-12-09																														HE999704.1
+SAMEA2272771													ERS380168		LGA251						aureus																																									2013-12-19	2013-12-09																														NC_017349.1
+SAMEA2383373								2006/2012					ERS409698		2842STDY5753952	Homo sapiens	CSF	Netherlands																																																							Disease															2093054	1870657				FFFO01000009.1
+SAMEA26686918													ERS1473697																																																																																LT673656.1
+SAMEA3138188													ERS610123		168						subtilis															type strain of Bacillus subtilis																																																									AL009126.3
+SAMEA3138252													ERS610187		Paris																																																																														CR628336.1
+SAMEA3138276													ERS610211																																																																																CU458896.1
+SAMEA3138279													ERS610214		AYE																																																																														NC_010410.1
+SAMEA3138326													ERS610261		H37Rv																																																																														AL123456.3
+SAMEA3138368								2007					ERS610303		M120		Homo sapiens	United Kingdom																																																																											NC_017174.1
+SAMEA3138384													ERS610319		T3T1																																																																														NC_015964.1
+SAMEA3138816													ERS610751		K-12																									MC4100																																																					HG738867.1
+SAMEA3283117													ERS670546		Kp52.145																																															2015-03-05	2015-03-05																														FO834906.1
+SAMN00001491			9606 (9606)					not determined							USA300_TCH959	Homo sapiens	missing	not determined		ATCC BAA-1718	aureus	not determined															not determined				Level 2: High-Quality Draft64.23x;256	Reference Genome	2741000	not determined	not determined	not determined	bacteria_archaea	not determined	Newbler v. 2.0.0-Eclipse	human-associated habitat [ENVO:00009003]	skin	454, Sanger, Illumina	terrestrial biome [ENVO:00000446]	http://hmpdacc.org/doc/CommonGeneAnnotation_SOP.pdf	biological product [ENVO:02000043]	Staphylococcus aureus aureus USA300_TCH959	missing																																				NC_010066.1
+SAMN00001917			9606 (9606)					not determined							ATCC 33624	Homo sapiens	missing	not determined		ATCC 33624		not determined															not determined				Level 2: High-Quality Draft37x;37	Reference Genome	2667000	not determined	not determined	not determined	missing	not determined	not determined	human-associated habitat [ENVO:00009003]	oral	454	terrestrial biome [ENVO:00000446]	http://hmpdacc.org/doc/CommonGeneAnnotation_SOP.pdf	biological product [ENVO:02000043]	Capnocytophaga gingivalis ATCC 33624	missing				ATCC:33624																																ACLQ01000019.1
+SAMN00002237			9606 (9606)					not determined							DO	Homo sapiens		USA: University of Texas Medical School		ATCC BAA-472		not determined															not determined				Level 1: Standard Draft19.18x	Reference Genome	2698000	not determined	Blood	not determined	bacteria_archaea	not determined	Newbler v. 1.1.03.24	human-associated habitat [ENVO:00009003]	other	Illumina, 454-GS-FLX, Sanger	terrestrial biome [ENVO:00000446]	http://hmpdacc.org/doc/CommonGeneAnnotation_SOP.pdf	biological product [ENVO:02000043]	Enterococcus faecium DO	missing																																				CP003583.1
+SAMN00191238															Y412MC10																																																																														NC_013406.1
+SAMN00727649															Rock3-29																																																																						NS5435								ACMJ01000036.1
+SAMN01087830								2008							ANC 3681	unknown	Water	Czech Republic: Rampuse																																																																											APPZ01000001.1
+SAMN01087834								1960							CIP 70.12	Homo sapiens	Wound	Unknown																																																																											APQG01000050.1
+SAMN01087835								Unknown							CIP 103788	Unknown	Cotton	Unknown																																																																											APQF01000011.1
+SAMN01087847								1991							CIP 107468	unknown	Activated sludge plant	Austrialia: Bendigo, Victoria																																																																											APQD01000016.1
+SAMN01087849								1991							CIP 107464	Homo sapiens	Activated sludge plant	Austrialia: Bendigo, Victoria																																																																											APPN01000080.1
+SAMN01087851								Unknown							CIP 110305	unknown	Raw milk	Israel: Northern																																																																											ATGI01000028.1
+SAMN01087854								1972							CIP 110063	unknown	Seawater (beach)	Israel: Tel Baruch																																																																											APPO01000008.1
+SAMN01087858								Unknown							CIP 64.2	Homo sapiens	Conjunctivitis	Germany																																																																											APRT01000004.1
+SAMN01087861								1990							NIPH 1847	Homo sapiens	Conjunctiva	Brazil																																																																											APRR01000006.1
+SAMN01087862								2008							NIPH 3623	Homo sapiens	Conjunctiva	Czech Republic: Pribram																																																																											APSA01000003.1
+SAMN01087864								Unknown							CIP 70.18	Homo sapiens	Urine	unknown																																																																											APRN01000033.1
+SAMN01087865								2010							ANC 3880	Homo sapiens	Lungs (autopsy)	Czech Republic: Ostrava																																																																											APSD01000035.1
+SAMN01087866								1990							NIPH 1867	Homo sapiens	Leg ulceration	France																																																																											APRO01000007.1
+SAMN01087867								2011							ANC 4105	unknown	well water	Czech Republic: Lisov																																																																											APRL01000010.1
+SAMN01087911								1952							CIP A162	Homo sapiens	Conjunctivitis	France																																																																											APOG01000008.1
+SAMN01087915								1998							NIPH 900	Homo sapiens	Conjunctiva	Czech Republic: Sedlcany																																																																											APPI01000013.1
+SAMN01087916								1991							NIPH 3	Homo sapiens	Hospital Environment	Czech Republic: Praha																																																																											APPK01000054.1
+SAMN01087917								1998							NIPH 991	Homo sapiens	Ear swab (outpatient)	Czech Republic: Sedlcany																																																																											APPJ01000001.1
+SAMN01828128								1990/1991							NIPH 542	Homo sapiens	Blood	Denmark																																																																											APSC01000007.1
+SAMN01828129								1900/1989		missing					NIPH 2100	Homo sapiens	Wound	France				missing															missing																																																								APSB01000022.1
+SAMN01828130								1964							CIP 64.7	Homo sapiens	Urine	Germany																																																																											APRY01000059.1
+SAMN01828132								unknown							NIPH 2168	Homo sapiens	Clinical specimen	Netherlands: Leiden																																																																											APRW01000016.1
+SAMN01828134								1951							CIP 51.11	Homo sapiens	Pleural pus	France																																																																											APRU01000004.1
+SAMN01828144								1992							NIPH 70	Homo sapiens	Tracheal secretion	Czech Republic: Praha																																																																											APRC01000020.1
+SAMN01828146								1992							NIPH 67	Homo sapiens	Tracheal secretion	Czech Republic: Praha																																																																											APRA01000005.1
+SAMN01828148								1994							NIPH 329	Homo sapiens	Tracheal secretion	Czech Republic: Tabor																																																																											APQY01000006.1
+SAMN01828151								1992							NIPH 201	Homo sapiens	Nasal Swab	Czech Republic: Liberec																																																																											APQV01000009.1
+SAMN01828152								1993							NIPH 261	Homo sapiens	Tissue	Czech Republic: C. Budejovice																																																																											APQR01000003.1
+SAMN01828153								unknown							CIP 64.3	Homo sapiens	Sputum	unknown																																																																											APQQ01000012.1
+SAMN01828154								1900/1966		missing					CIP 70.29	Homo sapiens	Cerebrospinal fluid	Unknown				missing															missing																																																								APQP01000003.1
+SAMN01828155								1995/2002							ANC 4052	Homo sapiens	Blood	USA																																																																											APQO01000006.1
+SAMN01828156								2008							ANC 3678			Czech Republic: Rampuse																																																																											APQN01000012.1
+SAMN01828157								1995/2002							ANC 4050	Homo sapiens	Blood	USA																																																																											APQM01000006.1
+SAMN01828158															ANC 3811		Water	Czech Republic																																																																											APQJ01000007.1
+SAMN01828160															ANC 3680		Soil, Beech forest	Czech Republic: Rampuse																																																																											APQH01000006.1
+SAMN01828163								1998							CIP 107287	Homo sapiens	Urine	Czech Republic: Pribram																																																																											APPQ01000011.1
+SAMN01828166								1990/1991							NIPH 817	Homo sapiens	Abscess	Denmark																																																																											APPF01000021.1
+SAMN01828169								1993/1994							NIPH 758		Soil, Beetroot field	Denmark: N. Rhine Westphalia																																																																											APPC01000015.1
+SAMN01828178								1997							NIPH 715	Homo sapiens	Pus	Czech Republic: Pribram																																																																											APOT01000024.1
+SAMN01828179								1900/1950		missing					CIP 63.46		Sewage	Unknown				missing															missing																																																								APOS01000038.1
+SAMN01828180								2000							NIPH 1362	Homo sapiens	Tracheal aspirate	Czech Republic: Praha																																																																											APOR01000009.1
+SAMN01828184								Unknown							CIP 64.6	Homo sapiens	Duodenum	Unknown																																																																											APON01000041.1
+SAMN01828186								1996							CIP 108168	Homo sapiens	Ear	Czech Republic: Pribram																																																																											APOM01000001.1
+SAMN01828191								1900/1983		missing					NIPH 809	Homo sapiens	Ear	USA				missing															missing																																																								APOI01000030.1
+SAMN01828192								2011							ANC 3994			Czech Republic: Lany forestland																																																																											APOH01000009.1
+SAMN01828193															NIPH 13																																																																														APOE01000008.1
+SAMN02179882								27-May-2007							FDA_R31		oyster	USA: LA				missing	FDA																FDA_R31																					O1:Kuk							tdh+/trh+																										CP006005.1
+SAMN02415053															1391434																																																																														JFXH01000005.1
+SAMN02428973								Jun-05							37/05	Homo sapiens	gastrointestinal sample from 4 month old boy with bloody diarrhea	Poland																				resistant to ciprofloxacin																																																							AINK01000040.1
+SAMN02435871															623-39																																																																														AAWG01000020.1
+SAMN02463741			9606 (9606)					not determined							ATCC 19606	Homo sapiens	missing	not determined		ATCC 19606, DSM 6974		not determined															not determined				Level 2: High-Quality Draft20.79x;100	Reference Genome	3972000	not determined	Urinary tract	not determined	bacteria_archaea	not determined	Newbler v. 2.1-PreRelease-4/28/2009	human-associated habitat [ENVO:00009003]	urogenital_tract	454-GS-FLX	terrestrial biome [ENVO:00000446]	http://hmpdacc.org/doc/CommonGeneAnnotation_SOP.pdf	biological product [ENVO:02000043]	Acinetobacter baumannii ATCC 19606	missing				ATCC:19606																																GG704579.1
+SAMN02463759			9606 (9606)					not determined							1_1_14	Homo sapiens	missing	not determined		BEI HM-168		not determined															not determined				Level 2: High-Quality Draft12x;189	Reference Genome	6446000	not determined	Transverse colon	not determined	bacteria_archaea	not determined	Newbler v. 2.1-PreRelease-4/28/2009	human-associated habitat [ENVO:00009003]	gastrointestinal_tract	454	terrestrial biome [ENVO:00000446]	http://hmpdacc.org/doc/CommonGeneAnnotation_SOP.pdf	biological product [ENVO:02000043]	Bacteroides sp. 1_1_14	missing																																				GG774704.1
+SAMN02463953			9606 (9606)					not determined							HMW 615	Homo sapiens		not determined		not determined		not determined															not determined				Level 2: High-Quality Draft43	Reference Genome	not determined	not determined	not determined	not determined	bacteria_archaea	not determined	not determined	human-associated habitat [ENVO:00009003]	not determined	not determined	terrestrial biome [ENVO:00000446]	http://hmpdacc.org/doc/CommonGeneAnnotation_SOP.pdf	biological product [ENVO:02000043]	Bacteroides fragilis HMW 615	missing																																				NZ_JH815495.1
+SAMN02470545															LC44		cave community																																																																												NZ_AGSO01000004.1
+SAMN02471472															AXX-A																																																																														AFRQ01000061.1
+SAMN02581418								30-Oct-2008							L350		Healthy Human Stool	Canada																					CHRB1981																																																						JAIX01000028.1
+SAMN02581422								12-Aug-2009							L354		pig feces	Canada																					Cryptic661																																																						JAIV01000087.1
+SAMN02595357															B185																																																																														GG749185.1
+SAMN02596849															K-5975c																																																																														AHEL01000071.1
+SAMN02598290															PD1222																																																																														CP000490.1
+SAMN02598319															RB2256																																																																														CP000356.1
+SAMN02598344															JH1						aureus																																																																								NC_009632.1
+SAMN02598483															2-40																																																																														CP000282.1
+SAMN02603051															AB0057																																																																														NC_011586.2
+SAMN02603113								18-Mar-2009								Homo sapiens	blood sample from a cancer patient with gallbladder stone during postoperative care and bacteremia-caued sepsis	Taiwan			morganii																		KT																																																						NC_020418.1
+SAMN02603126															ATCC 12228																																																																														AE015929.1
+SAMN02603128															H37Ra; ATCC 25177																																																																														NC_009525.1
+SAMN02603140															ACICU																																																																														NC_010611.1
+SAMN02603158															FZB42						plantarum																																																																								NC_009725.1
+SAMN02603234															CVM N29710																																																																														CP004067.1
+SAMN02603281															KPA171202																																																																														NC_006085.1
+SAMN02603284															36950																																																																														CP003022.1
+SAMN02603314															BMB171																																													kurstaki																																	CP001903.1
+SAMN02603440															ATCC 33699																																													10	ATCC:33699																																NC_011374.1
+SAMN02603443															Taiwan19F-14																																																																														NC_012469.1
+SAMN02603475															NCCP11945																																																																														NC_011035.1
+SAMN02603495															MGAS8232																																																																														AE009949.1
+SAMN02603501															MGAS9429																																																																														CP000259.1
+SAMN02603641															1084						pneumoniae																																																																								CP003785.1
+SAMN02603682															1330																																																																														AE014292.2
+SAMN02603714															PAO1																																																																														AE004091.2
+SAMN02603761															26695																																																																														CP003904.1
+SAMN02603889															AB307-0294																																																																														NC_011595.1
+SAMN02603941															ATCC 700721; MGH 78578						pneumoniae																																																																								CP000647.1
+SAMN02603978															V583																																																																														AE016830.1
+SAMN02603992															CDC1551																																																																														AE000516.2
+SAMN02604002															TIGR4; ATCC BAA-334																																																																														AE005672.3
+SAMN02604013															2603V/R																																																	V																													AE009948.1
+SAMN02604026															SM101																																																																														CP000312.1
+SAMN02604047															KC583; ATCC 35685																																																																														NC_008783.1
+SAMN02604056															269.97						doylei																																																																								CP000768.1
+SAMN02604068															SL483						enterica																																							Agona																																	CP001138.1
+SAMN02604081															R																																																																														NC_004829.2
+SAMN02604085															Pm70						multocida																																																																								NC_002663.1
+SAMN02604091															K-12																									MG1655																																																					NC_000913.3
+SAMN02604094															CFT073																																																																														AE014075.1
+SAMN02604098															ATCC 700970																																													3	ATCC:700970																														1		NC_002162.1
+SAMN02604165															ED98						aureus																																																																								NC_013452.1
+SAMN02604168															KO11FL																																																																														CP002970.1
+SAMN02604315															LT2; SGSC 1412; ATCC 700720						enterica																																							Typhimurium	ATCC:700720																																AE006468.2
+SAMN02692972															21072	Homo sapiens	perirectal	USA																																																																											JMOD01000112.1
+SAMN02725063								02-Feb-1999							NT_110_58		nasopharynx	Switzerland																	missing																													non-encapsulated																													CP007593.1
+SAMN02741375								2012-06-17							CFSAN007439	Homo sapiens	stool	USA:DE				missing	missing	K16N11.0243	K16S12.0237	missing																																																																			JNSW01000056.1
+SAMN02741384								2012-08-03							CFSAN007448	Homo sapiens	wound	USA:PA				missing	missing	K16N11.0275	K16S12.0269	missing																																																																			JNTF01000030.1
+SAMN02929659								unknown							ATCC 25922		Human	USA: Seattle, Washington																	missing																								USAMRIID																												Seattle 1946						CP009072.1
+SAMN02934512								11-Oct-2013							FDAARGOS_63	Homo sapiens	wound	USA				Not Applicable	Children's National Hospital			Abdominal incision									Missing	Missing	Missing		Not Applicable																						FDA:FDAARGOS_63				Missing				Missing	female		Missing	Missing	Missing			3M		phenotypic identification	Missing	Missing	Missing	Missing	FDAARGOS_63									JTBT01000001.1
+SAMN02934528								21-Jun-2013							FDAARGOS_76	Homo sapiens	stool	USA				Not Applicable	Children's National Hospital			Diarrhea									Missing	Missing	Missing		Not Applicable																						FDA:FDAARGOS_76				Missing				Missing	female		Missing	Missing	Missing			12M		phenotypic identification	Missing	Missing	Missing	Missing	FDAARGOS_76									JTBG01000004.1
+SAMN03081436															H37Rv																																																																														CP003248.2
+SAMN03081521															UCM-V493																																																																														CP007005.1
+SAMN03081533															PA96																																																																														KC543497.1
+SAMN03145755								05-Jul-2012								Homo sapiens	the wound exudate of bone fracture	China: Shenzhen				22.53128 N 113.92356 E	Deng Qiwen			a chinese 76-year-old male suffered from bone fracture.													MS4																																																						NZ_CP009828.1
+SAMN03195667								2007							T9109	Homo sapiens	missing	Canada:BC																	Bacterial isolate																																																										JTGR01000061.1
+SAMN03195675								2004							04.2548	Homo sapiens	missing	Canada:Ontario																	Bacterial isolate																																																										JTGS01000066.1
+SAMN03248539								1982								Homo sapiens	unknown	United Kingdom: Nottingham				52.9 N 1.1 W	Nottingham University Hospital			unknown													isolate A1																												GC1																										CP010781.1
+SAMN03287032															HMSC05H02	Homo sapiens	respiratory																																																																												KQ001593.1
+SAMN03293349								04-Oct-2004							SALB-46	Gallus gallus domesticus	fecal material	Canada: British Columbia, Fraser Valley					Pacific Agri-Food-Research center, Agriculture and Agri-Food Canada, Agassiz, BC, Canada												Pure bacterial cell culture				missing														farm					Public Health Agency of Canada, Guelph, Ontario, Canada	Moussa S. Diarra, Guelph Food Research Center, AAFC, Guelph, Ontario, N1G 5C9 Canada	Heidelberg																																	LAPJ01000014.1
+SAMN03329209								02-Oct-2014							2014-3557		vitamin B2 feed additive	France: Strasbourg					Celine Gau												Vitamin B2 feed additive																																																			genetically modified strain that overproduces riboflavin							JYFL01000006.1
+SAMN03495973								01-Jun-2003							GN02186	Homo sapiens		USA				36 N 78.9 W	Vance Fowler												cell culture																																missing	Bodily fluid																									LDCJ01000052.1
+SAMN03701813								1991							AR18		Puerto Rico	Puerto Rico																	Cell																																																										CP011502.1
+SAMN03736930								1978							Sprott	Homo sapiens		USA: New Jersey					Geoffrey Furness												whole organism																								ATCC 33131		ATCC:33131																																CP011538.1
+SAMN03795199								2000							YU15	Homo sapiens	stool	Mexico:Yucatan			enterica	20.57 N 89.39 W	Mussaret Zaidi			diarrhoea																																		Typhimurium							ST19	stool				recovered																					CP014358.1
+SAMN03941550								2012-02-13							KBN10P02143	Homo sapiens	pus	South Korea:Daegu																	Cell culture																								KBN10P02143																																		CP013924.1
+SAMN03996280								2014-02-01							FDAARGOS_137	Homo sapiens	urine clean catch	USA:DC				Not Applicable	Children's National Hospital			UTI/Colonization													Not Applicable																						FDA:FDAARGOS_137				Missing				Missing	female		Missing	Missing				17Y		phenotypic identification					FDAARGOS_137									NZ_CP014057.2
+SAMN04099660								08-Jul-2014							TTU2014-131AME		feces	USA: New Mexico				Missing	Texas Tech University												pure culture																																																										LKJZ01000136.1
+SAMN04108365								2015							N15-01092	missing	missing	Canada				missing	missing			missing																																																																			CP012901.1
+SAMN04128484								1992							WH-SGI-V-07057		Hospital	USA																	missing																																																										LLLB01000006.1
+SAMN04128547								1995							WH-SGI-V-07241		Hospital	USA																	missing																																																										LLNM01000004.1
+SAMN04145737								30-Jul-2011							ABBL122	Homo sapiens	Blood	USA: Chicago				41.89 N 87.62 W	missing			Bacteremia																																																																			LLHS01000343.1
+SAMN04158295								2012							50588862	Homo sapiens	Urine	Norway				missing	Norwegian National Advisory Unit on Detection of Antimicrobial Resistance			missing																																																																			LNHM01000007.1
+SAMN04160834								1954							DSM 40697		soil	Italy: Rome																	cell culture																										DSM:40697						wild-type																										NZ_CP012949.1
+SAMN04201208								2012							UW7606x64/3 TC1		laboratory	Germany: Wernigerode					Carola Fleige												whole organism																								FG13 Division of Nosocomial Pathogens and Antibiotic Resistances, Robert Koch Institute, Wernigerode, Germany																																		CP013009.1
+SAMN04320707								2013							56	homo sapiens	urine	Iran				30.600093873550072 N 56.953130999999985 E	omid azizi				IMP	departmentof microbiology	yes	yes																																																															KU299753.1
+SAMN04444294								15-Oct-2015								Homo sapiens	Feces	Spain: Barcelona																	Feces				2032rut																																																						KU641008.1
+SAMN04452918								2016-01-03							CNR1238	Homo sapiens	stools	France: Nice				43.70869 N 7.271753999999987 E	Nicolas Degand				CMY	CHU Nice	not applicable	not applicable																																																															KU641016.1
+SAMN04479208								2015-12-28								Homo sapiens	urinary tract	France: Amiens				49 N 2 E	V. Decroix				DHA	CHU Amiens	no	no									350013630391																																																						KU759569.1
+SAMN04574081															TOP10	Pseudomonas aeruginosa	anal swab	Germany: Northern Germany					German National Reference Centre for multidrug-resistant Gram-negative bacteria				unknown		yes	yes																																																															KU961660.2
+SAMN04588697								29-Nov-2013							ARI3034	Homo sapiens		United Kingdom: Aberdeen									OXA		no	not applicable					stool																																																										KU739134.1
+SAMN04605558								2014-11							O25b:H4	Homo sapiens	Hera General Hopsital, patient	Saudi Arabia: Makkah				21.3891 N 39.85789999999997 E	Lab Specialist at Hera General Hopsital, Makkah, Saudi Arabia			Uropathogenic Escherichia coli																																																																			CP015085.1
+SAMN04613926																											GES		missing	missing									CR888																																																						KX034181.1
+SAMN04681058								2015								Homo sapiens	Endotracheal aspirate	Taiwan				missing	IHMA			Respiratory tract infection													1223208																																																						KX068223.1
+SAMN04875542								Missing							FDAARGOS_205	Missing	ATCC strain	USA:VA			Not Applicable	Not Applicable	ATCC < Enzo Biochem, Inc. < ATCC 31426			Presumptive gonorrhea										Missing																								FDA:FDAARGOS_205					Missing					Missing			Missing				Missing		Phenotypic identification					FDAARGOS_205								Missing	CP020418.2
+SAMN04961293								2014							KP-6884	Homo sapiens	Rectal swab	Italy: Pisa				43.721883 N 10.396578999999974 E	Carlo Tascini			hematological malignancy																																																																			KX236309.1
+SAMN05006707								04-Jun-2012							PA121617	Homo sapiens	sputum	China: Guangzhou				23.05385541700292 N 113.24860855937004 E	First Affiliated Hospital of Guangzhou Medical University			Respiratory disease																																																																			CP016215.1
+SAMN05022851								1990							St-19650-90	Homo sapiens	missing	Germany: Cologne				missing	missing			missing					ST747	neg	susceptible																																																												KU571454.1
+SAMN05022855								2011							UKK-0250	Homo sapiens	missing	Germany: Berlin				missing	missing			missing					ST777	OXA-72	resistant																																																												KU167109.1
+SAMN05022863								2014							UKK-0540	Homo sapiens	missing	Germany: Schwerin				missing	missing			missing					ST778	NDM-1	resistant	NRZ_11403																																																											KU167110.1
+SAMN05022869								2015							UKK-0546	Homo sapiens	missing	Germany: Munich				missing	missing			missing					ST776	OXA-164	resistant	NRZ_17616																																																											KU167111.1
+SAMN05022878								2011							UKK-0555	Homo sapiens	missing	Germany: somewhere in NRW				missing	missing			missing					ST93	GIM-1	resistant	NRZ_01528																																																											KU167108.1
+SAMN05172954								missing							B-78	Sus scrofa	missing	missing				missing	missing			Swine Dysentery																																		missing	ATCC:27164			missing	missing	missing	ST56	missing	missing	missing	missing	missing	missing	not applicable	missing	missing	missing	missing															NZ_CP015910.2
+SAMN05860831								2015							AD-19R	food animal chicken	livestock farm	China: shandong province					Beijing Advanced Innovation Center for Food Nutrition and Human Health				NDM		yes	yes																																																															KX812714.1
+SAMN06009955								16-May-2008							SP64	Homo sapiens	auditory canal	Germany: Aachen				50.777018 N 6.043383 E	National Reference Center for Streptococci RWTH Aachen University			asymptomatic																																																																			NZ_CP018138.1
+SAMN06179980								09-Oct-2001							S.MIT/ORALIS-351	Homo sapiens	blood	Spain: Barcelona				41.4 N 2.17 E	Hospital Clinic of Barcelona Microbiology Laboratory			infective endocarditis																																																																			CP019562.1
+SAMN06268343								22-Jul-2016							NRZ-28021	Homo sapiens	rectal swab	Germany									unknown	Escherichia coli TOP10	yes	yes																																																															KY524440.1
+SAMN06339040								2010							1MK	Homo sapiens	sputum	Netherlands: Nijmegen				51.51 N 5.52 E	Radboud University Medical Center, Nijmegen, NL			NTM disease																																																																			NZ_CP019883.1
