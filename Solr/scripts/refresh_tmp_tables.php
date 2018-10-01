@@ -3,8 +3,14 @@
 // connect to sql database 
 include 'includes/config.inc.php';
 // refresh tables
- $sql = "TRUNCATE table tmp_identity;
-        INSERT INTO tmp_identity 
+
+$sql = "TRUNCATE table tmp_identity;";
+$query=mysql_query($sql);
+$ids=mysql_fetch_array($query);
+var_dump($ids);
+
+
+ $sql = "INSERT INTO tmp_identity 
         Select t.* 
         From (SELECT idt.ID,idt.Gene_Symbol,idt.Gene_Alternative_Names,idt.Protein_Alternative_Names,idt.Gene_Family,idt.Gene_Class,idt.Allele,idt.EC_Number,
             idt.Parent_Allele_Family,idt.Parent_Allele,idt.Source,idt.Source_ID,idt.HMM,idt.Protein_ID,idt.Protein_Name,idt.Pubmed_IDs,idt.Is_Active,idt.Status ,ids.ID AS IDSID ,ids.End3,ids.End5,ids.Feat_Type,ida.ID AS IDAID,ida.Mol_Type,asb.ID AS ASBID,asb.Is_Reference,asb.Source AS Assemly_Source,
@@ -20,10 +26,16 @@ include 'includes/config.inc.php';
  $query=mysql_query($sql);
  $ids=mysql_fetch_array($query);
 
- // var_dump($ids);
+ var_dump($ids);
 
-$sql = "TRUNCATE table tmp_identity_seq;
-INSERT INTO tmp_identity_seq
+
+
+$sql = "TRUNCATE table tmp_identity_seq;";
+$query=mysql_query($sql);
+$ids=mysql_fetch_array($query);
+var_dump($ids);
+
+$sql = "INSERT INTO tmp_identity_seq
 Select t.* 
     FROM( SELECT
             idt.ID,
@@ -37,31 +49,51 @@ Select t.*
  
  $query=mysql_query($sql);
  $ids=mysql_fetch_array($query);
- // var_dump($ids);
+ var_dump($ids);
 
 
-$sql = "TRUNCATE table tmp_classification_SNP;
-SET session group_concat_max_len=15000;
-INSERT INTO  tmp_classification_SNP 
-select t.* FROM (
-select i.ID    ,IFNULL(GROUP_CONCAT(DISTINCT cl.Drug SEPARATOR ' '),'') as Drug
+
+$sql = "TRUNCATE table tmp_classification_SNP;";
+$query=mysql_query($sql);
+$ids=mysql_fetch_array($query);
+var_dump($ids);
+
+$sql = "SET session group_concat_max_len=15000;";
+$query=mysql_query($sql);
+$ids=mysql_fetch_array($query);
+var_dump($ids);
+
+$sql = "INSERT INTO  tmp_classification_SNP 
+        select t.* FROM (
+        select i.ID    ,IFNULL(GROUP_CONCAT(DISTINCT cl.Drug SEPARATOR ' '),'') as Drug
                 ,IFNULL(GROUP_CONCAT(DISTINCT cl.Drug_Class SEPARATOR ' '),'') as Drug_Class
                 ,IFNULL(GROUP_CONCAT(DISTINCT cl.Drug_Family SEPARATOR ' '),'') as Drug_Family
                 ,IFNULL(GROUP_CONCAT(DISTINCT cl.Mechanism_of_Action SEPARATOR ' '),'') as Mechanism_of_Action
                 ,IFNULL(GROUP_CONCAT(DISTINCT va.SNP SEPARATOR ' '),'') as SNP
                 ,IFNULL(GROUP_CONCAT(DISTINCT va.Pubmed_IDs SEPARATOR ' '),'') as SNP_Pubmed_IDs
-from CDC.tmp_identity i
-LEFT JOIN  Classification cl ON cl.Identity_ID=i.ID
-LEFT JOIN  Variants va ON va.Classification_ID = cl.ID OR i.IDSID= va.Identity_Sequence_ID
-group by i.ID) as t ; ";
+        from CDC.tmp_identity i
+        LEFT JOIN  Classification cl ON cl.Identity_ID=i.ID
+        LEFT JOIN  Variants va ON va.Classification_ID = cl.ID OR i.IDSID= va.Identity_Sequence_ID
+        group by i.ID) as t ; ";
  
  $query=mysql_query($sql);
  $ids=mysql_fetch_array($query);
- // var_dump($ids);
+ var_dump($ids);
 
-  $sql = "TRUNCATE tmp_Antibiogram; 
-            SET session group_concat_max_len=50000;
-            insert into tmp_Antibiogram
+
+
+
+ $sql = "TRUNCATE tmp_Antibiogram; ";
+$query=mysql_query($sql);
+$ids=mysql_fetch_array($query);
+var_dump($ids);
+
+ $sql = "SET session group_concat_max_len=50000; ";
+$query=mysql_query($sql);
+$ids=mysql_fetch_array($query);
+var_dump($ids);
+
+  $sql = "INSERT into tmp_Antibiogram
             select  sm.ID as Sample_Metadata_ID
             , IFNULL(GROUP_CONCAT(anti.Antibiotic SEPARATOR ' '),'') as Antibiotic
                             ,IFNULL(GROUP_CONCAT(anti.Drug_Symbol SEPARATOR ' '),'') as Drug_Symbol
@@ -80,7 +112,7 @@ group by i.ID) as t ; ";
  
  $query=mysql_query($sql);
  $ids=mysql_fetch_array($query);
- // var_dump($ids);
+ var_dump($ids);
 
   $sql = "TRUNCATE tmp_Threat_Level; 
         INSERT INTO tmp_Threat_Level
@@ -89,7 +121,7 @@ group by i.ID) as t ; ";
  
  $query=mysql_query($sql);
  $ids=mysql_fetch_array($query);
- // var_dump($ids);
+ var_dump($ids);
 
 ?>
 
