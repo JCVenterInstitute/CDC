@@ -473,6 +473,9 @@ HH;
 							<li class="dropdown">
                             <a href="submit_primer.php" class="dropdown-toggle" data-toggle="dropdown">Submit New Primer</a>
 							</li>
+							<li class="dropdown">
+                            <a href="data_refresh.php" class="dropdown-toggle" data-toggle="dropdown">Rebuild Reference Database</a>
+							</li>
 						</ul>
 					  </li>
 					  <?php } ?>

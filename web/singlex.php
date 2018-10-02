@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
 
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
 
@@ -110,7 +110,7 @@ var btn_search_me = '0';
 
         "ajax":function(data,callback, setting){
              $.ajax( {
-                 "url": "http://cdc-1.jcvi.org:8983/solr/tax_sm_anti_relation/select",
+                 "url": "/solr/tax_sm_anti_relation/select",
                  "type":"POST",
                  "data": $.extend( {}, data, {'wt':'json', 'q':'Identity_ID:'+primer,
                                                             'filter':escapeRegExp(data.search.value)
@@ -410,7 +410,7 @@ var btn_search_me = '0';
      // "searching":false,
         "ajax":function(data,callback, setting){
              $.ajax( {
-                 "url": "http://cdc-1.jcvi.org:8983/solr/many_antibiogram_singlex/select",
+                 "url": "/solr/many_antibiogram_singlex/select",
                  "type":"POST",
                  "data": $.extend( {}, data, {'wt':'json', 'q':'Sample_Metadata_ID:'+ btn_search_me   //escapeRegExp(data.search.value) 
                                                           ,'sort':(data.columns[data.order[0].column].data==null? 'id asc' : data.columns[data.order[0].column].data+' '+data.order[0].dir)

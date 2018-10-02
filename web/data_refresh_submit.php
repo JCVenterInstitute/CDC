@@ -37,6 +37,7 @@ $path = "/usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-
 
 
 		 $data_string = ">$data[Source]|$data[ID]|$data[Source_ID]:$data[End5]-$data[End3]|$data[Gene_Symbol]|$data[Allele]|$class_data[Drug_Class]|$class_data[Drug_Family]|$class_data[Drug]|$data[Parent_Allele]|$class_data[Parent_Allele_Family]|$va_data[SNP]|\n";
+		 $data_string = preg_replace('/ /', '_', $data_string);
 
   		 if(strtolower(trim($data[Feat_Type]))=="rrna"){
   	//		write only on “amrdb_rRNA.fasta” file and you have only NA_sequence
