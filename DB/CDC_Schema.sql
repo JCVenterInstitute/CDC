@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for linux-glibc2.12 (x86_64)
 --
--- Host: cdc-1    Database: CDC
+-- Host: localhost    Database: CDC
 -- ------------------------------------------------------
 -- Server version	5.7.21
 
@@ -866,59 +866,156 @@ CREATE TABLE `sequence_data` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping events for database 'CDC'
+-- Table structure for table `tmp_Antibiogram`
 --
 
+DROP TABLE IF EXISTS `tmp_Antibiogram`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp_Antibiogram` (
+  `Sample_Metadata_ID` int(11) NOT NULL,
+  `Antibiotic` longtext NOT NULL,
+  `Drug_Symbol` longtext NOT NULL,
+  `Laboratory_Typing_Method` longtext NOT NULL,
+  `Laboratory_Typing_Method_Version_or_Reagent` longtext NOT NULL,
+  `Laboratory_Typing_Platform` longtext NOT NULL,
+  `Measurement` longtext NOT NULL,
+  `Measurement_Sign` longtext NOT NULL,
+  `Measurement_Units` longtext NOT NULL,
+  `Resistance_Phenotype` longtext NOT NULL,
+  `Testing_Standard` longtext NOT NULL,
+  `Vendor` longtext NOT NULL,
+  KEY `tmp_Antibiogram_ID` (`Sample_Metadata_ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'CDC'
+-- Table structure for table `tmp_Threat_Level`
 --
-/*!50003 DROP FUNCTION IF EXISTS `nextval` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = latin1 */ ;
-/*!50003 SET character_set_results = latin1 */ ;
-/*!50003 SET collation_connection  = latin1_swedish_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`cdc_admin`@`%` FUNCTION `nextval`(seq_name VARCHAR(100)) RETURNS bigint(20)
-BEGIN
-    DECLARE cur_val bigint(20);
- 
-    SELECT
-        sequence_cur_value INTO cur_val
-    FROM
-        CDC.sequence_data
-    WHERE
-        sequence_name = seq_name
-    ;
- 
-    IF cur_val IS NOT NULL THEN
-        UPDATE
-            CDC.sequence_data
-        SET
-            sequence_cur_value = IF (
-                (sequence_cur_value + sequence_increment) > sequence_max_value,
-                IF (
-                    sequence_cycle = TRUE,
-                    sequence_min_value,
-                    NULL
-                ),
-                sequence_cur_value + sequence_increment
-            )
-        WHERE
-            sequence_name = seq_name
-        ;
-    END IF;
- 
-    RETURN cur_val;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+DROP TABLE IF EXISTS `tmp_Threat_Level`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp_Threat_Level` (
+  `ID` int(11) NOT NULL,
+  `Level` varchar(45) DEFAULT NULL,
+  `Taxonomy_ID` int(11),
+  KEY `tmp_threat_ID` (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tmp_classification_SNP`
+--
+
+DROP TABLE IF EXISTS `tmp_classification_SNP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp_classification_SNP` (
+  `ID` int(11) NOT NULL,
+  `Drug` longtext NOT NULL,
+  `Drug_Class` longtext NOT NULL,
+  `Drug_Family` longtext NOT NULL,
+  `Mechanism_of_Action` longtext NOT NULL,
+  `SNP` longtext NOT NULL,
+  `SNP_Pubmed_IDs` longtext NOT NULL,
+  KEY `tmp_classification_SNP_ID` (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tmp_identity`
+--
+
+DROP TABLE IF EXISTS `tmp_identity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp_identity` (
+  `ID` int(11) NOT NULL,
+  `Gene_Symbol` varchar(250) DEFAULT NULL,
+  `Gene_Alternative_Names` varchar(500) DEFAULT NULL,
+  `Protein_Alternative_Names` varchar(1000) DEFAULT NULL,
+  `Gene_Family` varchar(500) DEFAULT NULL,
+  `Gene_Class` varchar(500) DEFAULT NULL,
+  `Allele` varchar(45) DEFAULT NULL,
+  `EC_Number` varchar(45) DEFAULT NULL,
+  `Parent_Allele_Family` varchar(45) DEFAULT NULL,
+  `Parent_Allele` varchar(45) DEFAULT NULL,
+  `Source` varchar(45) DEFAULT NULL COMMENT 'Source of AMR annotation\n',
+  `Source_ID` varchar(45) DEFAULT NULL COMMENT 'Source ID or accession id',
+  `HMM` varchar(45) DEFAULT NULL,
+  `Protein_ID` varchar(45) DEFAULT NULL,
+  `Protein_Name` varchar(250) DEFAULT NULL,
+  `Pubmed_IDs` varchar(2250) DEFAULT NULL,
+  `Is_Active` int(11) DEFAULT NULL COMMENT 'Is Identify active. values will be 1 or 0. 1 is active and 0 is inactive.',
+  `Status` varchar(16) DEFAULT NULL COMMENT 'Either Manual or Default',
+  `IDSID` int(11) NOT NULL,
+  `End3` varchar(45) DEFAULT NULL,
+  `End5` varchar(45) DEFAULT NULL,
+  `Feat_Type` varchar(5) NOT NULL DEFAULT 'CDC',
+  `IDAID` int(11) NOT NULL,
+  `Mol_Type` varchar(10) DEFAULT NULL,
+  `ASBID` int(11) NOT NULL,
+  `Is_Reference` varchar(45) DEFAULT NULL,
+  `Assemly_Source` varchar(45) DEFAULT NULL,
+  `Assemly_Source_ID` varchar(45) DEFAULT NULL,
+  `Assemly_PubMed_IDs` varchar(1500) DEFAULT NULL COMMENT 'Multiple PubMedIds will be separated by comma',
+  `BioProject_ID` varchar(45) DEFAULT NULL,
+  `Plasmid_Name` varchar(50) DEFAULT NULL,
+  `TAXID` int(11) NOT NULL,
+  `Taxon_ID` varchar(100) DEFAULT NULL,
+  `Taxon_Kingdom` varchar(100) DEFAULT NULL,
+  `Taxon_Phylum` varchar(100) DEFAULT NULL,
+  `Taxon_Sub_Strain` varchar(100) DEFAULT NULL,
+  `Taxon_Bacterial_BioVar` varchar(100) DEFAULT NULL,
+  `Taxon_Class` varchar(100) DEFAULT NULL,
+  `Taxon_Order` varchar(100) DEFAULT NULL,
+  `Taxon_Family` varchar(100) DEFAULT NULL,
+  `Taxon_Genus` varchar(100) DEFAULT NULL,
+  `Taxon_Species` varchar(100) DEFAULT NULL,
+  `Taxon_Sub_Species` varchar(100) DEFAULT NULL,
+  `Taxon_Pathovar` varchar(100) DEFAULT NULL,
+  `Taxon_Serotype` varchar(100) DEFAULT NULL,
+  `Taxon_Strain` varchar(100) DEFAULT NULL,
+  `SMID` int(11) NOT NULL,
+  `Isolation_site` varchar(500) DEFAULT NULL,
+  `Serotyping_Method` varchar(100) DEFAULT NULL,
+  `Source_Common_Name` varchar(255) DEFAULT NULL,
+  `Specimen_Collection_Date` varchar(45) DEFAULT NULL,
+  `Specimen_Collection_Location_Country` varchar(45) DEFAULT NULL,
+  `Specimen_Collection_Year` varchar(4) DEFAULT NULL,
+  `Specimen_Collection_Location` varchar(100) DEFAULT NULL,
+  `Specimen_Collection_Location_Latitude` varchar(45) DEFAULT NULL,
+  `Specimen_Collection_Location_Longitude` varchar(45) DEFAULT NULL,
+  `Specimen_Source_Age` varchar(45) DEFAULT NULL,
+  `Specimen_Source_Developmental_Stage` varchar(45) DEFAULT NULL,
+  `Specimen_Source_Disease` varchar(100) DEFAULT NULL,
+  `Specimen_Source_Gender` varchar(45) DEFAULT NULL,
+  `Health_Status` varchar(45) DEFAULT NULL,
+  `Treatment` varchar(45) DEFAULT NULL,
+  `Specimen_Type` varchar(45) DEFAULT NULL,
+  `Symptom` varchar(100) DEFAULT NULL,
+  KEY `tmp_Identity_Is_ref` (`Is_Reference`) USING BTREE,
+  KEY `tmp_identity_ID` (`ID`) USING BTREE,
+  KEY `tmp_identity_Identity_Assemly_ID` (`IDSID`) USING BTREE,
+  KEY `tmp_identity_Sample_meta_ID` (`SMID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tmp_identity_seq`
+--
+
+DROP TABLE IF EXISTS `tmp_identity_seq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tmp_identity_seq` (
+  `ID` int(11) NOT NULL,
+  `NA_Sequence` varchar(5000) NOT NULL,
+  `AA_Sequence` varchar(5000) NOT NULL,
+  KEY `tmp_identity_seq_ID` (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -929,4 +1026,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-28 16:32:31
+-- Dump completed on 2018-10-02 10:09:01
