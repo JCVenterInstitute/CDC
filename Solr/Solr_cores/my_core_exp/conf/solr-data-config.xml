@@ -2,8 +2,8 @@
 <dataSource type="JdbcDataSource"
 driver="com.mysql.jdbc.Driver"
 url="jdbc:mysql://cdc-1.jcvi.org:3306/CDC?serverTimezone=PST"
-user="cdc_app"
-password="Guest649745f"
+user="user"
+password="password"
 batchSize="-1"
 />
 <document>
