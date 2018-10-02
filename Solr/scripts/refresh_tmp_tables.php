@@ -9,7 +9,6 @@ $query=mysql_query($sql);
 $ids=mysql_fetch_array($query);
 var_dump($ids);
 
-
  $sql = "INSERT INTO tmp_identity 
         Select t.* 
         From (SELECT idt.ID,idt.Gene_Symbol,idt.Gene_Alternative_Names,idt.Protein_Alternative_Names,idt.Gene_Family,idt.Gene_Class,idt.Allele,idt.EC_Number,
@@ -21,7 +20,7 @@ var_dump($ids);
             sm.Specimen_Collection_Location_Latitude,sm.Specimen_Collection_Location_Longitude,sm.Specimen_Source_Age,sm.Specimen_Source_Developmental_Stage,
             sm.Specimen_Source_Disease,sm.Specimen_Source_Gender,sm.Health_Status,sm.Treatment,sm.Specimen_Type,sm.Symptom
         FROM Identity idt,Identity_Sequence ids,Identity_Assembly ida,Assemly asb,Sample_Metadata sm,Taxonomy tax
-        WHERE idt.ID=ids.Identity_ID AND ids.ID=ida.Identity_Sequence_ID AND asb.ID=ida.Assemly_ID AND sm.ID=asb.Sample_Metadata_ID AND tax.ID=asb.Taxonomy_ID) as t;";
+        WHERE idt.ID=ids.Identity_ID AND ids.ID=ida.Identity_Sequence_ID AND asb.ID=ida.Assemly_ID AND sm.ID=asb.Sample_Metadata_ID AND tax.ID=asb.Taxonomy_ID AND Is_Reference=1) as t;";
 
  $query=mysql_query($sql);
  $ids=mysql_fetch_array($query);
