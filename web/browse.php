@@ -338,7 +338,7 @@ $(document).ready(function() {
             <div class="main col-md-12">
             <h2 class="title">AMRdb Browse/Search Module</h2>
             <div class="separator-2"></div>
-                <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Each data type is also sortable.  <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug family, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli and that belong to the beta-lactam drug family are displayed. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr></hr>
+                <div style="line-height: 150%;"> <p style="text-align:justify"; >Browse and search the data contained within the AMRdb. Commonly searched data types are preferentially displayed. Each data type is also sortable.  <br><b>Example search function</b>: To display all <i>Escherichia coli </i>genes of the beta-lactam drug family, enter "Escherichia coli beta-lactam" in the main search bar. AMRdb data will be filtered and only those AMR genes found in Escherichia coli and that belong to the beta-lactam drug family are displayed. For more information see <a href="help.php#browse_page_help">help page</a>.</p><hr></hr>
                   
                   <div id='btn_container'>
                   </div>

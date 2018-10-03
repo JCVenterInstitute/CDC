@@ -37,7 +37,7 @@ display: none;
             <div class="main col-md-12">
 			<h2 class="title">Sequence Similarity Search Module</h2>
 		    <div class="separator-2"></div>
- 				<div style="line-height: 150%;"> <p style="text-align:justify"; > Perform a nucleotide or protein search using AMR-Finder against the AMRdb. Paste protein or nucleotide sequences in FASTA format. For more information see AMRdb <a href="help.php#location">help page</a></p><hr></hr>
+ 				<div style="line-height: 150%;"> <p style="text-align:justify"; > Perform a nucleotide or protein search using AMR-Finder against the AMRdb. Paste protein or nucleotide sequences in FASTA format. For more information see AMRdb <a href="help.php#sequence_simlarity_search">help page</a></p><hr></hr>
 				</div>
 				<div class="main col-md-12">
 					<form name="example" action="submitseq.php" method="POST" enctype="multipart/form-data" onSubmit="return validateForm()">

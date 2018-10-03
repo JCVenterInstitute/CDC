@@ -125,7 +125,7 @@ $(document).ready(function() {
             <div class="main col-md-12">
             <h2 class="title">Primer Catalog</h2>
             <div class="separator-2"></div>
-                <div style="line-height: 150%;"> <p style="text-align:justify"; >Primer Catalog provides listing and advance search of all primers available in the system. For more information see <a href="help.php#location" target="_blank">help page</a>.</p><hr>
+                <div style="line-height: 150%;"> <p style="text-align:justify"; >Primer Catalog provides listing and advance search of all primers available in the system. For more information see <a href="help.php#primer_search_page_help" target="_blank">help page</a>.</p><hr>
                   <div id='btn_container'>
                   </div>
                 </div>
