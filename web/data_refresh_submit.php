@@ -15,7 +15,18 @@ include 'includes/footerx.php';
 </div>
 
 <?php
-$path = "/usr/local/projdata/8500/projects/CDC/server/apache/cgi-bin/AMR-Finder-master/dbs/amr_dbs/";
+$path =  `pwd`;
+
+
+// when submit need to commmon the line below.
+$path = "/usr".str_replace("ifs2_projdata","projdata",$path);
+
+
+
+$path = trim($path);
+$path = str_replace("htdocs","cgi-bin/AMR-Finder-master/dbs/amr_dbs",$path);
+
+
 
   $sql = "SELECT idt.Source, idt.ID, idt.Source_ID, ids.End5, ids.End3, idt.Gene_Symbol, idt.Allele, idt.Parent_Allele_Family, ids.Feat_Type, ids.NA_Sequence, ids.AA_Sequence, idt.Parent_Allele FROM Identity idt, Identity_Sequence ids  WHERE  idt.ID = ids.Identity_ID"; 
   $query=mysql_query($sql);
