@@ -17,9 +17,10 @@ include 'includes/footerx.php';
 <?php
 $path =  `pwd`;
 
-
+$path = "/usr".$path;
+$path=trim($path);
 // when submit need to commmon the line below.
-$path = "/usr".str_replace("ifs2_projdata","projdata",$path);
+// $path = str_replace("ifs2_projdata","projdata",$path);
 
 
 
