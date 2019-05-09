@@ -1,0 +1,46 @@
+#show-btn {
+    cursor: pointer;
+}
+
+#close-btn {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+#notes-container {
+    z-index: 1;
+    padding: 2rem;
+    position: fixed;
+    left: 30%;
+    background-color: #fff;
+    border: solid .2rem #ccc;
+}
+
+#notes-container h3 {
+    margin-top: 0rem;
+}
+
+.wrapper {
+    padding: 0rem 3rem;
+}
+
+#others {
+    margin-left: 1rem;
+    display: inline-block;
+}
+
+input[type=range] {
+    width: 300px;
+    margin-bottom: .2rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+p {
+    margin-bottom: .2rem;
+}
